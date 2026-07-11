@@ -221,12 +221,12 @@ window.PRICING = {
   ],
 
   /* ---- Delivery / service areas ----------------------------------------- *
-   *  The first area (deliveryIdr: 0) is treated as the free core zone.
-   *  Out-of-area zones add a flat delivery fee.
+   *  Each area adds a flat delivery fee (deliveryIdr). Use confirm: true for a
+   *  zone whose fee is quoted later on WhatsApp (its deliveryIdr is ignored).
    */
   AREAS: [
-    { id: "core", label: "Canggu / Berawa / Pererenan / Seminyak / Kerobokan", deliveryIdr: 0 },
-    { id: "umalas", label: "Umalas / Kuta / Legian / Jimbaran", deliveryIdr: 200000 },
+    { id: "core", label: "Canggu / Berawa / Pererenan / Seminyak / Kerobokan", deliveryIdr: 200000 },
+    { id: "umalas", label: "Umalas / Kuta / Legian / Jimbaran", deliveryIdr: 250000 },
     { id: "far", label: "Ubud / Gianyar / Sanur / Uluwatu", deliveryIdr: 375000 },
     { id: "other", label: "Somewhere else in Bali (we'll confirm on WhatsApp)", deliveryIdr: 0, confirm: true },
   ],
