@@ -87,7 +87,7 @@ window.PRICING = {
         "flame-grilled to order, served buffet-style with all the trimmings.",
       proteins: ["Chicken wings & drumsticks", "Pork ribs", "Gourmet sausages"],
       included: ["Free potato wedges", "Fresh garden salad", "House BBQ sauces"],
-      perPerson: { small: 320000, medium: 300000, large: 280000 },
+      perPerson: { small: 415000, medium: 395000, large: 375000 },
       badge: null,
     },
     package2: {
@@ -104,7 +104,7 @@ window.PRICING = {
         "Gourmet sausages",
       ],
       included: ["Free potato wedges", "Fresh garden salad", "House BBQ sauces"],
-      perPerson: { small: 420000, medium: 395000, large: 370000 },
+      perPerson: { small: 520000, medium: 495000, large: 470000 },
       badge: "Most popular",
     },
     surfturf: {
@@ -122,7 +122,7 @@ window.PRICING = {
         "Gourmet sausages",
       ],
       included: ["Free potato wedges", "Fresh garden salad", "House BBQ sauces"],
-      perPerson: { small: 520000, medium: 490000, large: 460000 },
+      perPerson: { small: 620000, medium: 590000, large: 560000 },
       badge: "Premium",
     },
   },
