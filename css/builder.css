@@ -53,6 +53,22 @@
   letter-spacing: 0.05em; padding: 0.15rem 0.5rem; border-radius: 999px; }
 .opt__tag--seafood { background: rgba(80,150,200,0.16); color: #2d7ab0; }
 .opt__tag--premium { background: rgba(230,168,75,0.2); color: #b9822a; }
+.opt__tag--wa { background: rgba(37,211,102,0.16); color: #0f8a3c; }
+
+/* Package option thumbnail (menu image, smaller) */
+.opt--pkg { padding-top: 0; overflow: hidden; }
+.opt__img {
+  position: relative; display: block; width: calc(100% + 2.2rem); margin: 0 -1.1rem 0.8rem;
+  aspect-ratio: 1 / 1; background-size: cover; background-position: center;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0; background-color: var(--charcoal-700);
+}
+.opt--pkg .pkg__badge { top: 10px; left: 10px; }
+/* keep the "selected" tick clear of the image */
+.opt--pkg.is-selected::after { top: 0.6rem; right: 0.6rem; z-index: 2; }
+
+/* Build-your-own WhatsApp action card */
+.opt--wa { cursor: pointer; }
+.opt--wa:hover { border-color: var(--wa-green); box-shadow: 0 0 0 3px rgba(37,211,102,0.13); }
 
 /* choice between preset & custom */
 .mode-toggle { display: grid; gap: 0.9rem; grid-template-columns: 1fr 1fr; margin-bottom: 1.6rem; }

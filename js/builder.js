@@ -139,12 +139,20 @@
 
   /* ---- Step 1: menu ----------------------------------------------------- */
   function renderMode() {
+    // "Build your own" is handled by our staff over WhatsApp rather than in-app,
+    // so that option is a direct chat link (not a mode switch). Presets stay in-app.
+    var waText = "Hi BBQ Bali Home Service! 🔥 I'd like to build my own custom BBQ menu with your team — please help me pick proteins, sides & sauces and give me a price.";
+    var waHref = "https://wa.me/" + P.BUSINESS.whatsappNumber + "?text=" + encodeURIComponent(waText);
     el.modeToggle.innerHTML =
-      optCard("mode", "preset", "Choose a set package", "Curated favourites, ready to go", state.mode === "preset") +
-      optCard("mode", "custom", "Build my own", "Pick your proteins, sides & sauces", state.mode === "custom");
-    el.modeToggle.querySelectorAll("input").forEach(function (inp) {
-      inp.addEventListener("change", function () { state.mode = inp.value; syncMode(); update(); });
-    });
+      '<div class="opt is-selected" style="cursor:default">' +
+        '<span class="opt__title">Choose a set package</span>' +
+        '<span class="opt__desc">Pick a curated favourite below and get an instant price.</span>' +
+      '</div>' +
+      '<a class="opt opt--wa" href="' + waHref + '" target="_blank" rel="noopener">' +
+        '<span class="opt__tag opt__tag--wa" style="align-self:flex-start">via WhatsApp</span>' +
+        '<span class="opt__title">Build your own via WhatsApp with staff</span>' +
+        '<span class="opt__desc">Prefer a fully custom menu? Chat with our team to build it and get a quote.</span>' +
+      '</a>';
   }
   function optCard(nm, val, title, sub, sel) {
     return '<label class="opt' + (sel ? " is-selected" : "") + '">' +
@@ -158,12 +166,15 @@
     el.presetList.innerHTML = Object.keys(P.PACKAGES).map(function (id) {
       var pk = P.PACKAGES[id];
       var sel = state.pkg === id;
-      return '<label class="opt' + (sel ? " is-selected" : "") + '">' +
+      var img = pk.image
+        ? '<span class="opt__img" style="background-image:url(\'' + pk.image + '\')" role="img" aria-label="' + pk.name + ' menu">' +
+            (pk.badge ? '<span class="pkg__badge">' + pk.badge + "</span>" : "") + "</span>"
+        : "";
+      return '<label class="opt opt--pkg' + (sel ? " is-selected" : "") + '">' +
         '<input type="radio" name="pkg" value="' + id + '"' + (sel ? " checked" : "") + '>' +
-        (pk.badge ? '<span class="opt__tag opt__tag--premium" style="align-self:flex-start;margin-bottom:.3rem">' + pk.badge + "</span>" : "") +
+        img +
         '<span class="opt__title">' + pk.name + "</span>" +
         '<span class="opt__sub">' + pk.subtitle + "</span>" +
-        '<span class="opt__desc">' + pk.description + "</span>" +
         '<span class="opt__price">from <b>' + idr(pk.perPerson[t]) + "</b> / person</span></label>";
     }).join("");
     el.presetList.querySelectorAll("input").forEach(function (inp) {
