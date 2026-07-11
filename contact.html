@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — BBQ Bali Home Service</title>
+  <meta name="description" content="Book your Bali BBQ or request a quote for large groups and weddings (200+). WhatsApp click-to-chat, email, and an enquiry form for tailored catering." />
+  <meta name="theme-color" content="#14100e" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="index.html" aria-label="BBQ Bali Home Service home"><span class="brand__mark" aria-hidden="true">🔥</span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a>
+      <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
+      <div class="nav__menu" id="nav-menu">
+        <nav class="nav__links" aria-label="Primary">
+          <a href="index.html">Home</a><a href="menu.html">Menu &amp; Prices</a><a href="about.html">How It Works</a>
+          <a href="gallery.html">Gallery</a><a href="faq.html">FAQ</a><a href="contact.html" aria-current="page">Contact</a>
+        </nav>
+        <div class="nav__cta"><a class="btn btn--primary" href="menu.html">Build your BBQ</a></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section--tight band-charcoal">
+      <div class="wrap center" style="padding-block:2.8rem">
+        <span class="eyebrow eyebrow--light">Contact</span>
+        <h1 style="color:#fff">Let's plan your feast</h1>
+        <p class="lead" style="margin-inline:auto;color:var(--cream-dim)">The fastest way to book is WhatsApp — we reply quickly. For weddings and large groups, use the enquiry form below.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="grid grid--2" style="align-items:start">
+          <!-- Contact channels -->
+          <div class="reveal">
+            <span class="eyebrow">Talk to us</span>
+            <h2>Quickest ways to reach us</h2>
+            <p class="text-muted">Most bookings happen in a quick WhatsApp chat. Message us with your date, area and guest count and we'll take it from there.</p>
+            <div class="btn-row mt-2">
+              <a class="btn btn--wa btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener">🟢 WhatsApp us</a>
+              <a class="btn btn--ghost btn--lg" data-email>✉️ Email us</a>
+            </div>
+            <div class="card" style="padding:1.4rem;margin-top:1.6rem">
+              <div class="footer-contact">
+                <p style="margin:0 0 .6rem"><strong>WhatsApp:</strong> <a data-wa style="color:var(--ember);font-weight:700" target="_blank" rel="noopener"><span data-wa-display></span></a></p>
+                <p style="margin:0 0 .6rem"><strong>Email:</strong> <a data-email data-email-text style="color:var(--ember);font-weight:700">email</a></p>
+                <p style="margin:0 0 .6rem"><strong>Instagram:</strong> <a data-ig target="_blank" rel="noopener" style="color:var(--ember);font-weight:700">@bbqbalihomeservice</a></p>
+                <p style="margin:.6rem 0 0" class="text-muted">Service area: across Bali. Same-day booking possible before 11am.</p>
+              </div>
+            </div>
+            <div class="notice" style="margin-top:1.4rem">💡 Just want a price for a standard BBQ? The <a href="menu.html" style="color:var(--ember);font-weight:700">menu builder</a> gives you an instant total and a ready-to-send WhatsApp order.</div>
+          </div>
+
+          <!-- Enquiry form -->
+          <div class="reveal">
+            <div class="card" style="padding:clamp(1.4rem,4vw,2rem)">
+              <span class="eyebrow">Large groups &amp; weddings</span>
+              <h2 style="font-size:1.6rem">Request a tailored quote</h2>
+              <p class="text-muted" style="font-size:.94rem">Planning something big — a wedding, retreat or event for up to 200+ guests? Tell us the details and we'll build a custom quote. Submitting opens WhatsApp with your details pre-filled (no data is stored here).</p>
+              <form id="enquiry" novalidate>
+                <div class="field"><label for="f-name">Your name <span class="req">*</span></label><input class="input" id="f-name" name="name" required autocomplete="name" /></div>
+                <div class="grid grid--2" style="gap:0 1rem">
+                  <div class="field"><label for="f-guests">Approx. guests <span class="req">*</span></label><input class="input" id="f-guests" name="guests" type="number" min="6" inputmode="numeric" required placeholder="e.g. 120" /></div>
+                  <div class="field"><label for="f-date">Preferred date</label><input class="input" id="f-date" name="date" type="date" /></div>
+                </div>
+                <div class="field"><label for="f-area">Area / venue in Bali</label><input class="input" id="f-area" name="area" placeholder="e.g. Uluwatu villa" /></div>
+                <div class="field"><label for="f-type">Event type</label>
+                  <select class="select" id="f-type" name="type">
+                    <option value="">Choose…</option>
+                    <option>Wedding</option><option>Birthday / party</option><option>Corporate / retreat</option><option>Other celebration</option>
+                  </select>
+                </div>
+                <div class="field"><label for="f-msg">Anything else?</label><textarea class="textarea" id="f-msg" name="message" placeholder="Menu ideas, dietary needs, timing, budget…"></textarea></div>
+                <button class="btn btn--wa btn--lg btn--block" type="submit">🟢 Send enquiry via WhatsApp</button>
+                <p class="form-note" style="margin-top:.8rem">Prefer email? <a data-email style="color:var(--ember);font-weight:700">Email us instead</a>.</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">🔥</span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a><p class="text-muted" style="margin-top:1rem;font-size:.9rem">At-home BBQ &amp; private chef hire across Bali.</p></div>
+        <div><h4>Explore</h4><ul class="footer-links"><li><a href="menu.html">Menu &amp; Prices</a></li><li><a href="about.html">How It Works</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-contact"><h4>Get in touch</h4><a data-wa data-wa-text="Hi BBQ Bali Home Service!" target="_blank" rel="noopener">🟢 WhatsApp <span data-wa-display></span></a><a data-email data-email-text>✉️ email</a><a data-ig target="_blank" rel="noopener">📸 @bbqbalihomeservice</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-year>2026</span> BBQ Bali Home Service.</span><span>Bali BBQ &amp; Chef Hire</span></div>
+    </div>
+  </footer>
+  <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">🟢</a>
+
+  <script src="data/pricing.js"></script>
+  <script>
+    // Enquiry form → pre-filled WhatsApp message (no backend needed).
+    (function () {
+      var form = document.getElementById("enquiry");
+      if (!form || !window.PRICING) return;
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        var g = function (n) { var el = form.elements[n]; return el ? el.value.trim() : ""; };
+        var L = ["Hi BBQ Bali Home Service! I'd like a quote for a large event. 🔥", ""];
+        L.push("• Name: " + g("name"));
+        L.push("• Guests: " + g("guests"));
+        if (g("date")) L.push("• Preferred date: " + g("date"));
+        if (g("area")) L.push("• Area / venue: " + g("area"));
+        if (g("type")) L.push("• Event type: " + g("type"));
+        if (g("message")) L.push("• Notes: " + g("message"));
+        L.push("", "Please send me a tailored quote. Thanks!");
+        window.open("https://wa.me/" + window.PRICING.BUSINESS.whatsappNumber + "?text=" + encodeURIComponent(L.join("\n")), "_blank", "noopener");
+      });
+    })();
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>

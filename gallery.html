@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery — BBQ Bali Home Service</title>
+  <meta name="description" content="See our flame-grilled feasts, private chefs and villa BBQ setups across Bali. Straight from our Instagram, @bbqbalihomeservice." />
+  <meta name="theme-color" content="#14100e" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="index.html" aria-label="BBQ Bali Home Service home"><span class="brand__mark" aria-hidden="true">🔥</span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a>
+      <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
+      <div class="nav__menu" id="nav-menu">
+        <nav class="nav__links" aria-label="Primary">
+          <a href="index.html">Home</a><a href="menu.html">Menu &amp; Prices</a><a href="about.html">How It Works</a>
+          <a href="gallery.html" aria-current="page">Gallery</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a>
+        </nav>
+        <div class="nav__cta"><a class="btn btn--primary" href="menu.html">Build your BBQ</a></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section--tight band-charcoal">
+      <div class="wrap center" style="padding-block:2.8rem">
+        <span class="eyebrow eyebrow--light">Gallery</span>
+        <h1 style="color:#fff">Straight off the grill</h1>
+        <p class="lead" style="margin-inline:auto;color:var(--cream-dim)">A taste of our feasts, chefs and villa setups around Bali. See more on Instagram <a data-ig target="_blank" rel="noopener" style="color:var(--ember-glow);font-weight:700">@bbqbalihomeservice</a>.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="gallery-grid reveal" id="gallery"></div>
+        <div class="center" style="margin-top:2.4rem">
+          <a class="btn btn--ghost btn--lg" data-ig target="_blank" rel="noopener">📸 Follow on Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band-dark cta-strip">
+      <div class="wrap reveal">
+        <h2>Want this at your villa?</h2>
+        <div class="btn-row mt-2" style="justify-content:center">
+          <a class="btn btn--primary btn--lg" href="menu.html">Build your menu →</a>
+          <a class="btn btn--wa btn--lg" data-wa data-wa-text="Hi! I saw your gallery and I'd like to book a BBQ 🔥" target="_blank" rel="noopener">WhatsApp us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">🔥</span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a><p class="text-muted" style="margin-top:1rem;font-size:.9rem">At-home BBQ &amp; private chef hire across Bali.</p></div>
+        <div><h4>Explore</h4><ul class="footer-links"><li><a href="menu.html">Menu &amp; Prices</a></li><li><a href="about.html">How It Works</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-contact"><h4>Get in touch</h4><a data-wa data-wa-text="Hi BBQ Bali Home Service!" target="_blank" rel="noopener">🟢 WhatsApp <span data-wa-display></span></a><a data-email data-email-text>✉️ email</a><a data-ig target="_blank" rel="noopener">📸 @bbqbalihomeservice</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-year>2026</span> BBQ Bali Home Service.</span><span>Bali BBQ &amp; Chef Hire</span></div>
+    </div>
+  </footer>
+  <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">🟢</a>
+  <script src="data/pricing.js"></script>
+  <script>
+    // Gallery tiles. Replace each .photo with a real image by adding
+    // style="background-image:url('assets/img/gallery-01.jpg')" — see assets/img/README.
+    (function () {
+      var labels = ["Sirloin & prawns","Villa grill setup","Surf & turf spread","Chef at work","Ribs & wings","Whole red snapper","Beachfront BBQ","Skewers on the coals","Group feast","Octopus off the grill","Sunset dinner","Buffet table"];
+      var host = document.getElementById("gallery");
+      if (host) host.innerHTML = labels.map(function (l, i) {
+        return '<a data-ig target="_blank" rel="noopener" aria-label="' + l + ' — view on Instagram">' +
+          '<div class="photo photo--sq"><span class="photo__tag">' + l + '</span></div></a>';
+      }).join("");
+    })();
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>

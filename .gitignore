@@ -1,0 +1,11 @@
+# Dependencies / tooling (this is a plain static site — no build step needed)
+node_modules/
+package.json
+package-lock.json
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
