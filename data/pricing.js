@@ -58,18 +58,21 @@ window.PRICING = {
       label: "Chef & BBQ Hire",
       note: "Includes the chef, full BBQ setup, charcoal & gas.",
       idr: 1800000,
+      // Bigger groups get a discount on this fee — see "hireDiscount" per tier below.
     },
   },
 
   /* ---- Group-size tiers -------------------------------------------------- *
    *  The builder auto-selects the tier from the guest count entered.
    *  "id" is used to look up per-person prices in the packages/proteins below.
+   *  "hireDiscount" is the discount applied to the Chef & BBQ Hire fee for that
+   *  group size (0 = full price, 0.25 = 25% off, 0.5 = 50% off).
    *  Keep them ordered small → large and make the ranges continuous.
    */
   TIERS: [
-    { id: "small",  label: "6–9 guests",  min: 6,  max: 9  },
-    { id: "medium", label: "10–19 guests", min: 10, max: 19 },
-    { id: "large",  label: "20+ guests",  min: 20, max: 999 },
+    { id: "small",  label: "6–9 guests",  min: 6,  max: 9,   hireDiscount: 0    },
+    { id: "medium", label: "10–19 guests", min: 10, max: 19, hireDiscount: 0.25 },
+    { id: "large",  label: "20+ guests",  min: 20, max: 999, hireDiscount: 0.5  },
   ],
   MIN_GUESTS: 6,     // minimum booking size
 

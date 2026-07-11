@@ -72,11 +72,15 @@
   function calc() {
     var pp = perPerson();
     var food = pp * state.guests;
-    var chef = P.FEES.chefBbqHire.idr;
+    var discount = currentTier().hireDiscount || 0;      // group-size discount on the hire fee
+    var chefFull = P.FEES.chefBbqHire.idr;
+    var chef = Math.round(chefFull * (1 - discount));     // discounted hire fee
+    var chefSaving = chefFull - chef;
     var delivery = deliveryFee();
     var extrasTotal = P.EXTRAS.reduce(function (s, ex) { return s + extraCost(ex); }, 0);
     return {
-      perPerson: pp, food: food, chef: chef, delivery: delivery,
+      perPerson: pp, food: food, chef: chef, chefFull: chefFull,
+      hireDiscount: discount, chefSaving: chefSaving, delivery: delivery,
       extras: extrasTotal, total: food + chef + delivery + extrasTotal,
     };
   }
@@ -219,8 +223,12 @@
   function renderGuests() {
     el.guestVal.textContent = state.guests;
     var t = currentTier();
+    var disc = t.hireDiscount || 0;
     el.tierFlag.innerHTML = '<span class="pill">📊 Pricing tier: ' + t.label + "</span>" +
-      '<span class="per-person" style="margin-left:.6rem">' + idr(perPerson()) + " / person</span>";
+      '<span class="per-person" style="margin-left:.6rem">' + idr(perPerson()) + " / person</span>" +
+      (disc > 0
+        ? '<span class="pill pill--save" style="margin-left:.6rem">🎉 ' + Math.round(disc * 100) + "% off chef &amp; BBQ hire</span>"
+        : '');
   }
 
   /* ---- Step 3: extras --------------------------------------------------- */
@@ -293,7 +301,10 @@
         lines.push(["extra", ex.name + extraQtyLabel(ex), idr(cost)]);
       }
     });
-    lines.push(["fee", P.FEES.chefBbqHire.label, idr(c.chef)]);
+    var chefLabel = P.FEES.chefBbqHire.label +
+      (c.hireDiscount > 0 ? " (" + Math.round(c.hireDiscount * 100) + "% off)" : "");
+    lines.push(["fee", chefLabel, idr(c.chef)]);
+    if (c.hireDiscount > 0) lines.push(["save", "Group discount saving", "− " + idr(c.chefSaving)]);
     if (c.delivery > 0) lines.push(["fee", "Out-of-area delivery", idr(c.delivery)]);
     return { lines: lines, calc: c };
   }
@@ -310,6 +321,7 @@
     }
     el.summaryBody.innerHTML = bd.lines.map(function (l) {
       if (l[0] === "sub") return '<div class="summary__line is-muted"><span>' + l[1] + "</span><span>" + l[2] + "</span></div>";
+      if (l[0] === "save") return '<div class="summary__line is-save"><span>' + l[1] + "</span><span>" + l[2] + "</span></div>";
       return '<div class="summary__line"><span>' + l[1] + "</span><span>" + l[2] + "</span></div>";
     }).join("");
     el.summaryTotalIdr.textContent = idr(bd.calc.total);
@@ -321,7 +333,8 @@
   function renderStep4() {
     var bd = breakdownLines();
     el.step4Breakdown.innerHTML = bd.lines.map(function (l) {
-      return '<div class="review__line"><span>' + l[1] + '</span><span class="amt">' + l[2] + "</span></div>";
+      var save = l[0] === "save" ? " is-save" : "";
+      return '<div class="review__line' + save + '"><span>' + l[1] + '</span><span class="amt">' + l[2] + "</span></div>";
     }).join("") +
       '<div class="review__total"><div><div class="idr">' + idr(bd.calc.total) + '</div>' +
       '<div class="usd">~ ' + usd(bd.calc.total) + '</div></div>' +
@@ -353,7 +366,13 @@
     }
 
     html += '<div class="review__group">Fees & delivery</div>';
-    html += '<div class="review__line"><span>' + P.FEES.chefBbqHire.label + '</span><span class="amt">' + idr(bd.calc.chef) + "</span></div>";
+    var chefLbl = P.FEES.chefBbqHire.label +
+      (bd.calc.hireDiscount > 0 ? ' <span class="pill" style="font-size:.7rem">' + Math.round(bd.calc.hireDiscount * 100) + "% off</span>" : "");
+    html += '<div class="review__line"><span>' + chefLbl + '</span><span class="amt">' +
+      (bd.calc.hireDiscount > 0 ? '<s style="color:var(--muted);font-weight:400">' + idr(bd.calc.chefFull) + "</s> " : "") +
+      idr(bd.calc.chef) + "</span></div>";
+    if (bd.calc.hireDiscount > 0)
+      html += '<div class="review__line is-save"><span>Group discount saving</span><span class="amt">− ' + idr(bd.calc.chefSaving) + "</span></div>";
     var area = P.AREAS.find(function (a) { return a.id === state.area; });
     html += '<div class="review__line"><span>Delivery — ' + area.label + '</span><span class="amt">' +
       (bd.calc.delivery > 0 ? idr(bd.calc.delivery) : (area.confirm ? "TBC" : "Free")) + "</span></div>";
@@ -400,6 +419,8 @@
     L.push("");
     L.push("💰 ESTIMATED TOTAL: " + idr(bd.calc.total) + " (~ " + usd(bd.calc.total) + ")");
     L.push("   incl. " + P.FEES.chefBbqHire.label + (bd.calc.delivery > 0 ? " + delivery" : "") + ".");
+    if (bd.calc.hireDiscount > 0)
+      L.push("   🎉 " + Math.round(bd.calc.hireDiscount * 100) + "% off chef & BBQ hire (saved " + idr(bd.calc.chefSaving) + ").");
     L.push("");
     L.push("Please confirm availability and the final price. Thank you!");
     return L.join("\n");

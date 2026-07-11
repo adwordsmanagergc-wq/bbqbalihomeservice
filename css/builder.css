@@ -124,6 +124,10 @@
   color: var(--cream-dim); border-bottom: 1px dashed var(--line); }
 .summary__line span:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .summary__line.is-muted { color: var(--muted-light); }
+.summary__line.is-save { color: var(--wa-green); font-weight: 600; }
+.review__line.is-save { color: #0f8a3c; font-weight: 600; }
+.review__line.is-save .amt { color: #0f8a3c; }
+.pill--save { background: rgba(37,211,102,0.16); color: #0f8a3c; }
 .summary__group-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold);
   margin: 1rem 0 0.3rem; font-weight: 800; }
 .summary__total { margin-top: 1.1rem; padding-top: 1rem; border-top: 2px solid var(--line); }
