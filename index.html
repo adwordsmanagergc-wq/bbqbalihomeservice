@@ -171,15 +171,17 @@
       var t = "medium";
       host.innerHTML = Object.keys(P.PACKAGES).map(function (id) {
         var pk = P.PACKAGES[id];
+        var bg = pk.image ? " style=\"background-image:url('" + pk.image + "')\"" : "";
         return '<article class="card pkg">' +
-          '<div class="photo" aria-label="' + pk.name + '">' +
+          '<div class="photo"' + bg + ' role="img" aria-label="' + pk.name + ' menu: ' + pk.proteins.join(', ') + '">' +
           (pk.badge ? '<span class="pkg__badge">' + pk.badge + '</span>' : '') +
-          '<span class="photo__tag">' + pk.name + '</span></div>' +
+          (pk.image ? '' : '<span class="photo__tag">' + pk.name + '</span>') +
+          '</div>' +
           '<div class="pkg__body"><h3>' + pk.name + '</h3>' +
           '<div class="pkg__sub">' + pk.subtitle + '</div>' +
           '<p class="text-muted" style="font-size:.92rem">' + pk.description + '</p>' +
-          '<ul class="pkg__list">' + pk.proteins.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
           '<div class="pkg__price">from <b>IDR ' + pk.perPerson[t].toLocaleString('id-ID') + '</b> / person</div>' +
+          '<a class="btn btn--ghost" href="menu.html" style="margin-top:1rem;align-self:flex-start">Build this package →</a>' +
           '</div></article>';
       }).join("");
     })();

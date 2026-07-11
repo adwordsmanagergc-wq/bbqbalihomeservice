@@ -76,34 +76,43 @@ window.PRICING = {
   /* ---- Base packages ----------------------------------------------------- *
    *  Each package has a fixed menu (what's on the plate) and a per-person price
    *  for each group-size tier. Prices are IDR, per person.
-   *  Every meat package includes free potato wedges (listed in "included").
+   *  "image" is the menu photo shown on the home page (in assets/img/).
    */
   PACKAGES: {
     package1: {
       name: "Package 1",
       subtitle: "The classic crowd-pleaser",
       description:
-        "Our signature mixed grill — juicy chicken, pork ribs and sausages " +
-        "flame-grilled to order, served buffet-style with all the trimmings.",
-      proteins: ["Chicken wings & drumsticks", "Pork ribs", "Gourmet sausages"],
-      included: ["Free potato wedges", "Fresh garden salad", "House BBQ sauces"],
+        "Our best-value mixed grill — burgers, hot dogs and BBQ favourites " +
+        "with something for everyone, served buffet-style.",
+      image: "assets/img/package1.webp",
+      proteins: [
+        "Hotdog & burger",
+        "Beef & chicken",
+        "Chicken wings",
+        "Chicken drumsticks",
+        "Pork ribs",
+        "Sausage",
+      ],
+      included: ["Potato wedges"],
       perPerson: { small: 415000, medium: 395000, large: 375000 },
       badge: null,
     },
     package2: {
       name: "Package 2",
-      subtitle: "Steak & seafood upgrade",
+      subtitle: "Sirloin steak upgrade",
       description:
-        "Everything in the classic grill plus sirloin steak and grilled prawns — " +
-        "our most popular choice for a proper feast.",
+        "A step up with juicy sirloin steak and slow-cooked pork ribs, " +
+        "rounded out with coleslaw and potato wedges.",
+      image: "assets/img/package2.webp",
       proteins: [
         "Sirloin steak",
-        "Grilled prawns",
-        "Chicken wings & drumsticks",
         "Pork ribs",
-        "Gourmet sausages",
+        "Chicken wings",
+        "Chicken drumsticks",
+        "Sausage",
       ],
-      included: ["Free potato wedges", "Fresh garden salad", "House BBQ sauces"],
+      included: ["Coleslaw salad", "Potato wedges"],
       perPerson: { small: 520000, medium: 495000, large: 470000 },
       badge: "Most popular",
     },
@@ -111,17 +120,17 @@ window.PRICING = {
       name: "Surf & Turf",
       subtitle: "The premium spread",
       description:
-        "The full ocean-and-land experience: sirloin steak, prawns, whole red " +
-        "snapper and octopus alongside the classic grill. The showstopper.",
+        "The full ocean-and-land feast — sirloin steak, prawns and whole red " +
+        "snapper alongside chicken and sausages. The showstopper.",
+      image: "assets/img/package3.webp",
       proteins: [
         "Sirloin steak",
-        "Grilled prawns",
-        "Whole red snapper",
-        "Grilled octopus",
-        "Pork ribs",
-        "Gourmet sausages",
+        "Prawns",
+        "Red snapper fish",
+        "Chicken wings & drums",
+        "Sausages",
       ],
-      included: ["Free potato wedges", "Fresh garden salad", "House BBQ sauces"],
+      included: ["Potato wedges", "Salads", "Sauces"],
       perPerson: { small: 620000, medium: 590000, large: 560000 },
       badge: "Premium",
     },

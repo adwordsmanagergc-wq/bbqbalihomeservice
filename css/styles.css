@@ -239,7 +239,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Package card */
 .pkg { display: flex; flex-direction: column; }
-.pkg .photo { border-radius: 0; aspect-ratio: 16/10; }
+.pkg .photo { border-radius: 0; aspect-ratio: 1/1; }
 .pkg__body { padding: 1.4rem 1.4rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
 .pkg__badge {
   position: absolute; top: 12px; left: 12px; z-index: 3; background: var(--gold); color: #3a2600;
