@@ -180,12 +180,18 @@ window.PRICING = {
    *     "flat"      → price added once (on/off)
    *  Set "perPersonPrice" (object by tier) for perPerson extras, or
    *  "flatIdr" for count/flat extras (for "count" it's the price per unit).
+   *  Add "capGuests: true" to cap a count extra's quantity at the guest count.
    */
   EXTRAS: [
     {
       id: "extra_prawns", name: "Extra prawns & red snapper", unit: "perPerson",
       note: "Add-on or replacement, per guest",
       perPersonPrice: { small: 150000, medium: 150000, large: 150000 },
+    },
+    {
+      id: "wagyu_swap", name: "Wagyu steak upgrade", unit: "count",
+      note: "Swap to premium wagyu (avg. 180–200g per steak) · choose how many guests",
+      flatIdr: 380000, capGuests: true,
     },
     {
       id: "veg_sub", name: "Vegetarian / vegan plate", unit: "perPerson",

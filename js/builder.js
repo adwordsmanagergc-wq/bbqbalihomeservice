@@ -60,7 +60,10 @@
     return ex.perPersonPrice[currentTier().id] * qty; // perPerson
   }
   // Max quantity allowed for a countable extra
-  function extraMax(ex) { return ex.unit === "count" ? MAX_STAFF : state.guests; }
+  function extraMax(ex) {
+    if (ex.capGuests) return state.guests;               // e.g. wagyu swaps: one per guest
+    return ex.unit === "count" ? MAX_STAFF : state.guests;
+  }
   // Whether an extra shows a "× n" quantity in summaries
   function extraQtyLabel(ex) { return ex.unit !== "flat" ? " × " + state.extras[ex.id] : ""; }
 
@@ -498,7 +501,7 @@
   function clampExtras() {
     Object.keys(state.extras).forEach(function (id) {
       var ex = P.EXTRAS.find(function (e) { return e.id === id; });
-      if (ex && ex.unit === "perPerson" && state.extras[id] > state.guests) state.extras[id] = state.guests;
+      if (ex) { var m = extraMax(ex); if (state.extras[id] > m) state.extras[id] = m; }
     });
     renderExtras();
   }
