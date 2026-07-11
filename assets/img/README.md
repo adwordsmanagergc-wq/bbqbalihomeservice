@@ -53,6 +53,6 @@ The brief asks for fast load times. Before adding photos:
 
 ## Favicon
 
-`favicon.svg` is a simple flame mark in the brand colours. Replace it with the real
-logo if you have an SVG or PNG version (update the `<link rel="icon">` tags in the
-HTML if you change the filename/format).
+The site uses the real brand logo: `logo.svg` (shown in the header/footer on a
+white chip) and `favicon.png` (the browser-tab icon, logo on a white background).
+To change either, replace those files in `assets/img/`.
