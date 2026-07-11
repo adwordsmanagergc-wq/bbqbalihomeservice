@@ -173,9 +173,10 @@ window.PRICING = {
   /* ---- Optional extras --------------------------------------------------- *
    *  "unit" controls how the price is applied:
    *     "perPerson" → price × number of guests
-   *     "flat"      → price added once
-   *  Set "perPersonPrice" (object by tier) for perPerson extras,
-   *  or "flatIdr" for flat extras.
+   *     "count"     → price × a quantity the guest chooses (e.g. number of staff)
+   *     "flat"      → price added once (on/off)
+   *  Set "perPersonPrice" (object by tier) for perPerson extras, or
+   *  "flatIdr" for count/flat extras (for "count" it's the price per unit).
    */
   EXTRAS: [
     {
@@ -199,13 +200,13 @@ window.PRICING = {
       perPersonPrice: { small: 40000, medium: 35000, large: 30000 },
     },
     {
-      id: "bartender", name: "Professional bartender", unit: "flat",
-      note: "Per event (approx. 3 hrs)",
+      id: "bartender", name: "Professional bartender", unit: "count",
+      note: "Choose how many, each approx. 3 hrs",
       flatIdr: 900000,
     },
     {
-      id: "waitstaff", name: "Waitstaff service", unit: "flat",
-      note: "Per event (approx. 3 hrs)",
+      id: "waitstaff", name: "Waitstaff service", unit: "count",
+      note: "Choose how many, each approx. 3 hrs",
       flatIdr: 750000,
     },
   ],

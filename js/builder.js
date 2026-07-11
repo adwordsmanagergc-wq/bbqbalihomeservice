@@ -50,12 +50,19 @@
     }, 0);
   }
 
+  var MAX_STAFF = 20; // cap for "count" extras (bartenders, waiters)
+
   function extraCost(ex) {
     var qty = state.extras[ex.id] || 0;
     if (!qty) return 0;
     if (ex.unit === "flat") return ex.flatIdr;
+    if (ex.unit === "count") return ex.flatIdr * qty;
     return ex.perPersonPrice[currentTier().id] * qty; // perPerson
   }
+  // Max quantity allowed for a countable extra
+  function extraMax(ex) { return ex.unit === "count" ? MAX_STAFF : state.guests; }
+  // Whether an extra shows a "× n" quantity in summaries
+  function extraQtyLabel(ex) { return ex.unit !== "flat" ? " × " + state.extras[ex.id] : ""; }
 
   function deliveryFee() {
     var a = P.AREAS.find(function (x) { return x.id === state.area; });
@@ -220,9 +227,10 @@
   function renderExtras() {
     var t = currentTier().id;
     el.extrasList.innerHTML = P.EXTRAS.map(function (ex) {
-      var priceLabel = ex.unit === "flat"
-        ? idr(ex.flatIdr) + " / event"
-        : idr(ex.perPersonPrice[t]) + " / guest";
+      var priceLabel =
+        ex.unit === "flat"  ? idr(ex.flatIdr) + " / event" :
+        ex.unit === "count" ? idr(ex.flatIdr) + " each" :
+                              idr(ex.perPersonPrice[t]) + " / guest";
       var control;
       if (ex.unit === "flat") {
         var on = !!state.extras[ex.id];
@@ -250,12 +258,14 @@
     // perPerson counters
     el.extrasList.querySelectorAll('.mini-counter[data-extra]').forEach(function (mc) {
       var id = mc.getAttribute("data-extra");
+      var ex = P.EXTRAS.find(function (e) { return e.id === id; });
       mc.querySelectorAll("button").forEach(function (b) {
         b.addEventListener("click", function () {
           var d = parseInt(b.getAttribute("data-d"), 10);
           var cur = state.extras[id] || 0;
-          cur = Math.max(0, Math.min(state.guests, cur + d));
+          cur = Math.max(0, Math.min(extraMax(ex), cur + d));
           state.extras[id] = cur;
+          mc.querySelector("span").textContent = cur; // update the visible count
           update();
         });
       });
@@ -280,8 +290,7 @@
     P.EXTRAS.forEach(function (ex) {
       var cost = extraCost(ex);
       if (cost > 0) {
-        var q = state.extras[ex.id];
-        lines.push(["extra", ex.name + (ex.unit === "perPerson" ? " × " + q : ""), idr(cost)]);
+        lines.push(["extra", ex.name + extraQtyLabel(ex), idr(cost)]);
       }
     });
     lines.push(["fee", P.FEES.chefBbqHire.label, idr(c.chef)]);
@@ -338,8 +347,7 @@
     if (chosenExtras.length) {
       html += '<div class="review__group">Extras</div>';
       chosenExtras.forEach(function (ex) {
-        var q = state.extras[ex.id];
-        html += '<div class="review__line"><span>' + ex.name + (ex.unit === "perPerson" ? " × " + q : "") +
+        html += '<div class="review__line"><span>' + ex.name + extraQtyLabel(ex) +
           '</span><span class="amt">' + idr(extraCost(ex)) + "</span></div>";
       });
     }
@@ -383,8 +391,7 @@
       L.push("");
       L.push("➕ EXTRAS");
       ex.forEach(function (e) {
-        var q = state.extras[e.id];
-        L.push("• " + e.name + (e.unit === "perPerson" ? " × " + q : "") + " — " + idr(extraCost(e)));
+        L.push("• " + e.name + extraQtyLabel(e) + " — " + idr(extraCost(e)));
       });
     }
     var area = P.AREAS.find(function (a) { return a.id === state.area; });
