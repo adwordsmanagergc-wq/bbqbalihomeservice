@@ -38,7 +38,7 @@ window.PRICING = {
   /* ---- Currency ---------------------------------------------------------- */
   FX: {
     // How many IDR to 1 USD. Update when the rate moves a lot.
-    idrPerUsd: 16000,
+    idrPerUsd: 17500,
   },
 
   /* ---- Business / contact details --------------------------------------- */
