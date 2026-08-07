@@ -70,10 +70,16 @@
 .opt--wa { cursor: pointer; }
 .opt--wa:hover { border-color: var(--wa-green); box-shadow: 0 0 0 3px rgba(37,211,102,0.13); }
 
-/* choice between preset & custom */
-.mode-toggle { display: grid; gap: 0.9rem; grid-template-columns: 1fr 1fr; margin-bottom: 1.6rem; }
-@media (max-width: 460px) { .mode-toggle { grid-template-columns: 1fr; } }
+/* choice between set package / hire only / custom */
+.mode-toggle { display: grid; gap: 0.9rem; grid-template-columns: repeat(3, 1fr); margin-bottom: 1.6rem; }
+@media (max-width: 720px) { .mode-toggle { grid-template-columns: 1fr; } }
 .mode-toggle .opt { align-items: flex-start; }
+/* the two in-app mode choices are <button>s — reset native styling */
+.opt--mode { font: inherit; text-align: left; color: inherit; width: 100%; }
+
+/* hire-only info card */
+.hireonly-grid { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .hireonly-grid { grid-template-columns: 220px 1fr; align-items: stretch; } }
 
 .custom-block { margin-top: 1.6rem; }
 .custom-block h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }

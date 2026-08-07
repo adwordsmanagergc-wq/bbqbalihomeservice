@@ -139,6 +139,24 @@ window.PRICING = {
     },
   },
 
+  /* ---- BBQ & Chef hire only (you provide the food) ---------------------- *
+   *  A "hire only" option: the guest buys their own food and we bring the BBQ
+   *  setup and chefs to cook it. Price = the flat Chef & BBQ Hire fee above
+   *  (no group-size discount) + delivery. No per-person food charge.
+   */
+  HIRE_ONLY: {
+    name: "BBQ & Chef hire only",
+    subtitle: "You provide the food",
+    description:
+      "Just the setup: we bring the BBQ, charcoal & gas and 2 professional " +
+      "chefs to grill the food you buy yourself. Perfect if you'd rather shop " +
+      "for your own ingredients.",
+    image: "assets/img/package-coal-or-gas-bbq.webp",
+    chefs: 2,
+    includes: ["2 professional chefs", "Full BBQ setup", "Charcoal & gas", "Setup & clean-up"],
+    // Uses FEES.chefBbqHire.idr as a flat price (no discount) + delivery.
+  },
+
   /* ---- Custom-build proteins -------------------------------------------- *
    *  Used when a guest chooses "Build my own". Each protein has a per-person
    *  price for each tier. Sides & sauces (below) are included free.
@@ -181,31 +199,33 @@ window.PRICING = {
    *  Set "perPersonPrice" (object by tier) for perPerson extras, or
    *  "flatIdr" for count/flat extras (for "count" it's the price per unit).
    *  Add "capGuests: true" to cap a count extra's quantity at the guest count.
+   *  Add "food: true" to a food add-on so it is hidden in "BBQ & Chef hire
+   *  only" mode (where the guest brings their own food).
    */
   EXTRAS: [
     {
       id: "extra_prawns", name: "Extra prawns & red snapper", unit: "perPerson",
-      note: "Add-on or replacement, per guest",
+      note: "Add-on or replacement, per guest", food: true,
       perPersonPrice: { small: 150000, medium: 150000, large: 150000 },
     },
     {
       id: "wagyu_swap", name: "Wagyu steak upgrade", unit: "count",
       note: "Swap to premium wagyu (avg. 180–200g per steak) · choose how many guests",
-      flatIdr: 380000, capGuests: true,
+      flatIdr: 380000, capGuests: true, food: true,
     },
     {
       id: "veg_sub", name: "Vegetarian / vegan plate", unit: "perPerson",
-      note: "Grilled veg, tofu & plant-based skewers, per veggie guest",
+      note: "Grilled veg, tofu & plant-based skewers, per veggie guest", food: true,
       perPersonPrice: { small: 120000, medium: 110000, large: 100000 },
     },
     {
       id: "dessert", name: "Dessert platter", unit: "perPerson",
-      note: "Grilled pineapple, banana & seasonal fruit, per guest",
+      note: "Grilled pineapple, banana & seasonal fruit, per guest", food: true,
       perPersonPrice: { small: 45000, medium: 40000, large: 35000 },
     },
     {
       id: "drinks", name: "Soft drinks & water package", unit: "perPerson",
-      note: "Unlimited soft drinks & water, per guest",
+      note: "Unlimited soft drinks & water, per guest", food: true,
       perPersonPrice: { small: 40000, medium: 35000, large: 30000 },
     },
     {

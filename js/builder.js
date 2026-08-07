@@ -26,6 +26,13 @@
 
   function defaults(list) { return list.filter(function (x) { return x.default; }).map(function (x) { return x.id; }); }
 
+  var HIRE = P.HIRE_ONLY;                       // "BBQ & Chef hire only" config
+  function isHireOnly() { return state.mode === "hireonly"; }
+  // Food add-ons are hidden in hire-only mode (guest brings their own food).
+  function activeExtras() {
+    return isHireOnly() ? P.EXTRAS.filter(function (e) { return !e.food; }) : P.EXTRAS;
+  }
+
   /* ---- Money helpers ---------------------------------------------------- */
   function idr(n) { return "IDR " + Math.round(n).toLocaleString("id-ID"); }
   function usd(n) { return "$" + Math.round(n / P.FX.idrPerUsd).toLocaleString("en-US"); }
@@ -40,6 +47,7 @@
 
   /* ---- Pricing calculation --------------------------------------------- */
   function perPerson() {
+    if (isHireOnly()) return 0;                 // hire only: no per-person food charge
     var t = currentTier().id;
     if (state.mode === "preset") {
       return state.pkg ? P.PACKAGES[state.pkg].perPerson[t] : 0;
@@ -75,12 +83,13 @@
   function calc() {
     var pp = perPerson();
     var food = pp * state.guests;
-    var discount = currentTier().hireDiscount || 0;      // group-size discount on the hire fee
+    // Group-size discount applies to food packages only, not to hire-only bookings.
+    var discount = isHireOnly() ? 0 : (currentTier().hireDiscount || 0);
     var chefFull = P.FEES.chefBbqHire.idr;
     var chef = Math.round(chefFull * (1 - discount));     // discounted hire fee
     var chefSaving = chefFull - chef;
     var delivery = deliveryFee();
-    var extrasTotal = P.EXTRAS.reduce(function (s, ex) { return s + extraCost(ex); }, 0);
+    var extrasTotal = activeExtras().reduce(function (s, ex) { return s + extraCost(ex); }, 0);
     return {
       perPerson: pp, food: food, chef: chef, chefFull: chefFull,
       hireDiscount: discount, chefSaving: chefSaving, delivery: delivery,
@@ -89,24 +98,28 @@
   }
 
   function hasMenu() {
+    if (isHireOnly()) return true;
     return state.mode === "preset" ? !!state.pkg : state.proteins.length > 0;
   }
 
   /* ---- Selected menu description (for summary + WhatsApp) --------------- */
   function menuName() {
+    if (isHireOnly()) return HIRE.name;
     if (state.mode === "preset" && state.pkg) return P.PACKAGES[state.pkg].name;
     return "Custom build";
   }
   function proteinNames() {
+    if (isHireOnly()) return [];
     if (state.mode === "preset" && state.pkg) return P.PACKAGES[state.pkg].proteins.slice();
     return state.proteins.map(function (id) { return name(P.PROTEINS, id); });
   }
   function sideNames() {
+    if (isHireOnly()) return [];
     if (state.mode === "preset" && state.pkg) return P.PACKAGES[state.pkg].included.slice();
     return state.sides.map(function (id) { return name(P.SIDES, id); });
   }
   function sauceNames() {
-    if (state.mode === "preset") return [];
+    if (isHireOnly() || state.mode === "preset") return [];
     return state.sauces.map(function (id) { return name(P.SAUCES, id); });
   }
   function name(list, id) { var x = list.find(function (i) { return i.id === id; }); return x ? x.name : id; }
@@ -122,6 +135,7 @@
     sauceList: document.getElementById("sauce-list"),
     customBlock: document.getElementById("custom-block"),
     presetBlock: document.getElementById("preset-block"),
+    hireonlyBlock: document.getElementById("hireonly-block"),
     modeToggle: document.getElementById("mode-toggle"),
     guestVal: document.getElementById("guest-val"),
     tierFlag: document.getElementById("tier-flag"),
@@ -153,20 +167,30 @@
 
   /* ---- Step 1: menu ----------------------------------------------------- */
   function renderMode() {
-    // "Build your own" is handled by our staff over WhatsApp rather than in-app,
-    // so that option is a direct chat link (not a mode switch). Presets stay in-app.
+    // Two in-app modes (set package / hire only) + a WhatsApp link for fully custom.
     var waText = "Hi BBQ Bali Home Service! 🔥 I'd like to build my own custom BBQ menu with your team — please help me pick proteins, sides & sauces and give me a price.";
     var waHref = "https://wa.me/" + P.BUSINESS.whatsappNumber + "?text=" + encodeURIComponent(waText);
     el.modeToggle.innerHTML =
-      '<div class="opt is-selected" style="cursor:default">' +
-        '<span class="opt__title">Choose a set package</span>' +
-        '<span class="opt__desc">Pick a curated favourite below and get an instant price.</span>' +
-      '</div>' +
+      modeCard("preset", "Choose a set package", "Pick a curated favourite below and get an instant price.") +
+      modeCard("hireonly", "BBQ &amp; Chef hire only",
+        "You buy the food — we bring the BBQ &amp; " + HIRE.chefs + " chefs to cook it. Flat fee + delivery.") +
       '<a class="opt opt--wa" href="' + waHref + '" target="_blank" rel="noopener">' +
         '<span class="opt__tag opt__tag--wa" style="align-self:flex-start">via WhatsApp</span>' +
         '<span class="opt__title">Build your own via WhatsApp with staff</span>' +
         '<span class="opt__desc">Prefer a fully custom menu? Chat with our team to build it and get a quote.</span>' +
       '</a>';
+    el.modeToggle.querySelectorAll("[data-mode]").forEach(function (c) {
+      c.addEventListener("click", function () {
+        state.mode = c.getAttribute("data-mode");
+        renderMode(); syncMode(); update();
+      });
+    });
+  }
+  function modeCard(mode, title, desc) {
+    var sel = state.mode === mode;
+    return '<button type="button" class="opt opt--mode' + (sel ? " is-selected" : "") + '" data-mode="' + mode + '">' +
+      '<span class="opt__title">' + title + '</span>' +
+      '<span class="opt__desc">' + desc + '</span></button>';
   }
   function optCard(nm, val, title, sub, sel) {
     return '<label class="opt' + (sel ? " is-selected" : "") + '">' +
@@ -220,11 +244,18 @@
   function syncMode() {
     el.presetBlock.classList.toggle("hidden", state.mode !== "preset");
     el.customBlock.classList.toggle("hidden", state.mode !== "custom");
+    if (el.hireonlyBlock) el.hireonlyBlock.classList.toggle("hidden", state.mode !== "hireonly");
   }
 
   /* ---- Step 2: guests --------------------------------------------------- */
   function renderGuests() {
     el.guestVal.textContent = state.guests;
+    if (isHireOnly()) {
+      el.tierFlag.innerHTML = '<span class="pill">🔥 Flat hire fee</span>' +
+        '<span class="per-person" style="margin-left:.6rem">' + HIRE.chefs +
+        " chefs included · you provide the food</span>";
+      return;
+    }
     var t = currentTier();
     var disc = t.hireDiscount || 0;
     el.tierFlag.innerHTML = '<span class="pill">📊 Pricing tier: ' + t.label + "</span>" +
@@ -237,7 +268,10 @@
   /* ---- Step 3: extras --------------------------------------------------- */
   function renderExtras() {
     var t = currentTier().id;
-    el.extrasList.innerHTML = P.EXTRAS.map(function (ex) {
+    var note = isHireOnly()
+      ? '<p class="text-muted" style="padding:1rem .2rem 0;font-size:.9rem;margin:0">You\'re bringing your own food — these optional services are still available.</p>'
+      : "";
+    el.extrasList.innerHTML = note + activeExtras().map(function (ex) {
       var priceLabel =
         ex.unit === "flat"  ? idr(ex.flatIdr) + " / event" :
         ex.unit === "count" ? idr(ex.flatIdr) + " each" :
@@ -296,18 +330,24 @@
   function breakdownLines() {
     var c = calc();
     var lines = [];
-    lines.push(["group", menuName() + " × " + state.guests + " guests", idr(c.food)]);
-    lines.push(["sub", "Per person (" + currentTier().label + ")", idr(c.perPerson)]);
-    P.EXTRAS.forEach(function (ex) {
+    if (isHireOnly()) {
+      lines.push(["group", HIRE.name + " · " + HIRE.chefs + " chefs", idr(c.chef)]);
+    } else {
+      lines.push(["group", menuName() + " × " + state.guests + " guests", idr(c.food)]);
+      lines.push(["sub", "Per person (" + currentTier().label + ")", idr(c.perPerson)]);
+    }
+    activeExtras().forEach(function (ex) {
       var cost = extraCost(ex);
       if (cost > 0) {
         lines.push(["extra", ex.name + extraQtyLabel(ex), idr(cost)]);
       }
     });
-    var chefLabel = P.FEES.chefBbqHire.label +
-      (c.hireDiscount > 0 ? " (" + Math.round(c.hireDiscount * 100) + "% off)" : "");
-    lines.push(["fee", chefLabel, idr(c.chef)]);
-    if (c.hireDiscount > 0) lines.push(["save", "Group discount saving", "− " + idr(c.chefSaving)]);
+    if (!isHireOnly()) {
+      var chefLabel = P.FEES.chefBbqHire.label +
+        (c.hireDiscount > 0 ? " (" + Math.round(c.hireDiscount * 100) + "% off)" : "");
+      lines.push(["fee", chefLabel, idr(c.chef)]);
+      if (c.hireDiscount > 0) lines.push(["save", "Group discount saving", "− " + idr(c.chefSaving)]);
+    }
     if (c.delivery > 0) lines.push(["fee", "Out-of-area delivery", idr(c.delivery)]);
     return { lines: lines, calc: c };
   }
@@ -348,18 +388,26 @@
   /* ---- Step 5: review --------------------------------------------------- */
   function renderReview() {
     var bd = breakdownLines();
-    var t = currentTier();
-    var html = '<h3>' + menuName() + ' <span class="pill">' + state.guests + " guests</span></h3>";
-    html += '<p class="review__meta">' + t.label + " pricing · " + idr(bd.calc.perPerson) + " per person</p>";
+    var html;
 
-    html += '<div class="review__group">On the grill</div>';
-    proteinNames().forEach(function (p) { html += line(p); });
-    html += '<div class="review__group">Sides</div>';
-    sideNames().forEach(function (s) { html += line(s); });
-    var sauces = sauceNames();
-    if (sauces.length) { html += '<div class="review__group">Sauces</div>'; sauces.forEach(function (s) { html += line(s); }); }
+    if (isHireOnly()) {
+      html = '<h3>' + HIRE.name + ' <span class="pill">' + state.guests + " guests</span></h3>";
+      html += '<p class="review__meta">' + HIRE.subtitle + " · flat hire fee</p>";
+      html += '<div class="review__group">Includes</div>';
+      HIRE.includes.forEach(function (i) { html += line(i); });
+    } else {
+      var t = currentTier();
+      html = '<h3>' + menuName() + ' <span class="pill">' + state.guests + " guests</span></h3>";
+      html += '<p class="review__meta">' + t.label + " pricing · " + idr(bd.calc.perPerson) + " per person</p>";
+      html += '<div class="review__group">On the grill</div>';
+      proteinNames().forEach(function (p) { html += line(p); });
+      html += '<div class="review__group">Sides</div>';
+      sideNames().forEach(function (s) { html += line(s); });
+      var sauces = sauceNames();
+      if (sauces.length) { html += '<div class="review__group">Sauces</div>'; sauces.forEach(function (s) { html += line(s); }); }
+    }
 
-    var chosenExtras = P.EXTRAS.filter(function (ex) { return extraCost(ex) > 0; });
+    var chosenExtras = activeExtras().filter(function (ex) { return extraCost(ex) > 0; });
     if (chosenExtras.length) {
       html += '<div class="review__group">Extras</div>';
       chosenExtras.forEach(function (ex) {
@@ -369,13 +417,18 @@
     }
 
     html += '<div class="review__group">Fees & delivery</div>';
-    var chefLbl = P.FEES.chefBbqHire.label +
-      (bd.calc.hireDiscount > 0 ? ' <span class="pill" style="font-size:.7rem">' + Math.round(bd.calc.hireDiscount * 100) + "% off</span>" : "");
-    html += '<div class="review__line"><span>' + chefLbl + '</span><span class="amt">' +
-      (bd.calc.hireDiscount > 0 ? '<s style="color:var(--muted);font-weight:400">' + idr(bd.calc.chefFull) + "</s> " : "") +
-      idr(bd.calc.chef) + "</span></div>";
-    if (bd.calc.hireDiscount > 0)
-      html += '<div class="review__line is-save"><span>Group discount saving</span><span class="amt">− ' + idr(bd.calc.chefSaving) + "</span></div>";
+    if (isHireOnly()) {
+      html += '<div class="review__line"><span>' + P.FEES.chefBbqHire.label + " · " + HIRE.chefs +
+        ' chefs</span><span class="amt">' + idr(bd.calc.chef) + "</span></div>";
+    } else {
+      var chefLbl = P.FEES.chefBbqHire.label +
+        (bd.calc.hireDiscount > 0 ? ' <span class="pill" style="font-size:.7rem">' + Math.round(bd.calc.hireDiscount * 100) + "% off</span>" : "");
+      html += '<div class="review__line"><span>' + chefLbl + '</span><span class="amt">' +
+        (bd.calc.hireDiscount > 0 ? '<s style="color:var(--muted);font-weight:400">' + idr(bd.calc.chefFull) + "</s> " : "") +
+        idr(bd.calc.chef) + "</span></div>";
+      if (bd.calc.hireDiscount > 0)
+        html += '<div class="review__line is-save"><span>Group discount saving</span><span class="amt">− ' + idr(bd.calc.chefSaving) + "</span></div>";
+    }
     var area = P.AREAS.find(function (a) { return a.id === state.area; });
     html += '<div class="review__line"><span>Delivery — ' + area.label + '</span><span class="amt">' +
       (bd.calc.delivery > 0 ? idr(bd.calc.delivery) : (area.confirm ? "TBC" : "Free")) + "</span></div>";
@@ -403,12 +456,18 @@
     L.push("Hi BBQ Bali Home Service! 🔥 I'd like to book an at-home BBQ.");
     L.push("");
     L.push("📋 MY ORDER");
-    L.push("• Menu: " + menuName());
-    L.push("• Guests: " + state.guests + " (" + currentTier().label + ")");
-    L.push("• On the grill: " + proteinNames().join(", "));
-    L.push("• Sides: " + sideNames().join(", "));
-    if (sauceNames().length) L.push("• Sauces: " + sauceNames().join(", "));
-    var ex = P.EXTRAS.filter(function (e) { return extraCost(e) > 0; });
+    if (isHireOnly()) {
+      L.push("• " + HIRE.name + " (I'll provide the food)");
+      L.push("• Includes: " + HIRE.includes.join(", "));
+      L.push("• Guests: " + state.guests);
+    } else {
+      L.push("• Menu: " + menuName());
+      L.push("• Guests: " + state.guests + " (" + currentTier().label + ")");
+      L.push("• On the grill: " + proteinNames().join(", "));
+      L.push("• Sides: " + sideNames().join(", "));
+      if (sauceNames().length) L.push("• Sauces: " + sauceNames().join(", "));
+    }
+    var ex = activeExtras().filter(function (e) { return extraCost(e) > 0; });
     if (ex.length) {
       L.push("");
       L.push("➕ EXTRAS");
@@ -441,6 +500,7 @@
     el.btnNext.classList.toggle("hidden", state.step === TOTAL_STEPS);
     el.btnNext.disabled = state.step === 1 && !hasMenu();
     el.btnNext.textContent = state.step === TOTAL_STEPS - 1 ? "Review order →" : "Next →";
+    if (state.step === 3) renderExtras();   // reflect current mode (hide food extras in hire-only)
     if (state.step === 4) renderStep4();
     if (state.step === 5) renderReview();
     renderStepper();
@@ -468,6 +528,10 @@
    *  INIT
    * ==================================================================== */
   function init() {
+    // Fill the hire-only info list from config
+    var hi = document.getElementById("hireonly-includes");
+    if (hi && HIRE) hi.innerHTML = HIRE.includes.map(function (i) { return "<li>" + i + "</li>"; }).join("");
+
     renderStepper();
     renderMode();
     renderPackages();
