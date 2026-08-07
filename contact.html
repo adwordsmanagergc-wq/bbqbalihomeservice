@@ -11,6 +11,21 @@
     gtag('js', new Date());
     gtag('config', 'AW-846645441');
   </script>
+  <!-- Event snippet: fires a Google Ads conversion, then continues to the link (e.g. WhatsApp) -->
+  <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-846645441/Lwx1CK-v290cEMGR25MD',
+          'event_callback': callback
+      });
+      return false;
+    }
+  </script>
   <title>Contact — BBQ Bali Home Service</title>
   <meta name="description" content="Book your Bali BBQ or request a quote for large groups and weddings (200+). WhatsApp click-to-chat, email, and an enquiry form for tailored catering." />
   <meta name="theme-color" content="#14100e" />
@@ -51,12 +66,12 @@
             <h2>Quickest ways to reach us</h2>
             <p class="text-muted">Most bookings happen in a quick WhatsApp chat. Message us with your date, area and guest count and we'll take it from there.</p>
             <div class="btn-row mt-2">
-              <a class="btn btn--wa btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener">🟢 WhatsApp us</a>
+              <a class="btn btn--wa btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)">🟢 WhatsApp us</a>
               <a class="btn btn--ghost btn--lg" data-email>✉️ Email us</a>
             </div>
             <div class="card" style="padding:1.4rem;margin-top:1.6rem">
               <div class="footer-contact">
-                <p style="margin:0 0 .6rem"><strong>WhatsApp:</strong> <a data-wa style="color:var(--ember);font-weight:700" target="_blank" rel="noopener"><span data-wa-display></span></a></p>
+                <p style="margin:0 0 .6rem"><strong>WhatsApp:</strong> <a data-wa style="color:var(--ember);font-weight:700" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)"><span data-wa-display></span></a></p>
                 <p style="margin:0 0 .6rem"><strong>Email:</strong> <a data-email data-email-text style="color:var(--ember);font-weight:700">email</a></p>
                 <p style="margin:0 0 .6rem"><strong>Instagram:</strong> <a data-ig target="_blank" rel="noopener" style="color:var(--ember);font-weight:700">@bbqbalihomeservice</a></p>
                 <p style="margin:.6rem 0 0" class="text-muted">Service area: across Bali. Same-day booking possible before 11am.</p>
@@ -100,12 +115,12 @@
       <div class="footer-grid">
         <div><a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"><img src="assets/img/logo.svg" alt="" /></span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a><p class="text-muted" style="margin-top:1rem;font-size:.9rem">At-home BBQ &amp; private chef hire across Bali.</p></div>
         <div><h4>Explore</h4><ul class="footer-links"><li><a href="menu.html">Menu &amp; Prices</a></li><li><a href="about.html">How It Works</a></li><li><a href="https://www.instagram.com/bbqbalihomeservice/" data-ig target="_blank" rel="noopener">Gallery</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-        <div class="footer-contact"><h4>Get in touch</h4><a data-wa data-wa-text="Hi BBQ Bali Home Service!" target="_blank" rel="noopener">🟢 WhatsApp <span data-wa-display></span></a><a data-email data-email-text>✉️ email</a><a data-ig target="_blank" rel="noopener">📸 @bbqbalihomeservice</a></div>
+        <div class="footer-contact"><h4>Get in touch</h4><a data-wa data-wa-text="Hi BBQ Bali Home Service!" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)">🟢 WhatsApp <span data-wa-display></span></a><a data-email data-email-text>✉️ email</a><a data-ig target="_blank" rel="noopener">📸 @bbqbalihomeservice</a></div>
       </div>
       <div class="footer-bottom"><span>© <span data-year>2026</span> BBQ Bali Home Service.</span><span>Bali BBQ &amp; Chef Hire</span></div>
     </div>
   </footer>
-  <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">🟢</a>
+  <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" onclick="return gtag_report_conversion(this.href)">🟢</a>
 
   <script src="data/pricing.js"></script>
   <script>
@@ -125,7 +140,8 @@
         if (g("type")) L.push("• Event type: " + g("type"));
         if (g("message")) L.push("• Notes: " + g("message"));
         L.push("", "Please send me a tailored quote. Thanks!");
-        if (window.waReportConversion) window.waReportConversion();
+        // Fire the Google Ads conversion (no URL → no redirect; we open WhatsApp ourselves below).
+        if (typeof gtag_report_conversion === "function") gtag_report_conversion();
         window.open("https://wa.me/" + window.PRICING.BUSINESS.whatsappNumber + "?text=" + encodeURIComponent(L.join("\n")), "_blank", "noopener");
       });
     })();

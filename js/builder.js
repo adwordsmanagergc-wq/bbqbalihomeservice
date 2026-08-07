@@ -438,7 +438,7 @@
       '<div class="usd">~ ' + usd(bd.calc.total) + '</div></div>' +
       '<div style="max-width:220px;text-align:right;font-size:.8rem;color:var(--muted-light)">Estimate. Deposit is 50% to secure your date.</div></div>';
 
-    html += '<div class="review__cta"><a id="wa-send" class="btn btn--wa btn--lg btn--block" target="_blank" rel="noopener">' +
+    html += '<div class="review__cta"><a id="wa-send" class="btn btn--wa btn--lg btn--block" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)">' +
       waIcon() + ' Send order via WhatsApp</a></div>';
     html += '<p class="review__terms">' + P.TERMS.deposit + " " + P.TERMS.payment +
       " We'll confirm availability and the final price with you directly — no payment is taken on this site.</p>";

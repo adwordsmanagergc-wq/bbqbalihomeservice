@@ -93,21 +93,4 @@
   // Avoid Date in restricted contexts is fine here (browser runtime).
   var yr = document.querySelector("[data-year]");
   if (yr) yr.textContent = new Date().getFullYear();
-
-  /* ---- Google Ads conversion on WhatsApp clicks ------------------------- *
-   * Fires the "Book/Enquire" conversion on any click of a wa.me link. A single
-   * delegated listener covers every WhatsApp button — the nav "WhatsApp us",
-   * hero "Chat on WhatsApp", the floating green button, the event-catering
-   * link, and the dynamically-generated builder/budget "send" buttons — so
-   * no per-link onclick is needed and clicks are never double-counted.       */
-  var WA_CONVERSION = "AW-846645441/Lwx1CK-v290cEMGR25MD";
-  window.waReportConversion = function () {
-    if (typeof window.gtag === "function") {
-      window.gtag("event", "conversion", { send_to: WA_CONVERSION });
-    }
-  };
-  document.addEventListener("click", function (e) {
-    var link = e.target && e.target.closest ? e.target.closest('a[href*="wa.me/"]') : null;
-    if (link) window.waReportConversion();
-  }, true);
 })();

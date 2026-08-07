@@ -11,6 +11,21 @@
     gtag('js', new Date());
     gtag('config', 'AW-846645441');
   </script>
+  <!-- Event snippet: fires a Google Ads conversion, then continues to the link (e.g. WhatsApp) -->
+  <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-846645441/Lwx1CK-v290cEMGR25MD',
+          'event_callback': callback
+      });
+      return false;
+    }
+  </script>
   <title>BBQ Bali Home Service — Private BBQ & Chef Hire at Your Villa</title>
   <meta name="description" content="At-home BBQ & private chef hire across Bali. We bring the BBQ, the chef and the food to your villa. Build your menu and get an instant price — book in seconds via WhatsApp." />
   <meta name="theme-color" content="#14100e" />
@@ -63,9 +78,9 @@
               </select>
               <span class="budget-picker__note" id="budget-note"></span>
             </div>
-            <a class="event-cta mt-2" id="event-cta" target="_blank" rel="noopener"></a>
+            <a class="event-cta mt-2" id="event-cta" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)"></a>
             <div class="btn-row mt-2">
-              <a class="btn btn--ghost-light btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to ask about your at-home BBQ 🔥" target="_blank" rel="noopener">Chat on WhatsApp</a>
+              <a class="btn btn--ghost-light btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to ask about your at-home BBQ 🔥" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)">Chat on WhatsApp</a>
             </div>
             <div class="hero__stats">
               <div class="stat"><b>6–200+</b><span>guests catered</span></div>
@@ -138,7 +153,7 @@
         <p class="lead" style="margin-inline:auto">Booking before 11am? Same-day BBQ hire is on the table. Build your menu and see your price in under a minute.</p>
         <div class="btn-row mt-2" style="justify-content:center">
           <a class="btn btn--primary btn--lg" href="#top">Start building →</a>
-          <a class="btn btn--wa btn--lg" data-wa data-wa-text="Hi! I'd like to book a BBQ 🔥" target="_blank" rel="noopener">WhatsApp us</a>
+          <a class="btn btn--wa btn--lg" data-wa data-wa-text="Hi! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)">WhatsApp us</a>
         </div>
       </div>
     </section>
@@ -164,7 +179,7 @@
         </div>
         <div class="footer-contact">
           <h4>Get in touch</h4>
-          <a data-wa data-wa-text="Hi BBQ Bali Home Service!" target="_blank" rel="noopener">🟢 WhatsApp <span data-wa-display></span></a>
+          <a data-wa data-wa-text="Hi BBQ Bali Home Service!" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)">🟢 WhatsApp <span data-wa-display></span></a>
           <a data-email data-email-text>✉️ email</a>
           <a data-ig target="_blank" rel="noopener">📸 @bbqbalihomeservice</a>
         </div>
@@ -176,7 +191,7 @@
     </div>
   </footer>
 
-  <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">🟢</a>
+  <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" onclick="return gtag_report_conversion(this.href)">🟢</a>
 
   <script src="data/pricing.js"></script>
   <script>
