@@ -330,6 +330,14 @@ ul { margin: 0; padding: 0; list-style: none; }
 .textarea { resize: vertical; min-height: 120px; }
 .form-note { font-size: 0.85rem; color: var(--muted); }
 
+/* Hero "Choose your budget" dropdown */
+.budget-picker { max-width: 500px; }
+.budget-picker__label { display: block; font-family: var(--font-display); font-weight: 800;
+  color: #fff; font-size: 1.1rem; margin-bottom: 0.55rem; letter-spacing: -0.01em; }
+.select--hero { font-size: 1.02rem; padding: 1rem 1.15rem; border-radius: 14px; cursor: pointer;
+  box-shadow: 0 14px 34px -16px rgba(0,0,0,0.6); border-color: transparent; }
+.select--hero:focus { border-color: var(--ember); }
+
 /* ---- Footer ------------------------------------------------------------- */
 .site-footer { background: var(--charcoal-900); color: var(--cream-dim); padding-block: 3rem 2rem; }
 .footer-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }

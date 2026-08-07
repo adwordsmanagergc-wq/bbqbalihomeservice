@@ -81,6 +81,10 @@
 .hireonly-grid { display: grid; grid-template-columns: 1fr; }
 @media (min-width: 560px) { .hireonly-grid { grid-template-columns: 220px 1fr; align-items: stretch; } }
 
+/* Budget page price panel (always visible, sticky on desktop) */
+.budget-summary { position: sticky; top: calc(var(--nav-h) + 1rem); }
+@media (max-width: 939px) { .budget-summary { position: static; } }
+
 .custom-block { margin-top: 1.6rem; }
 .custom-block h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
 .custom-block .sub-note { font-size: 0.86rem; color: var(--muted); margin-bottom: 0.9rem; }

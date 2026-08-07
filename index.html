@@ -48,8 +48,13 @@
             <span class="eyebrow eyebrow--light">Bali BBQ &amp; Chef Hire</span>
             <h1>We bring the BBQ<span class="accent">to your villa.</span></h1>
             <p class="lead">Sit back while our private chef fires up a fresh, flame-grilled feast right where you're staying. We bring the BBQ, the charcoal, the chef and the food — you bring the appetite.</p>
+            <div class="budget-picker mt-2">
+              <label class="budget-picker__label" for="budget-select">Choose your budget</label>
+              <select id="budget-select" class="select select--hero" aria-label="Choose your budget">
+                <option value="" selected disabled>Select a budget option…</option>
+              </select>
+            </div>
             <div class="btn-row mt-2">
-              <a class="btn btn--primary btn--lg" href="menu.html">Build your menu &amp; price →</a>
               <a class="btn btn--ghost-light btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to ask about your at-home BBQ 🔥" target="_blank" rel="noopener">Chat on WhatsApp</a>
             </div>
             <div class="hero__stats">
@@ -182,6 +187,23 @@
           '<a class="btn btn--ghost" href="menu.html" style="margin-top:1rem;align-self:flex-start">Build this package →</a>' +
           '</div></article>';
       }).join("");
+    })();
+
+    // Populate the hero "Choose your budget" dropdown; navigate on selection.
+    (function () {
+      var P = window.PRICING, sel = document.getElementById("budget-select");
+      if (!P || !P.BUDGET || !sel) return;
+      P.BUDGET.tiers.forEach(function (t) {
+        var label = t.enquireOnly
+          ? t.name + " — please enquire"
+          : t.name + " — IDR " + t.perPersonIdr.toLocaleString("id-ID") + "/person (min " + t.minGuests + ")";
+        var o = document.createElement("option");
+        o.value = t.id; o.textContent = label;
+        sel.appendChild(o);
+      });
+      sel.addEventListener("change", function () {
+        if (sel.value) window.location.href = "budget.html?tier=" + encodeURIComponent(sel.value);
+      });
     })();
   </script>
   <script src="js/main.js"></script>

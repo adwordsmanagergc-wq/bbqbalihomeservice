@@ -251,6 +251,41 @@ window.PRICING = {
     { id: "other", label: "Somewhere else in Bali (we'll confirm on WhatsApp)", deliveryIdr: 0, confirm: true },
   ],
 
+  /* ---- Budget options (home-page "Choose your budget" dropdown) --------- *
+   *  A simpler, budget-first path shown on the home page. Choosing one opens
+   *  budget.html, which asks for guest count + location and shows the price:
+   *      per-person price  ×  guests  +  hireIdr  +  delivery
+   *  Set "enquireOnly: true" for a tier with no fixed price (quote on request).
+   *  NOTE: this flow uses its own flat hire fee (hireIdr) below.
+   */
+  BUDGET: {
+    title: "Choose your budget",
+    hireIdr: 2000000,                    // flat BBQ & Chef hire for budget options
+    menuNote: "Full menu coming soon — we'll walk you through every dish when you book.",
+    tiers: [
+      {
+        id: "impressive", name: "Impressive Budget Option",
+        perPersonIdr: 200000, minGuests: 10,
+        blurb: "Our best-value crowd-pleaser — a generous BBQ spread that keeps everyone happy.",
+      },
+      {
+        id: "middle", name: "Magic Middle of the Range",
+        perPersonIdr: 400000, minGuests: 6,
+        blurb: "Includes steak and chicken breast — the sweet spot of quality and value.",
+      },
+      {
+        id: "premium", name: "Premium",
+        perPersonIdr: 600000, minGuests: 6,
+        blurb: "Export-quality meats and seafood — a proper premium feast.",
+      },
+      {
+        id: "top", name: "Top of the Range",
+        enquireOnly: true, minGuests: 6,
+        blurb: "Wagyu options and lobster — a bespoke luxury menu. Please enquire for a quote.",
+      },
+    ],
+  },
+
   /* ---- Booking / payment terms (shown to guests, not used in maths) ------ */
   TERMS: {
     deposit: "50% deposit to secure your date, 50% on the day of your BBQ.",
