@@ -263,6 +263,26 @@ window.PRICING = {
     discountNote: "Subject to discounted BBQ & Chef hire",   // shown under the dropdown
     hireIdr: 1800000,                    // flat BBQ & Chef hire for budget options (1.8jt)
     menuNote: "Full menu coming soon — we'll walk you through every dish when you book.",
+
+    /* Optional extras shown on each food budget package (click to add).
+     * Prices below are for "extrasBaseGuests" people; for larger groups the
+     * price rises by "extrasStepPct" per extra guest above that base
+     * (e.g. 11 guests = +10%, 12 = +20%, and so on). */
+    extrasBaseGuests: 10,
+    extrasStepPct: 0.10,
+    extrasNote: "Each priced for 10 guests — add 10% per guest above 10.",
+    extras: [
+      { id: "nasi_goreng",   name: "Nasi Goreng",              idr: 500000 },
+      { id: "mie_goreng",    name: "Mie Goreng",               idr: 500000 },
+      { id: "french_fries",  name: "French Fries",             idr: 300000 },
+      { id: "extra_wedges",  name: "Wedges",                   idr: 300000 },
+      { id: "chicken_breast",name: "Marinated Chicken Breast", idr: 300000 },
+      { id: "red_snapper",   name: "Red Snapper Fish (3kg)",   idr: 600000 },
+      { id: "lamb_chops",    name: "Lamb Chops (2.5kg)",       idr: 1800000 },
+      { id: "pork_chops",    name: "Pork Chops (2.5kg)",       idr: 1550000 },
+      { id: "steak",         name: "Steak (1kg)",              idr: 1200000 },
+      { id: "wagyu_steak",   name: "Wagyu Steak (1kg)",        idr: 2500000 },
+    ],
     // Guest-count discounts on the BBQ & Chef hire fee (ordered high → low by minGuests).
     // At 30+ the price stays full, but a 2nd BBQ and an extra chef are included.
     hireDiscounts: [
@@ -283,19 +303,18 @@ window.PRICING = {
         id: "impressive", name: "Impressive Budget Option",
         perPersonIdr: 200000, minGuests: 10,
         blurb: "Our best-value crowd-pleaser — a generous BBQ spread that keeps everyone happy.",
+        menu: ["Satay chicken skewers", "Beef tandoori skewers", "BBQ chicken wings", "Salad", "Wedges", "Sauces — BBQ & sweet chilli"],
       },
       {
         id: "middle", name: "Magic Middle of the Range",
         perPersonIdr: 450000, minGuests: 6,
         blurb: "A step up with juicy sirloin steak and slow-cooked pork ribs, rounded out with coleslaw and potato wedges.",
-        image: "assets/img/package2.webp",
         menu: ["Sirloin steak", "Pork ribs", "Chicken wings", "Chicken drumsticks", "Sausage", "Coleslaw salad", "Potato wedges"],
       },
       {
         id: "premium", name: "Premium",
         perPersonIdr: 600000, minGuests: 6,
         blurb: "The full ocean-and-land feast — export-quality meats and seafood. The showstopper.",
-        image: "assets/img/package3.webp",
         menu: ["Sirloin steak", "Prawns", "Red snapper fish", "Chicken wings & drums", "Sausages", "Potato wedges", "Salads", "Sauces"],
       },
       {

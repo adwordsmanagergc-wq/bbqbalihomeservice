@@ -20,7 +20,10 @@
   var tier = B.tiers.find(function (t) { return t.id === param("tier"); }) || B.tiers[0];
   var minGuests = tier.minGuests || P.MIN_GUESTS || 6;
 
-  var state = { guests: minGuests, area: P.AREAS[0].id };
+  var state = { guests: minGuests, area: P.AREAS[0].id, extras: {} };
+
+  // Optional extras apply to the food packages only (not hire-only or enquire-only).
+  var extrasEnabled = !!(B.extras && B.extras.length) && !tier.hireOnly && !tier.enquireOnly;
 
   var el = {
     name: document.getElementById("tier-name"),
@@ -34,6 +37,9 @@
     guestVal: document.getElementById("guest-val"),
     guestFlag: document.getElementById("guest-flag"),
     area: document.getElementById("area-select"),
+    extrasCard: document.getElementById("extras-card"),
+    extrasNote: document.getElementById("extras-note"),
+    extrasList: document.getElementById("extras-list"),
     priceBody: document.getElementById("price-body"),
     priceIdr: document.getElementById("price-idr"),
     priceUsd: document.getElementById("price-usd"),
@@ -68,7 +74,7 @@
     el.menuPlaceholder.style.display = "none";
     el.menuNote.textContent = tier.hireOnly
       ? "You buy your own groceries — we bring the BBQ, chef and setup to cook them."
-      : "Everything shown, cooked fresh and served buffet-style. Menu confirmed with you on booking.";
+      : "Cooked fresh and served buffet-style. Menu confirmed with you on booking.";
   } else {
     el.menuNote.textContent = B.menuNote;
   }
@@ -101,14 +107,28 @@
     var net = Math.round(B.hireIdr * (1 - discount));
     return { discount: discount, net: net, full: B.hireIdr, saving: B.hireIdr - net, note: rule.note || "" };
   }
+  // Extras are priced for B.extrasBaseGuests people; +extrasStepPct per extra guest above that.
+  function extraMultiplier() {
+    var base = B.extrasBaseGuests || 10, step = B.extrasStepPct || 0;
+    return 1 + Math.max(0, state.guests - base) * step;
+  }
+  function extraPrice(ex) { return Math.round(ex.idr * extraMultiplier()); }
+  function chosenExtras() {
+    return extrasEnabled ? B.extras.filter(function (ex) { return state.extras[ex.id]; }) : [];
+  }
+  function extrasTotal() {
+    return chosenExtras().reduce(function (s, ex) { return s + extraPrice(ex); }, 0);
+  }
+
   function calc() {
     var food = tier.hireOnly ? 0 : tier.perPersonIdr * state.guests;
     var h = hireInfo();
     var delivery = deliveryFee();
+    var extras = extrasTotal();
     return {
       food: food, hire: h.net, hireFull: h.full, hireDiscount: h.discount,
-      hireSaving: h.saving, hireNote: h.note, delivery: delivery,
-      total: food + h.net + delivery,
+      hireSaving: h.saving, hireNote: h.note, delivery: delivery, extras: extras,
+      total: food + h.net + delivery + extras,
     };
   }
 
@@ -147,6 +167,13 @@
     L.push("• BBQ & Chef hire: " + idr(c.hire) +
       (c.hireDiscount > 0 ? " (" + Math.round(c.hireDiscount * 100) + "% off)" : ""));
     if (c.hireNote) L.push("   " + c.hireNote.replace(/&amp;/g, "&"));
+    var ex = chosenExtras();
+    if (ex.length) {
+      L.push("");
+      L.push("➕ EXTRAS (for " + state.guests + " guests)");
+      ex.forEach(function (e) { L.push("• " + e.name + " — " + idr(extraPrice(e))); });
+    }
+    L.push("");
     L.push("• Location: " + areaLabel() + (c.delivery > 0 ? " (delivery " + idr(c.delivery) + ")" : ""));
     L.push("");
     L.push("💰 ESTIMATED TOTAL: " + idr(c.total));
@@ -166,9 +193,30 @@
     el.guestFlag.innerHTML = bits.join(" ");
   }
 
+  function renderExtras() {
+    if (!el.extrasCard) return;
+    if (!extrasEnabled) { el.extrasCard.style.display = "none"; return; }
+    el.extrasNote.textContent = B.extrasNote + (state.guests > (B.extrasBaseGuests || 10)
+      ? "  (prices below are for " + state.guests + " guests)" : "");
+    el.extrasList.innerHTML = B.extras.map(function (ex) {
+      var on = !!state.extras[ex.id];
+      return '<div class="extra-row"><div class="extra-row__info"><h4>' + ex.name + "</h4>" +
+        '<p>' + idr(extraPrice(ex)) + "</p></div>" +
+        '<div class="extra-row__price"><label class="switch"><input type="checkbox" data-extra="' + ex.id + '"' +
+        (on ? " checked" : "") + '><span class="track"></span></label></div></div>';
+    }).join("");
+    el.extrasList.querySelectorAll("input[data-extra]").forEach(function (inp) {
+      inp.addEventListener("change", function () {
+        state.extras[inp.getAttribute("data-extra")] = inp.checked;
+        render();
+      });
+    });
+  }
+
   function render() {
     el.guestVal.textContent = state.guests;
     renderGuestFlag();
+    renderExtras();
 
     if (tier.enquireOnly) {
       el.priceBody.innerHTML =
@@ -192,6 +240,9 @@
         html += '<div class="review__line is-save"><span>Group discount saving</span><span class="amt">− ' + idr(c.hireSaving) + "</span></div>";
       if (c.hireNote)
         html += '<div class="review__line is-save"><span>' + c.hireNote + '</span><span class="amt">✓</span></div>';
+      chosenExtras().forEach(function (ex) {
+        html += '<div class="review__line"><span>+ ' + ex.name + '</span><span class="amt">' + idr(extraPrice(ex)) + "</span></div>";
+      });
       html += '<div class="review__line"><span>Delivery — ' + area.label + '</span><span class="amt">' +
         (c.delivery > 0 ? idr(c.delivery) : (area.confirm ? "TBC" : "Incl.")) + "</span></div>";
       el.priceBody.innerHTML = html;
