@@ -295,7 +295,7 @@ window.PRICING = {
     hireDiscounts: [
       { minGuests: 30, discount: 0,   note: "Includes a 2nd BBQ &amp; an extra chef" },
       { minGuests: 20, discount: 0.5 },
-      { minGuests: 10, discount: 0.3 },
+      { minGuests: 10, discount: 0.2 },
       { minGuests: 0,  discount: 0 },
     ],
     eventCatering: {
