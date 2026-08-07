@@ -26,6 +26,9 @@
     blurb: document.getElementById("tier-blurb"),
     badge: document.getElementById("tier-badge"),
     menuNote: document.getElementById("menu-note"),
+    menuImage: document.getElementById("menu-image"),
+    menuList: document.getElementById("menu-list"),
+    menuPlaceholder: document.getElementById("menu-placeholder"),
     guestVal: document.getElementById("guest-val"),
     area: document.getElementById("area-select"),
     priceBody: document.getElementById("price-body"),
@@ -41,8 +44,22 @@
   el.badge.textContent = tier.enquireOnly
     ? "Please enquire"
     : idr(tier.perPersonIdr) + " / person";
-  el.menuNote.textContent = B.menuNote;
   el.minNote.textContent = "Minimum " + minGuests + " guests";
+
+  // Menu: show the saved menu image + item list when available, else a placeholder note.
+  if (tier.image) {
+    el.menuImage.style.backgroundImage = "url('" + tier.image + "')";
+    el.menuImage.style.display = "";
+    el.menuImage.setAttribute("aria-label", tier.name + " menu");
+  }
+  if (tier.menu && tier.menu.length) {
+    el.menuList.innerHTML = tier.menu.map(function (m) { return "<li>" + m + "</li>"; }).join("");
+    el.menuList.style.display = "";
+    el.menuPlaceholder.style.display = "none";
+    el.menuNote.textContent = "Everything shown, cooked fresh and served buffet-style. Menu confirmed with you on booking.";
+  } else {
+    el.menuNote.textContent = B.menuNote;
+  }
 
   /* ---- Area dropdown ----------------------------------------------------- */
   el.area.innerHTML = P.AREAS.map(function (a) {
@@ -93,6 +110,7 @@
     L.push("");
     L.push("📋 MY BOOKING");
     L.push("• Menu: " + tier.name);
+    if (tier.menu && tier.menu.length) L.push("• On the grill: " + tier.menu.join(", "));
     L.push("• Guests: " + state.guests);
     L.push("• Per person: " + idr(tier.perPersonIdr) + " → " + idr(c.food));
     L.push("• BBQ & Chef hire: " + idr(c.hire));

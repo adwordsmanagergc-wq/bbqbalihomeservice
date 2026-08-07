@@ -46,11 +46,15 @@
         <div id="budget" class="builder">
           <!-- Left: menu + inputs -->
           <div>
-            <div class="card" style="padding:clamp(1.2rem,4vw,1.6rem);margin-bottom:1.4rem">
-              <span class="eyebrow">Your menu</span>
-              <h2 style="font-size:1.4rem;margin-bottom:.4rem">What's on the grill</h2>
-              <p class="text-muted" id="menu-note" style="font-size:.95rem"></p>
-              <div class="notice">🍽️ Full menus are being finalised — we'll walk you through every dish and confirm it with you when you book.</div>
+            <div class="card" style="overflow:hidden;margin-bottom:1.4rem">
+              <div id="menu-image" class="photo" style="border-radius:0;aspect-ratio:1/1;display:none" role="img"></div>
+              <div style="padding:clamp(1.2rem,4vw,1.6rem)">
+                <span class="eyebrow">Your menu</span>
+                <h2 style="font-size:1.4rem;margin-bottom:.4rem">What's on the grill</h2>
+                <ul class="pkg__list" id="menu-list" style="display:none"></ul>
+                <p class="text-muted" id="menu-note" style="font-size:.95rem"></p>
+                <div class="notice" id="menu-placeholder">🍽️ Full menus are being finalised — we'll walk you through every dish and confirm it with you when you book.</div>
+              </div>
             </div>
 
             <div class="card" style="padding:clamp(1.2rem,4vw,1.6rem);margin-bottom:1.4rem">

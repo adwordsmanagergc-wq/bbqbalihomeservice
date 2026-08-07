@@ -260,7 +260,7 @@ window.PRICING = {
    */
   BUDGET: {
     title: "Choose your budget",
-    hireIdr: 2000000,                    // flat BBQ & Chef hire for budget options
+    hireIdr: 1800000,                    // flat BBQ & Chef hire for budget options (1.8jt)
     menuNote: "Full menu coming soon — we'll walk you through every dish when you book.",
     tiers: [
       {
@@ -270,13 +270,17 @@ window.PRICING = {
       },
       {
         id: "middle", name: "Magic Middle of the Range",
-        perPersonIdr: 400000, minGuests: 6,
-        blurb: "Includes steak and chicken breast — the sweet spot of quality and value.",
+        perPersonIdr: 450000, minGuests: 6,
+        blurb: "A step up with juicy sirloin steak and slow-cooked pork ribs, rounded out with coleslaw and potato wedges.",
+        image: "assets/img/package2.webp",
+        menu: ["Sirloin steak", "Pork ribs", "Chicken wings", "Chicken drumsticks", "Sausage", "Coleslaw salad", "Potato wedges"],
       },
       {
         id: "premium", name: "Premium",
         perPersonIdr: 600000, minGuests: 6,
-        blurb: "Export-quality meats and seafood — a proper premium feast.",
+        blurb: "The full ocean-and-land feast — export-quality meats and seafood. The showstopper.",
+        image: "assets/img/package3.webp",
+        menu: ["Sirloin steak", "Prawns", "Red snapper fish", "Chicken wings & drums", "Sausages", "Potato wedges", "Salads", "Sauces"],
       },
       {
         id: "top", name: "Top of the Range",

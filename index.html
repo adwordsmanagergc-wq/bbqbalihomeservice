@@ -82,20 +82,6 @@
       </div>
     </section>
 
-    <!-- ===== Packages preview ===== -->
-    <section class="section band-charcoal">
-      <div class="wrap">
-        <div class="center reveal">
-          <span class="eyebrow eyebrow--light">The Menu</span>
-          <h2>Pick a package or build your own</h2>
-          <p class="lead">Every meat package is served buffet-style with free potato wedges, fresh salad and our house sauces. Prices drop as your group grows.</p>
-        </div>
-        <div class="grid grid--3 mt-2 reveal" id="pkg-preview"></div>
-        <div class="center" style="margin-top:2.4rem">
-          <a class="btn btn--primary btn--lg" href="menu.html">Open the price builder →</a>
-        </div>
-      </div>
-    </section>
 
     <!-- ===== How it works ===== -->
     <section class="section">
@@ -167,28 +153,6 @@
 
   <script src="data/pricing.js"></script>
   <script>
-    // Render package preview cards from the pricing config
-    (function () {
-      var P = window.PRICING, host = document.getElementById("pkg-preview");
-      if (!P || !host) return;
-      var t = "medium";
-      host.innerHTML = Object.keys(P.PACKAGES).map(function (id) {
-        var pk = P.PACKAGES[id];
-        var bg = pk.image ? " style=\"background-image:url('" + pk.image + "')\"" : "";
-        return '<article class="card pkg">' +
-          '<div class="photo"' + bg + ' role="img" aria-label="' + pk.name + ' menu: ' + pk.proteins.join(', ') + '">' +
-          (pk.badge ? '<span class="pkg__badge">' + pk.badge + '</span>' : '') +
-          (pk.image ? '' : '<span class="photo__tag">' + pk.name + '</span>') +
-          '</div>' +
-          '<div class="pkg__body"><h3>' + pk.name + '</h3>' +
-          '<div class="pkg__sub">' + pk.subtitle + '</div>' +
-          '<p class="text-muted" style="font-size:.92rem">' + pk.description + '</p>' +
-          '<div class="pkg__price">from <b>IDR ' + pk.perPerson[t].toLocaleString('id-ID') + '</b> / person</div>' +
-          '<a class="btn btn--ghost" href="menu.html" style="margin-top:1rem;align-self:flex-start">Build this package →</a>' +
-          '</div></article>';
-      }).join("");
-    })();
-
     // Populate the hero "Choose your budget" dropdown; navigate on selection.
     (function () {
       var P = window.PRICING, sel = document.getElementById("budget-select");
