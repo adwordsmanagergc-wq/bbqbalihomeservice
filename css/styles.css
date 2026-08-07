@@ -344,6 +344,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .select--hero { font-size: 1.02rem; padding: 1rem 1.15rem; border-radius: 14px; cursor: pointer;
   box-shadow: 0 14px 34px -16px rgba(0,0,0,0.6); border-color: transparent; }
 .select--hero:focus { border-color: var(--ember); }
+.budget-picker__note { display: block; margin-top: 0.5rem; font-size: 0.85rem; color: var(--cream-dim); font-style: italic; }
 
 /* Event-catering callout (under the budget dropdown) */
 .event-cta { display: inline-flex; align-items: center; gap: 0.65rem; max-width: 500px; width: 100%;

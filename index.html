@@ -53,6 +53,7 @@
               <select id="budget-select" class="select select--hero" aria-label="Choose your budget">
                 <option value="" selected disabled>Select a budget option…</option>
               </select>
+              <span class="budget-picker__note" id="budget-note"></span>
             </div>
             <a class="event-cta mt-2" id="event-cta" target="_blank" rel="noopener"></a>
             <div class="btn-row mt-2">
@@ -178,11 +179,15 @@
       P.BUDGET.tiers.forEach(function (t) {
         var label = t.enquireOnly
           ? t.name + " — please enquire"
-          : t.name + " — IDR " + t.perPersonIdr.toLocaleString("id-ID") + "/person (min " + t.minGuests + ")";
+          : t.hireOnly
+            ? t.name + " — from IDR " + P.BUDGET.hireIdr.toLocaleString("id-ID") + " + delivery"
+            : t.name + " — IDR " + t.perPersonIdr.toLocaleString("id-ID") + "/person (min " + t.minGuests + ")";
         var o = document.createElement("option");
         o.value = t.id; o.textContent = label;
         sel.appendChild(o);
       });
+      var note = document.getElementById("budget-note");
+      if (note && P.BUDGET.discountNote) note.textContent = "(" + P.BUDGET.discountNote + ")";
       sel.addEventListener("change", function () {
         if (sel.value) window.location.href = "budget.html?tier=" + encodeURIComponent(sel.value);
       });

@@ -260,6 +260,7 @@ window.PRICING = {
    */
   BUDGET: {
     title: "Choose your budget",
+    discountNote: "Subject to discounted BBQ & Chef hire",   // shown under the dropdown
     hireIdr: 1800000,                    // flat BBQ & Chef hire for budget options (1.8jt)
     menuNote: "Full menu coming soon — we'll walk you through every dish when you book.",
     // Guest-count discounts on the BBQ & Chef hire fee (ordered high → low by minGuests).
@@ -296,6 +297,13 @@ window.PRICING = {
         blurb: "The full ocean-and-land feast — export-quality meats and seafood. The showstopper.",
         image: "assets/img/package3.webp",
         menu: ["Sirloin steak", "Prawns", "Red snapper fish", "Chicken wings & drums", "Sausages", "Potato wedges", "Salads", "Sauces"],
+      },
+      {
+        id: "hireonly", name: "BBQ & Chef hire only (I buy the groceries)",
+        hireOnly: true, minGuests: 6,
+        blurb: "You buy your own groceries — we bring the BBQ, charcoal & gas and chef to cook them. Just the hire fee plus delivery.",
+        image: "assets/img/package-coal-or-gas-bbq.webp",
+        includes: ["BBQ, charcoal & gas", "Professional chef", "Full setup & clean-up"],
       },
       {
         id: "top", name: "Top of the Range",

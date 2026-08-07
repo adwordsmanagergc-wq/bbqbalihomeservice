@@ -26,6 +26,7 @@
     blurb: document.getElementById("tier-blurb"),
     badge: document.getElementById("tier-badge"),
     menuNote: document.getElementById("menu-note"),
+    menuHeading: document.getElementById("menu-heading"),
     menuImage: document.getElementById("menu-image"),
     menuList: document.getElementById("menu-list"),
     menuPlaceholder: document.getElementById("menu-placeholder"),
@@ -42,22 +43,31 @@
   /* ---- Static tier content ---------------------------------------------- */
   el.name.textContent = tier.name;
   el.blurb.textContent = tier.blurb || "";
-  el.badge.textContent = tier.enquireOnly
-    ? "Please enquire"
+  el.badge.textContent = tier.enquireOnly ? "Please enquire"
+    : tier.hireOnly ? "from " + idr(B.hireIdr) + " + delivery"
     : idr(tier.perPersonIdr) + " / person";
   el.minNote.textContent = "Minimum " + minGuests + " guests";
+  if (el.menuHeading) el.menuHeading.textContent = tier.hireOnly ? "What's included" : "What's on the grill";
+  var guestSub = document.getElementById("guest-subnote");
+  if (guestSub) guestSub.textContent = tier.hireOnly
+    ? "More guests unlock a bigger discount on the hire fee."
+    : "Pricing is per person.";
 
-  // Menu: show the saved menu image + item list when available, else a placeholder note.
+  // Menu image (or "includes" image for hire-only)
   if (tier.image) {
     el.menuImage.style.backgroundImage = "url('" + tier.image + "')";
     el.menuImage.style.display = "";
-    el.menuImage.setAttribute("aria-label", tier.name + " menu");
+    el.menuImage.setAttribute("aria-label", tier.name);
   }
-  if (tier.menu && tier.menu.length) {
-    el.menuList.innerHTML = tier.menu.map(function (m) { return "<li>" + m + "</li>"; }).join("");
+  // Item list: the grill menu, or the hire-only "includes" list.
+  var listItems = tier.hireOnly ? tier.includes : tier.menu;
+  if (listItems && listItems.length) {
+    el.menuList.innerHTML = listItems.map(function (m) { return "<li>" + m + "</li>"; }).join("");
     el.menuList.style.display = "";
     el.menuPlaceholder.style.display = "none";
-    el.menuNote.textContent = "Everything shown, cooked fresh and served buffet-style. Menu confirmed with you on booking.";
+    el.menuNote.textContent = tier.hireOnly
+      ? "You buy your own groceries — we bring the BBQ, chef and setup to cook them."
+      : "Everything shown, cooked fresh and served buffet-style. Menu confirmed with you on booking.";
   } else {
     el.menuNote.textContent = B.menuNote;
   }
@@ -91,7 +101,7 @@
     return { discount: discount, net: net, full: B.hireIdr, saving: B.hireIdr - net, note: rule.note || "" };
   }
   function calc() {
-    var food = tier.perPersonIdr * state.guests;
+    var food = tier.hireOnly ? 0 : tier.perPersonIdr * state.guests;
     var h = hireInfo();
     var delivery = deliveryFee();
     return {
@@ -119,13 +129,20 @@
       return L.join("\n");
     }
     var c = calc();
-    L.push("Hi BBQ Bali Home Service! 🔥 I'd like to book the " + tier.name + " menu.");
+    L.push("Hi BBQ Bali Home Service! 🔥 I'd like to book " +
+      (tier.hireOnly ? tier.name + "." : "the " + tier.name + " menu."));
     L.push("");
     L.push("📋 MY BOOKING");
-    L.push("• Menu: " + tier.name);
-    if (tier.menu && tier.menu.length) L.push("• On the grill: " + tier.menu.join(", "));
-    L.push("• Guests: " + state.guests);
-    L.push("• Per person: " + idr(tier.perPersonIdr) + " → " + idr(c.food));
+    if (tier.hireOnly) {
+      L.push("• " + tier.name);
+      if (tier.includes && tier.includes.length) L.push("• Includes: " + tier.includes.join(", ").replace(/&amp;/g, "&"));
+      L.push("• Guests: " + state.guests);
+    } else {
+      L.push("• Menu: " + tier.name);
+      if (tier.menu && tier.menu.length) L.push("• On the grill: " + tier.menu.join(", "));
+      L.push("• Guests: " + state.guests);
+      L.push("• Per person: " + idr(tier.perPersonIdr) + " → " + idr(c.food));
+    }
     L.push("• BBQ & Chef hire: " + idr(c.hire) +
       (c.hireDiscount > 0 ? " (" + Math.round(c.hireDiscount * 100) + "% off)" : ""));
     if (c.hireNote) L.push("   " + c.hireNote.replace(/&amp;/g, "&"));
@@ -133,7 +150,7 @@
     L.push("");
     L.push("💰 ESTIMATED TOTAL: " + idr(c.total) + " (~ " + usd(c.total) + ")");
     L.push("");
-    L.push("Please confirm availability and the full menu. Thank you!");
+    L.push("Please confirm availability" + (tier.hireOnly ? "" : " and the full menu") + ". Thank you!");
     return L.join("\n");
   }
 
@@ -165,10 +182,10 @@
       var hireLabel = "BBQ &amp; Chef hire" +
         (c.hireDiscount > 0 ? ' <span class="pill" style="font-size:.68rem">' + Math.round(c.hireDiscount * 100) + "% off</span>" : "");
       var hireAmt = (c.hireDiscount > 0 ? '<s style="color:var(--muted);font-weight:400">' + idr(c.hireFull) + "</s> " : "") + idr(c.hire);
-      var html =
+      var html = tier.hireOnly ? "" :
         '<div class="review__line"><span>' + idr(tier.perPersonIdr) + " × " + state.guests + " guests</span>" +
-          '<span class="amt">' + idr(c.food) + "</span></div>" +
-        '<div class="review__line"><span>' + hireLabel + '</span><span class="amt">' + hireAmt + "</span></div>";
+          '<span class="amt">' + idr(c.food) + "</span></div>";
+      html += '<div class="review__line"><span>' + hireLabel + '</span><span class="amt">' + hireAmt + "</span></div>";
       if (c.hireDiscount > 0)
         html += '<div class="review__line is-save"><span>Group discount saving</span><span class="amt">− ' + idr(c.hireSaving) + "</span></div>";
       if (c.hireNote)
