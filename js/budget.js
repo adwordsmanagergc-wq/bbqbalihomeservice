@@ -14,6 +14,7 @@
 
   function idr(n) { return "IDR " + Math.round(n).toLocaleString("id-ID"); }
   function usd(n) { return "$" + Math.round(n / P.FX.idrPerUsd).toLocaleString("en-US"); }
+  function usdWords(n) { return "USD " + Math.round(n / P.FX.idrPerUsd).toLocaleString("en-US"); }
   function param(k) { return new URLSearchParams(window.location.search).get(k); }
 
   var tier = B.tiers.find(function (t) { return t.id === param("tier"); }) || B.tiers[0];
@@ -148,7 +149,8 @@
     if (c.hireNote) L.push("   " + c.hireNote.replace(/&amp;/g, "&"));
     L.push("• Location: " + areaLabel() + (c.delivery > 0 ? " (delivery " + idr(c.delivery) + ")" : ""));
     L.push("");
-    L.push("💰 ESTIMATED TOTAL: " + idr(c.total) + " (~ " + usd(c.total) + ")");
+    L.push("💰 ESTIMATED TOTAL: " + idr(c.total));
+    L.push("   USD alternative price: approx. " + usdWords(c.total));
     L.push("");
     L.push("Please confirm availability" + (tier.hireOnly ? "" : " and the full menu") + ". Thank you!");
     return L.join("\n");

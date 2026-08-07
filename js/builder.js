@@ -36,6 +36,7 @@
   /* ---- Money helpers ---------------------------------------------------- */
   function idr(n) { return "IDR " + Math.round(n).toLocaleString("id-ID"); }
   function usd(n) { return "$" + Math.round(n / P.FX.idrPerUsd).toLocaleString("en-US"); }
+  function usdWords(n) { return "USD " + Math.round(n / P.FX.idrPerUsd).toLocaleString("en-US"); }
 
   function currentTier() {
     var g = state.guests;
@@ -479,7 +480,8 @@
     L.push("");
     L.push("📍 Location: " + area.label);
     L.push("");
-    L.push("💰 ESTIMATED TOTAL: " + idr(bd.calc.total) + " (~ " + usd(bd.calc.total) + ")");
+    L.push("💰 ESTIMATED TOTAL: " + idr(bd.calc.total));
+    L.push("   USD alternative price: approx. " + usdWords(bd.calc.total));
     L.push("   incl. " + P.FEES.chefBbqHire.label + (bd.calc.delivery > 0 ? " + delivery" : "") + ".");
     if (bd.calc.hireDiscount > 0)
       L.push("   🎉 " + Math.round(bd.calc.hireDiscount * 100) + "% off chef & BBQ hire (saved " + idr(bd.calc.chefSaving) + ").");
