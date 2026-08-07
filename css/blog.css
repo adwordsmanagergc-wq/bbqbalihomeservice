@@ -1,0 +1,64 @@
+/* ============================================================================
+ * BLOG — index cards + article prose. Builds on css/styles.css tokens.
+ * ========================================================================== */
+
+/* Breadcrumbs */
+.crumbs { font-size: 0.82rem; color: var(--cream-dim); margin-bottom: 0.9rem; }
+.crumbs a { color: var(--ember-glow); font-weight: 600; }
+.crumbs a:hover { text-decoration: underline; }
+.crumbs span[aria-hidden] { opacity: 0.5; margin: 0 0.25rem; }
+.crumbs--center { display: block; }
+
+/* ---- Blog index cards --------------------------------------------------- */
+.blog-card { display: flex; flex-direction: column; color: var(--ink);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); }
+.blog-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.blog-card__body { padding: 1.5rem 1.5rem 1.6rem; display: flex; flex-direction: column; flex: 1; gap: 0.15rem; }
+.blog-card__body h3 { margin: 0.1rem 0 0.5rem; font-size: 1.25rem; }
+.blog-card__body p { color: var(--muted); font-size: 0.95rem; margin: 0 0 1rem; }
+.blog-card__meta { margin-top: auto; font-size: 0.8rem; font-weight: 700; color: var(--ember);
+  padding-top: 0.6rem; border-top: 1px solid var(--line-dark); }
+.blog-card__link { margin-top: 0.7rem; font-weight: 800; color: var(--ink); font-size: 0.95rem; }
+.blog-card:hover .blog-card__link { color: var(--ember); }
+
+/* ---- Article prose ------------------------------------------------------ */
+.blog-prose { max-width: 760px; }
+.blog-prose > p { color: var(--ink); font-size: 1.06rem; margin: 0 0 1.15rem; }
+.blog-prose h2 { margin: 2.2rem 0 0.8rem; }
+.blog-prose h3 { margin: 1.8rem 0 0.6rem; }
+.blog-prose a { color: var(--ember); font-weight: 700; }
+.blog-prose a:hover { text-decoration: underline; }
+.blog-prose .notice strong { color: var(--ink); }
+
+.blog-tags { margin: 0.6rem 0 0.6rem; }
+.blog-tags li { font-size: 0.85rem; }
+
+.check-list { display: grid; gap: 0.6rem; margin: 0.4rem 0 0.5rem; }
+.check-list li { position: relative; padding-left: 1.9rem; color: var(--ink); }
+.check-list li::before { content: "🔥"; position: absolute; left: 0; top: 0; font-size: 1rem; }
+
+.steps-list { counter-reset: s; display: grid; gap: 0.9rem; margin: 0.4rem 0 0.5rem; padding: 0; }
+.steps-list li { position: relative; padding-left: 2.6rem; color: var(--ink); list-style: none; }
+.steps-list li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: -2px;
+  width: 1.9rem; height: 1.9rem; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; color: #fff;
+  background: linear-gradient(135deg, var(--ember), var(--ember-dark)); }
+
+/* In-article CTA band */
+.cta-band { background: radial-gradient(90% 120% at 50% -10%, #2e1e17 0%, var(--charcoal-800) 55%, var(--charcoal-900) 100%);
+  color: var(--cream); border-radius: var(--radius); padding: clamp(1.6rem, 5vw, 2.4rem); text-align: center;
+  margin: 2.4rem 0; }
+
+/* Left-aligned accordion variant for article FAQs */
+.accordion--left { max-width: 100%; margin: 0.4rem 0 0; }
+
+/* Related areas */
+.related { margin-top: 2.6rem; padding-top: 1.6rem; border-top: 1px solid var(--line-dark); }
+.related h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+.related-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.related-chip { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border-radius: 999px;
+  background: var(--cream); border: 1px solid var(--line-dark); font-weight: 700; font-size: 0.9rem; color: var(--ink);
+  transition: border-color 0.2s, color 0.2s; }
+.related-chip:hover { border-color: var(--ember); color: var(--ember); }
+.related-chip--all { background: var(--ember); color: #fff; border-color: var(--ember); }
+.related-chip--all:hover { background: var(--ember-dark); color: #fff; }
