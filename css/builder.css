@@ -127,6 +127,21 @@
 .add-btn.is-added:hover { background: var(--ember-dark); border-color: var(--ember-dark); }
 .extra-row.is-on { background: rgba(224, 74, 47, 0.03); border-radius: var(--radius-sm); }
 .extra-row.is-on h4 { color: var(--ember-dark); }
+
+/* "Ask our team about" chips */
+.ask-list { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.ask-chip {
+  font: inherit; font-weight: 700; font-size: 0.88rem; cursor: pointer; line-height: 1;
+  padding: 0.55rem 1rem; border-radius: 999px; border: 1.5px solid var(--line-dark);
+  background: var(--paper); color: var(--ink);
+  transition: border-color 0.18s, background 0.18s, color 0.18s, transform 0.15s var(--ease), box-shadow 0.2s;
+}
+.ask-chip:hover { border-color: var(--ember); color: var(--ember); transform: translateY(-1px); }
+.ask-chip.is-on {
+  background: var(--ember); border-color: var(--ember); color: #fff;
+  box-shadow: 0 8px 18px -10px var(--ember);
+}
+.ask-chip.is-on::before { content: "✓ "; }
 .mini-counter { display: flex; align-items: center; gap: 0.5rem; }
 .mini-counter button { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--line-dark);
   background: var(--paper); font-size: 1.1rem; font-weight: 700; color: var(--ember); cursor: pointer; }

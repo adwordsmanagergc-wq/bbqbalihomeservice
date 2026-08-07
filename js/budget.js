@@ -20,7 +20,7 @@
   var tier = B.tiers.find(function (t) { return t.id === param("tier"); }) || B.tiers[0];
   var minGuests = tier.minGuests || P.MIN_GUESTS || 6;
 
-  var state = { guests: minGuests, area: P.AREAS[0].id, extras: {} };
+  var state = { guests: minGuests, area: P.AREAS[0].id, extras: {}, ask: {} };
 
   // Optional extras apply to the food packages only (not hire-only or enquire-only).
   var extrasEnabled = !!(B.extras && B.extras.length) && !tier.hireOnly && !tier.enquireOnly;
@@ -40,6 +40,8 @@
     extrasCard: document.getElementById("extras-card"),
     extrasNote: document.getElementById("extras-note"),
     extrasList: document.getElementById("extras-list"),
+    askCard: document.getElementById("ask-card"),
+    askList: document.getElementById("ask-list"),
     priceBody: document.getElementById("price-body"),
     priceIdr: document.getElementById("price-idr"),
     priceUsd: document.getElementById("price-usd"),
@@ -119,6 +121,7 @@
   function extrasTotal() {
     return chosenExtras().reduce(function (s, ex) { return s + extraPrice(ex); }, 0);
   }
+  function askSelected() { return (B.askAbout || []).filter(function (a) { return state.ask[a]; }); }
 
   function calc() {
     var food = tier.hireOnly ? 0 : tier.perPersonIdr * state.guests;
@@ -145,6 +148,8 @@
       L.push("• Menu: " + tier.name + " (" + tier.blurb + ")");
       L.push("• Guests: " + state.guests);
       L.push("• Location: " + areaLabel());
+      var a1 = askSelected();
+      if (a1.length) { L.push(""); L.push("🎪 Also interested in (please quote): " + a1.join(", ")); }
       L.push("");
       L.push("Please send me a quote. Thank you!");
       return L.join("\n");
@@ -178,6 +183,8 @@
     L.push("");
     L.push("💰 ESTIMATED TOTAL: " + idr(c.total));
     L.push("   USD alternative price: approx. " + usdWords(c.total));
+    var a2 = askSelected();
+    if (a2.length) { L.push(""); L.push("🎪 Also interested in (please quote): " + a2.join(", ")); }
     L.push("");
     L.push("Please confirm availability" + (tier.hireOnly ? "" : " and the full menu") + ". Thank you!");
     return L.join("\n");
@@ -256,5 +263,25 @@
       "https://wa.me/" + P.BUSINESS.whatsappNumber + "?text=" + encodeURIComponent(bookMessage()));
   }
 
+  // "Ask our team about" chips — tap to flag interest; added to the WhatsApp message.
+  function renderAsk() {
+    if (!el.askList) return;
+    if (!B.askAbout || !B.askAbout.length) { if (el.askCard) el.askCard.style.display = "none"; return; }
+    el.askList.innerHTML = B.askAbout.map(function (a) {
+      return '<button type="button" class="ask-chip' + (state.ask[a] ? " is-on" : "") +
+        '" data-ask="' + a + '" aria-pressed="' + (state.ask[a] ? "true" : "false") + '">' + a + "</button>";
+    }).join("");
+    el.askList.querySelectorAll("button[data-ask]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var a = btn.getAttribute("data-ask");
+        state.ask[a] = !state.ask[a];
+        btn.classList.toggle("is-on", state.ask[a]);
+        btn.setAttribute("aria-pressed", state.ask[a] ? "true" : "false");
+        render();  // refresh the book button href with the new selection
+      });
+    });
+  }
+
+  renderAsk();
   render();
 })();

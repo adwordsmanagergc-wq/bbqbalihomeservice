@@ -283,6 +283,13 @@ window.PRICING = {
       { id: "steak",         name: "Steak (1kg)",              idr: 1200000 },
       { id: "wagyu_steak",   name: "Wagyu Steak (1kg)",        idr: 2500000 },
     ],
+
+    /* Extra event services the guest can flag interest in (no price shown —
+     * the team quotes on WhatsApp). Tap to add them to your enquiry. */
+    askAbout: [
+      "Furniture hire", "Fire dancers", "Bar", "Bar staff", "Alcohol packages",
+      "Decorations", "Waiters", "Birthday cake", "DJ hire", "Decks hire", "Soft play hire",
+    ],
     // Guest-count discounts on the BBQ & Chef hire fee (ordered high → low by minGuests).
     // At 30+ the price stays full, but a 2nd BBQ and an extra chef are included.
     hireDiscounts: [
