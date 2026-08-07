@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-846645441"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-846645441');
+  </script>
   <title>Contact — BBQ Bali Home Service</title>
   <meta name="description" content="Book your Bali BBQ or request a quote for large groups and weddings (200+). WhatsApp click-to-chat, email, and an enquiry form for tailored catering." />
   <meta name="theme-color" content="#14100e" />
@@ -117,6 +125,7 @@
         if (g("type")) L.push("• Event type: " + g("type"));
         if (g("message")) L.push("• Notes: " + g("message"));
         L.push("", "Please send me a tailored quote. Thanks!");
+        if (window.waReportConversion) window.waReportConversion();
         window.open("https://wa.me/" + window.PRICING.BUSINESS.whatsappNumber + "?text=" + encodeURIComponent(L.join("\n")), "_blank", "noopener");
       });
     })();
