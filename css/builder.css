@@ -109,6 +109,24 @@
 .extra-row__info h4 { margin: 0 0 0.15rem; font-size: 1rem; }
 .extra-row__info p { margin: 0; font-size: 0.83rem; color: var(--muted); }
 .extra-row__price { font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+
+/* "Add" pill button for optional extras */
+.add-btn {
+  display: inline-flex; align-items: center; gap: 0.35rem; flex: none;
+  font: inherit; font-weight: 700; font-size: 0.9rem; line-height: 1; white-space: nowrap;
+  padding: 0.55rem 1.05rem; border-radius: 999px; cursor: pointer;
+  border: 1.5px solid var(--ember); background: transparent; color: var(--ember);
+  transition: background 0.18s, color 0.18s, transform 0.15s var(--ease), box-shadow 0.2s;
+}
+.add-btn:hover { background: rgba(224, 74, 47, 0.08); transform: translateY(-1px); }
+.add-btn:active { transform: translateY(0); }
+.add-btn.is-added {
+  background: var(--ember); color: #fff; border-color: var(--ember);
+  box-shadow: 0 8px 18px -10px var(--ember);
+}
+.add-btn.is-added:hover { background: var(--ember-dark); border-color: var(--ember-dark); }
+.extra-row.is-on { background: rgba(224, 74, 47, 0.03); border-radius: var(--radius-sm); }
+.extra-row.is-on h4 { color: var(--ember-dark); }
 .mini-counter { display: flex; align-items: center; gap: 0.5rem; }
 .mini-counter button { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--line-dark);
   background: var(--paper); font-size: 1.1rem; font-weight: 700; color: var(--ember); cursor: pointer; }

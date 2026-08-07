@@ -200,14 +200,15 @@
       ? "  (prices below are for " + state.guests + " guests)" : "");
     el.extrasList.innerHTML = B.extras.map(function (ex) {
       var on = !!state.extras[ex.id];
-      return '<div class="extra-row"><div class="extra-row__info"><h4>' + ex.name + "</h4>" +
+      return '<div class="extra-row' + (on ? " is-on" : "") + '"><div class="extra-row__info"><h4>' + ex.name + "</h4>" +
         '<p>' + idr(extraPrice(ex)) + "</p></div>" +
-        '<div class="extra-row__price"><label class="switch"><input type="checkbox" data-extra="' + ex.id + '"' +
-        (on ? " checked" : "") + '><span class="track"></span></label></div></div>';
+        '<button type="button" class="add-btn' + (on ? " is-added" : "") + '" data-extra="' + ex.id + '" aria-pressed="' +
+        (on ? "true" : "false") + '">' + (on ? "✓ Added" : "+ Add") + "</button></div>";
     }).join("");
-    el.extrasList.querySelectorAll("input[data-extra]").forEach(function (inp) {
-      inp.addEventListener("change", function () {
-        state.extras[inp.getAttribute("data-extra")] = inp.checked;
+    el.extrasList.querySelectorAll("button[data-extra]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-extra");
+        state.extras[id] = !state.extras[id];
         render();
       });
     });
