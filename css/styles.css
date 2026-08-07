@@ -338,6 +338,15 @@ ul { margin: 0; padding: 0; list-style: none; }
   box-shadow: 0 14px 34px -16px rgba(0,0,0,0.6); border-color: transparent; }
 .select--hero:focus { border-color: var(--ember); }
 
+/* Event-catering callout (under the budget dropdown) */
+.event-cta { display: inline-flex; align-items: center; gap: 0.65rem; max-width: 500px; width: 100%;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); border-radius: 14px;
+  padding: 0.85rem 1.1rem; color: var(--cream-dim); font-size: 0.98rem;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s var(--ease); }
+.event-cta:hover { background: rgba(255,255,255,0.1); border-color: var(--ember-glow); transform: translateY(-1px); }
+.event-cta strong { color: #fff; }
+.event-cta__icon { font-size: 1.2rem; flex: none; }
+
 /* ---- Footer ------------------------------------------------------------- */
 .site-footer { background: var(--charcoal-900); color: var(--cream-dim); padding-block: 3rem 2rem; }
 .footer-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }

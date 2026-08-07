@@ -54,6 +54,7 @@
                 <option value="" selected disabled>Select a budget option…</option>
               </select>
             </div>
+            <a class="event-cta mt-2" id="event-cta" target="_blank" rel="noopener"></a>
             <div class="btn-row mt-2">
               <a class="btn btn--ghost-light btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to ask about your at-home BBQ 🔥" target="_blank" rel="noopener">Chat on WhatsApp</a>
             </div>
@@ -168,6 +169,15 @@
       sel.addEventListener("change", function () {
         if (sel.value) window.location.href = "budget.html?tier=" + encodeURIComponent(sel.value);
       });
+
+      // Event catering callout under the dropdown
+      var ev = document.getElementById("event-cta"), e = P.BUDGET.eventCatering;
+      if (ev && e) {
+        ev.href = "https://wa.me/" + P.BUSINESS.whatsappNumber + "?text=" + encodeURIComponent(e.waText);
+        ev.innerHTML = '<span class="event-cta__icon" aria-hidden="true">🎉</span>' +
+          "<span><strong>" + e.text + "</strong> " + e.note + " — " + e.cta +
+          ' <span aria-hidden="true">→</span></span>';
+      }
     })();
   </script>
   <script src="js/main.js"></script>

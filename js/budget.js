@@ -30,6 +30,7 @@
     menuList: document.getElementById("menu-list"),
     menuPlaceholder: document.getElementById("menu-placeholder"),
     guestVal: document.getElementById("guest-val"),
+    guestFlag: document.getElementById("guest-flag"),
     area: document.getElementById("area-select"),
     priceBody: document.getElementById("price-body"),
     priceIdr: document.getElementById("price-idr"),
@@ -81,11 +82,23 @@
     var a = P.AREAS.find(function (x) { return x.id === state.area; });
     return a ? a.deliveryIdr : 0;
   }
+  // Guest-count discount on the hire fee (30+ keeps full price + 2nd BBQ/chef).
+  function hireInfo() {
+    var rules = B.hireDiscounts || [{ minGuests: 0, discount: 0 }];
+    var rule = rules.find(function (r) { return state.guests >= r.minGuests; }) || { discount: 0 };
+    var discount = rule.discount || 0;
+    var net = Math.round(B.hireIdr * (1 - discount));
+    return { discount: discount, net: net, full: B.hireIdr, saving: B.hireIdr - net, note: rule.note || "" };
+  }
   function calc() {
     var food = tier.perPersonIdr * state.guests;
-    var hire = B.hireIdr;
+    var h = hireInfo();
     var delivery = deliveryFee();
-    return { food: food, hire: hire, delivery: delivery, total: food + hire + delivery };
+    return {
+      food: food, hire: h.net, hireFull: h.full, hireDiscount: h.discount,
+      hireSaving: h.saving, hireNote: h.note, delivery: delivery,
+      total: food + h.net + delivery,
+    };
   }
 
   /* ---- WhatsApp message -------------------------------------------------- */
@@ -113,7 +126,9 @@
     if (tier.menu && tier.menu.length) L.push("• On the grill: " + tier.menu.join(", "));
     L.push("• Guests: " + state.guests);
     L.push("• Per person: " + idr(tier.perPersonIdr) + " → " + idr(c.food));
-    L.push("• BBQ & Chef hire: " + idr(c.hire));
+    L.push("• BBQ & Chef hire: " + idr(c.hire) +
+      (c.hireDiscount > 0 ? " (" + Math.round(c.hireDiscount * 100) + "% off)" : ""));
+    if (c.hireNote) L.push("   " + c.hireNote.replace(/&amp;/g, "&"));
     L.push("• Location: " + areaLabel() + (c.delivery > 0 ? " (delivery " + idr(c.delivery) + ")" : ""));
     L.push("");
     L.push("💰 ESTIMATED TOTAL: " + idr(c.total) + " (~ " + usd(c.total) + ")");
@@ -123,8 +138,18 @@
   }
 
   /* ---- Render ------------------------------------------------------------ */
+  function renderGuestFlag() {
+    if (!el.guestFlag) return;
+    var h = hireInfo();
+    var bits = [];
+    if (h.discount > 0) bits.push('<span class="pill pill--save">🎉 ' + Math.round(h.discount * 100) + "% off BBQ &amp; Chef hire</span>");
+    if (h.note) bits.push('<span class="pill">🔥 ' + h.note + "</span>");
+    el.guestFlag.innerHTML = bits.join(" ");
+  }
+
   function render() {
     el.guestVal.textContent = state.guests;
+    renderGuestFlag();
 
     if (tier.enquireOnly) {
       el.priceBody.innerHTML =
@@ -137,12 +162,20 @@
     } else {
       var c = calc();
       var area = P.AREAS.find(function (a) { return a.id === state.area; });
-      el.priceBody.innerHTML =
+      var hireLabel = "BBQ &amp; Chef hire" +
+        (c.hireDiscount > 0 ? ' <span class="pill" style="font-size:.68rem">' + Math.round(c.hireDiscount * 100) + "% off</span>" : "");
+      var hireAmt = (c.hireDiscount > 0 ? '<s style="color:var(--muted);font-weight:400">' + idr(c.hireFull) + "</s> " : "") + idr(c.hire);
+      var html =
         '<div class="review__line"><span>' + idr(tier.perPersonIdr) + " × " + state.guests + " guests</span>" +
           '<span class="amt">' + idr(c.food) + "</span></div>" +
-        '<div class="review__line"><span>BBQ &amp; Chef hire</span><span class="amt">' + idr(c.hire) + "</span></div>" +
-        '<div class="review__line"><span>Delivery — ' + area.label + '</span><span class="amt">' +
-          (c.delivery > 0 ? idr(c.delivery) : (area.confirm ? "TBC" : "Incl.")) + "</span></div>";
+        '<div class="review__line"><span>' + hireLabel + '</span><span class="amt">' + hireAmt + "</span></div>";
+      if (c.hireDiscount > 0)
+        html += '<div class="review__line is-save"><span>Group discount saving</span><span class="amt">− ' + idr(c.hireSaving) + "</span></div>";
+      if (c.hireNote)
+        html += '<div class="review__line is-save"><span>' + c.hireNote + '</span><span class="amt">✓</span></div>';
+      html += '<div class="review__line"><span>Delivery — ' + area.label + '</span><span class="amt">' +
+        (c.delivery > 0 ? idr(c.delivery) : (area.confirm ? "TBC" : "Incl.")) + "</span></div>";
+      el.priceBody.innerHTML = html;
       el.priceIdr.textContent = idr(c.total);
       el.priceUsd.textContent = "~ " + usd(c.total);
       el.bookBtn.textContent = "🟢 Chat with team to book";

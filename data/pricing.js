@@ -262,6 +262,21 @@ window.PRICING = {
     title: "Choose your budget",
     hireIdr: 1800000,                    // flat BBQ & Chef hire for budget options (1.8jt)
     menuNote: "Full menu coming soon — we'll walk you through every dish when you book.",
+    // Guest-count discounts on the BBQ & Chef hire fee (ordered high → low by minGuests).
+    // At 30+ the price stays full, but a 2nd BBQ and an extra chef are included.
+    hireDiscounts: [
+      { minGuests: 30, discount: 0,   note: "Includes a 2nd BBQ &amp; an extra chef" },
+      { minGuests: 20, discount: 0.5 },
+      { minGuests: 10, discount: 0.3 },
+      { minGuests: 0,  discount: 0 },
+    ],
+    eventCatering: {
+      minGuests: 50,
+      text: "Event catering?",
+      note: "50+ guests",
+      cta: "Chat with the team",
+      waText: "Hi BBQ Bali Home Service! 🔥 I'd like to enquire about event catering for 50+ guests. Could you help with a tailored quote?",
+    },
     tiers: [
       {
         id: "impressive", name: "Impressive Budget Option",
