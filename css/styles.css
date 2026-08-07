@@ -354,6 +354,29 @@ ul { margin: 0; padding: 0; list-style: none; }
 .event-cta strong { color: #fff; }
 .event-cta__icon { font-size: 1.2rem; flex: none; }
 
+/* Instagram CTA card (home page, under hero) */
+.ig-cta { display: grid; grid-template-columns: 1fr; background: var(--paper); color: var(--ink);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft);
+  border: 1px solid var(--line-dark); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); }
+.ig-cta:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+@media (min-width: 720px) { .ig-cta { grid-template-columns: 320px 1fr; align-items: stretch; } }
+.ig-cta__media { background-size: cover; background-position: center; min-height: 220px; position: relative; }
+.ig-cta__media::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(45deg, rgba(214,41,118,0.28), rgba(79,91,213,0.22)); }
+.ig-cta__body { padding: clamp(1.4rem, 4vw, 2.2rem); display: flex; flex-direction: column;
+  justify-content: center; gap: 0.55rem; }
+.ig-cta__body h2 { font-size: clamp(1.4rem, 3vw, 2rem); margin: 0; }
+.ig-cta__body p { color: var(--muted); margin: 0; }
+.ig-cta__badge { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #fff;
+  padding: 0.3rem 0.7rem; border-radius: 999px;
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); }
+.ig-btn { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.55rem; margin-top: 0.6rem;
+  font-weight: 800; color: #fff; padding: 0.85rem 1.5rem; border-radius: 999px; font-size: 1rem;
+  background: linear-gradient(45deg, #feda75 0%, #fa7e1e 25%, #d62976 55%, #962fbf 78%, #4f5bd5 100%);
+  box-shadow: 0 12px 26px -12px rgba(214,41,118,0.75); transition: filter 0.2s, transform 0.2s var(--ease); }
+.ig-cta:hover .ig-btn { filter: brightness(1.06); }
+
 /* ---- Footer ------------------------------------------------------------- */
 .site-footer { background: var(--charcoal-900); color: var(--cream-dim); padding-block: 3rem 2rem; }
 .footer-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
