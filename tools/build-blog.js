@@ -124,7 +124,10 @@ function footer() {
   <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" ${ONCLICK}>🟢</a>
 
   <script src="data/pricing.js"></script>
-  <script src="js/main.js"></script>`;
+  <script src="js/main.js"></script>
+  <!-- Vercel Web Analytics (static-site snippet) -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>`;
 }
 
 /* ---- schema.org objects ------------------------------------------------- */
