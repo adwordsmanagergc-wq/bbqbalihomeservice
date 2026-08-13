@@ -153,7 +153,6 @@
 
     $("#btn-pdf").addEventListener("click", function () { downloadPdf(); });
     $("#btn-print").addEventListener("click", function () { window.print(); });
-    $("#btn-send").addEventListener("click", function () { sendToClient(); });
     $("#btn-new").addEventListener("click", function () { startNew(); });
 
     // Tabs
@@ -299,26 +298,6 @@
   function downloadPdf() {
     commitRecord();
     buildPdf(state).then(function (doc) { doc.save(state.number + ".pdf"); });
-  }
-
-  function sendToClient() {
-    if (!state.client.email) { alert("Add the client's email first."); return; }
-    commitRecord();
-    var total = C.currencyLabel + " " + fmt(invoiceTotal(state.items));
-    var bankTxt = C.bank.heading + ":\n" + C.bank.accountName + "\n" + C.bank.bankName + "\n" + C.bank.accountNumber;
-    var map = {
-      "{name}": state.client.name || "there", "{number}": state.number, "{total}": total,
-      "{date}": dmy(state.dateISO), "{bank}": bankTxt, "{signoff}": C.signOff,
-      "{business}": C.business.name, "{website}": C.business.website,
-    };
-    function tpl(s) { return s.replace(/\{name\}|\{number\}|\{total\}|\{date\}|\{bank\}|\{signoff\}|\{business\}|\{website\}/g, function (m) { return map[m]; }); }
-    var subject = tpl(C.emailSubject), body = tpl(C.emailBody);
-    // Download the PDF so it can be attached, then open the mail app.
-    buildPdf(state).then(function (doc) {
-      doc.save(state.number + ".pdf");
-      window.location.href = "mailto:" + encodeURIComponent(state.client.email) +
-        "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-    });
   }
 
   /* ══════════════════════════════════════════════════════════════════════
