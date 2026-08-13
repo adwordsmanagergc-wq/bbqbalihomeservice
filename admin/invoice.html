@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Invoice Generator — BBQ Bali Home Service</title>
+  <link rel="icon" href="../assets/img/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="invoice.css" />
+</head>
+<body class="inv-body">
+
+  <!-- ── Passcode gate ─────────────────────────────────────────────── -->
+  <div class="gate" id="gate">
+    <div class="gate__card">
+      <img src="../assets/img/logo.svg" alt="BBQ Bali Home Service" />
+      <h1>Invoice Generator</h1>
+      <p>Enter the passcode to continue.</p>
+      <input id="gate-pass" type="password" autocomplete="off" autocapitalize="none" autocorrect="off"
+             spellcheck="false" placeholder="Passcode" aria-label="Passcode" />
+      <div class="gate__err" id="gate-err" role="alert"></div>
+      <button class="btn btn--primary" id="gate-btn" type="button">Unlock</button>
+    </div>
+  </div>
+
+  <!-- ── App ───────────────────────────────────────────────────────── -->
+  <div class="inv-app" id="app" hidden>
+    <div class="inv-top">
+      <div class="inv-top__brand">
+        <img src="../assets/img/logo.svg" alt="" />
+        <span>Invoice Generator<small>BBQ Bali Home Service</small></span>
+      </div>
+      <div class="inv-tabs">
+        <button data-view="builder" class="is-active" type="button">Builder</button>
+        <button data-view="records" type="button">Records</button>
+      </div>
+    </div>
+
+    <!-- ═══ BUILDER ═══ -->
+    <section class="inv-view" data-view="builder">
+      <div class="inv-mobtabs">
+        <button data-m="edit" class="is-active" type="button">Edit</button>
+        <button data-m="preview" type="button">Preview</button>
+      </div>
+
+      <div class="inv-grid m-edit" id="builder-grid">
+        <!-- Editor -->
+        <div class="inv-form-col">
+          <div class="inv-card">
+            <h2>Invoice details</h2>
+            <div class="inv-row2">
+              <div class="inv-field"><label for="f-number">Invoice no. (auto)</label><input id="f-number" type="text" /></div>
+              <div class="inv-field"><label for="f-date">Date of BBQ</label><input id="f-date" type="date" /></div>
+            </div>
+            <div class="inv-field"><label for="f-location">Location</label><input id="f-location" type="text" placeholder="e.g. Seseh" /></div>
+          </div>
+
+          <div class="inv-card">
+            <h2>Bill to</h2>
+            <div class="inv-field"><label for="f-name">Client name</label><input id="f-name" type="text" placeholder="e.g. Sole" /></div>
+            <div class="inv-field"><label for="f-address">Client address</label><textarea id="f-address" placeholder="Street&#10;Area, Bali"></textarea></div>
+            <div class="inv-field"><label for="f-email">Client email (for sending)</label><input id="f-email" type="email" placeholder="client@email.com" /></div>
+          </div>
+
+          <div class="inv-card">
+            <h2>Line items</h2>
+            <table class="items">
+              <thead><tr>
+                <th class="col-type">Product type</th><th class="col-desc">Description</th>
+                <th class="col-qty">Unit</th><th class="col-price">Price</th>
+                <th class="col-amt">Amount</th><th class="col-x"></th>
+              </tr></thead>
+              <tbody id="items-body"></tbody>
+            </table>
+            <div class="items-foot">
+              <button class="add-row" id="add-row" type="button">+ Add row</button>
+              <div class="items-total" id="items-total">IDR 0</div>
+            </div>
+          </div>
+
+          <div class="inv-toolbar">
+            <button class="btn btn--primary" id="btn-pdf" type="button">⬇ Download PDF</button>
+            <button class="btn btn--ghost" id="btn-print" type="button">🖨 Print</button>
+            <button class="btn btn--wa" id="btn-send" type="button">✉ Send to client</button>
+            <button class="btn btn--ghost" id="btn-new" type="button">＋ Start new invoice</button>
+          </div>
+        </div>
+
+        <!-- Live preview -->
+        <div class="inv-preview-col">
+          <div class="inv-preview-wrap" id="pv-wrap">
+            <div class="inv-preview" id="preview"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ RECORDS ═══ -->
+    <section class="inv-view" data-view="records" hidden>
+      <div class="rec-summary">
+        <div class="rec-stat"><b id="sum-invoiced">IDR 0</b><span>Invoiced</span></div>
+        <div class="rec-stat rec-stat--paid"><b id="sum-paid">IDR 0</b><span>Paid</span></div>
+        <div class="rec-stat rec-stat--out"><b id="sum-out">IDR 0</b><span>Outstanding</span></div>
+        <div class="rec-stat"><b id="sum-count">0</b><span>Invoices</span></div>
+      </div>
+
+      <div class="rec-controls">
+        <div class="inv-field">
+          <label for="rec-period">Period</label>
+          <select id="rec-period">
+            <option value="all">All time</option>
+            <option value="thisTax">This tax year (6 Apr – 5 Apr)</option>
+            <option value="lastTax">Last tax year</option>
+            <option value="thisMonth">This month</option>
+            <option value="custom">Custom range…</option>
+          </select>
+        </div>
+        <div class="inv-field" id="rec-custom" hidden>
+          <label>From / To</label>
+          <span style="display:flex;gap:.4rem"><input type="date" id="rec-from" /><input type="date" id="rec-to" /></span>
+        </div>
+        <div class="inv-field"><label for="rec-search">Search</label><input type="text" id="rec-search" placeholder="Client or number" /></div>
+        <div class="inv-field">
+          <label for="rec-status">Status</label>
+          <select id="rec-status"><option value="all">All</option><option value="unpaid">Unpaid</option><option value="paid">Paid</option></select>
+        </div>
+        <button class="btn-sm" id="rec-csv" type="button">⬇ Export CSV</button>
+      </div>
+
+      <div class="rec-tables">
+        <table class="mini-table" id="bd-year"></table>
+        <table class="mini-table" id="bd-month"></table>
+      </div>
+
+      <div class="rec-list-scroll">
+        <table class="rec-list">
+          <thead><tr>
+            <th>Date</th><th>Invoice</th><th>Client</th><th class="num">Amount</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="rec-rows"></tbody>
+        </table>
+      </div>
+
+      <div class="rec-io">
+        <button class="btn-sm" id="rec-backup" type="button">⬇ Back up (JSON)</button>
+        <label class="btn-sm" for="rec-restore-file">⬆ Restore (JSON)</label>
+        <input type="file" id="rec-restore-file" accept="application/json" hidden />
+      </div>
+      <p style="color:var(--muted);font-size:.82rem;margin-top:1rem">Records are stored only in this browser. Back up regularly and keep the JSON file safe.</p>
+    </section>
+  </div>
+
+  <!-- Config first, then the PDF libraries (vendored locally, loaded only on this route), then the app. -->
+  <script src="invoice-config.js"></script>
+  <script defer src="vendor/jspdf.umd.min.js"></script>
+  <script defer src="vendor/jspdf.plugin.autotable.min.js"></script>
+  <script defer src="invoice.js"></script>
+</body>
+</html>
