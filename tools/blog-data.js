@@ -415,4 +415,54 @@ const POSTS = [
   },
 ];
 
-module.exports = { SITE, ZONES, POSTS };
+/* ════════════════════════════════════════════════════════════════════════
+ *  PILLAR POST — the flagship page targeting the head term "BBQ Catering Bali".
+ *  H1 = "BBQ Catering Bali". Generated to /bbq-catering-bali.html and featured
+ *  at the top of the blog index. Links out to home, packages, budget & FAQs.
+ * ════════════════════════════════════════════════════════════════════════ */
+const PILLAR = {
+  slug: "bbq-catering-bali",
+  h1: "BBQ Catering Bali",
+  title: "BBQ Catering Bali — Private Villa & At-Home BBQ Catering | BBQ Bali Home Service",
+  metaDesc:
+    "BBQ catering in Bali brought to your villa — private chef, full BBQ setup and fresh food. Packages from $11 USD per person. Weddings, parties & events. Book on WhatsApp.",
+  lead:
+    "The complete guide to BBQ catering in Bali — packages, prices, what's included, the areas we cover and how to book. We bring the grill, the chef and the food to your villa.",
+  intro: [
+    "Looking for <strong>BBQ catering in Bali</strong>? We bring a full barbecue and a private chef straight to your villa, garden or beach house — anywhere on the island. You choose the menu and the guest count; we arrive with the BBQ, the charcoal and gas, fresh food bought that morning, and a chef who grills everything, serves it buffet-style and cleans up before leaving.",
+    "It's the easiest way to feed a group in Bali. No booking a restaurant table for twenty, no taxis across town, no cooking or washing up — just a fresh, flame-grilled feast where you're already staying. We cater everything from a 6-person villa dinner to 200+ guest weddings, with per-person pricing that gets better as your group grows.",
+  ],
+  // Package summaries (mirrors data/pricing.js — link to menu/budget for live prices).
+  packages: [
+    { name: "Impressive Budget Option", price: "from IDR 200,000 / person", min: "min 10 guests",
+      desc: "Our best-value crowd-pleaser: satay chicken skewers, beef tandoori skewers, BBQ chicken wings, salad, wedges and sauces.", href: "budget.html?tier=impressive" },
+    { name: "Magic Middle of the Range", price: "from IDR 450,000 / person", min: "min 6 guests",
+      desc: "A step up with juicy sirloin steak and slow-cooked pork ribs, rounded out with coleslaw and potato wedges.", href: "budget.html?tier=middle" },
+    { name: "Premium (Surf & Turf)", price: "from IDR 600,000 / person", min: "min 6 guests",
+      desc: "The full ocean-and-land feast: sirloin steak, prawns, whole red snapper, chicken and sausages with salads and sauces.", href: "budget.html?tier=premium" },
+    { name: "BBQ & Chef Hire Only", price: "from IDR 1,800,000 + delivery", min: "you buy the food",
+      desc: "Prefer to shop yourself? We bring the BBQ, charcoal, gas and chef to cook the food you provide.", href: "budget.html?tier=hireonly" },
+    { name: "Top of the Range", price: "Please enquire", min: "bespoke",
+      desc: "Wagyu steak and lobster — a luxury menu tailored to you. Ask us for a quote.", href: "contact.html" },
+  ],
+  faqs: [
+    { q: "What is BBQ catering in Bali and how does it work?",
+      a: "BBQ catering means we bring everything to your villa: the barbecue, charcoal and gas, a private chef and all the food. You pick a menu and guest count and send your order on WhatsApp; we confirm the date and price, you pay a 50% deposit, and on the day your chef arrives, cooks a fresh feast buffet-style and cleans up afterwards." },
+    { q: "How much does BBQ catering cost in Bali?",
+      a: "Menus start from around $11 USD (about IDR 200,000) per person, and the per-person price drops as your group grows (6–9, 10–19 and 20+ guest tiers). A flat BBQ & chef hire fee of IDR 1,800,000 applies to every booking — discounted 20% for 10+ guests and 50% for 20+ — plus a delivery fee based on your area. Our menu and budget pages show exact prices live in IDR and USD." },
+    { q: "What's included in the price?",
+      a: "Everything for the BBQ: your private chef, the full BBQ setup, charcoal and gas, all the food, buffet-style serving, plus setup and clean-up. You just provide the space and the guests." },
+    { q: "Do you cater weddings and large events?",
+      a: "Yes — we regularly cater parties, retreats and weddings for 200+ guests, and can add a second BBQ, extra chefs, a bartender and waitstaff. For big events, send us an enquiry through the contact page and we'll build a tailored quote." },
+    { q: "Which areas of Bali do you cover?",
+      a: "Most of the island. Delivery is a flat IDR 200,000 around Canggu, Berawa, Pererenan, Seminyak and Kerobokan; IDR 250,000 for Umalas, Kuta, Legian and Jimbaran; and IDR 375,000 for Ubud, Sanur and Uluwatu. Somewhere else? We'll confirm on WhatsApp." },
+    { q: "What's the minimum number of guests?",
+      a: "Our minimum booking is 6 guests, and there's no real maximum — we scale from intimate dinners to 200+ guest events." },
+    { q: "Do you offer vegetarian or vegan options?",
+      a: "Yes. We can add vegetarian and vegan plates — grilled vegetables, tofu and plant-based skewers — so mixed groups are easy to cater. Just let us know when you book." },
+    { q: "Can I book BBQ catering for the same day?",
+      a: "Often, yes — same-day BBQ is possible as long as your booking is confirmed before 11am, which gives us time to shop for fresh ingredients and prepare." },
+  ],
+};
+
+module.exports = { SITE, ZONES, POSTS, PILLAR };

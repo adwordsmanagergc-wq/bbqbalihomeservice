@@ -13,7 +13,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const { SITE, ZONES, POSTS } = require("./blog-data");
+const { SITE, ZONES, POSTS, PILLAR } = require("./blog-data");
 
 const ROOT = path.join(__dirname, "..");
 const GTAG_ID = "AW-846645441";
@@ -330,6 +330,154 @@ ${footer()}
 `;
 }
 
+/* ---- render the flagship "BBQ Catering Bali" pillar post ---------------- */
+function renderPillar() {
+  const P = PILLAR;
+  const url = SITE.domain + "/" + P.slug + ".html";
+  const bookText = "Hi BBQ Bali Home Service! 🔥 I'd like to book BBQ catering in Bali. Could you help with availability and a price?";
+  const bookHref = waHref(bookText);
+
+  const pkgCards = P.packages.map((pk) =>
+    `<article class="card pkg">
+            <div class="pkg__body">
+              <h3>${pk.name}</h3>
+              <div class="pkg__sub">${pk.price} · ${pk.min}</div>
+              <p class="text-muted" style="font-size:.92rem">${pk.desc}</p>
+              <a class="btn btn--primary" href="${pk.href}" style="margin-top:auto;align-self:flex-start">Choose &amp; order →</a>
+            </div>
+          </article>`).join("\n          ");
+
+  const areaLinks = POSTS.map((p) => `<a class="related-chip" href="bbq-${p.slug}.html">BBQ ${p.area}</a>`).join("");
+
+  const faqHtml = P.faqs.map((f, i) => {
+    const pid = "faq-panel-" + i;
+    return `<div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="${pid}"><span>${f.q}</span><span class="acc-icon" aria-hidden="true"></span></button>
+          <div class="acc-panel" id="${pid}" role="region"><div class="acc-panel__inner"><p>${f.a}</p></div></div>
+        </div>`;
+  }).join("\n        ");
+
+  const jsonld = [
+    localBusinessLD(null),
+    {
+      "@context": "https://schema.org", "@type": "Article",
+      headline: P.h1, description: P.metaDesc, image: SITE.domain + "/" + SITE.heroImage,
+      author: { "@type": "Organization", name: SITE.name },
+      publisher: { "@type": "Organization", name: SITE.name, logo: { "@type": "ImageObject", url: SITE.domain + "/" + SITE.logo } },
+      mainEntityOfPage: url, about: "BBQ catering in Bali",
+    },
+    {
+      "@context": "https://schema.org", "@type": "Service",
+      serviceType: "BBQ catering", provider: { "@id": SITE.domain + "/#business" },
+      areaServed: "Bali, Indonesia", name: "BBQ Catering Bali",
+      offers: P.packages.map((pk) => ({ "@type": "Offer", name: pk.name, description: pk.desc })),
+    },
+    faqLD(P.faqs),
+    breadcrumbLD([
+      { name: "Home", url: SITE.domain + "/" },
+      { name: "Blog", url: SITE.domain + "/blog.html" },
+      { name: P.h1, url },
+    ]),
+  ];
+
+  return `<!DOCTYPE html>
+<html lang="en">
+${head({ title: P.title, description: P.metaDesc, canonical: url, jsonld })}
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+${nav("blog.html")}
+
+  <main id="main">
+    <article class="blog-post">
+      <header class="section--tight band-charcoal">
+        <div class="wrap" style="padding-block:2.4rem 2rem">
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">›</span> <a href="blog.html">Blog</a> <span aria-hidden="true">›</span> <span>${P.h1}</span></nav>
+          <span class="eyebrow eyebrow--light">Private BBQ &amp; Chef Hire · All of Bali</span>
+          <h1 style="color:#fff">${P.h1}</h1>
+          <p class="lead" style="color:var(--cream-dim)">${P.lead}</p>
+          <div class="btn-row mt-2">
+            <a class="btn btn--wa btn--lg" href="${attr(bookHref)}" target="_blank" rel="noopener" ${ONCLICK}>🟢 Book BBQ catering</a>
+            <a class="btn btn--ghost-light btn--lg" href="menu.html">See menus &amp; prices →</a>
+          </div>
+        </div>
+      </header>
+
+      <div class="section">
+        <div class="wrap blog-prose">
+          ${P.intro.map((p) => `<p>${p}</p>`).join("\n          ")}
+
+          <h2>Our Bali BBQ catering packages</h2>
+          <p>Every package is cooked fresh at your villa and served buffet-style. Browse them all on our <a href="menu.html">menu &amp; prices</a> page, or start from a <a href="index.html">budget option on the home page</a>.</p>
+        </div>
+        <div class="wrap" style="margin-top:1.4rem">
+          <div class="grid grid--3">
+          ${pkgCards}
+          </div>
+        </div>
+
+        <div class="wrap blog-prose" style="margin-top:2rem">
+          <h2>What's included</h2>
+          <ul class="check-list">
+            <li>A private chef who grills everything fresh and serves it buffet-style</li>
+            <li>The full mobile BBQ setup, charcoal &amp; gas — nothing for you to buy</li>
+            <li>Fresh food shopped that morning and cooked at your villa</li>
+            <li>Complete setup and clean-up — you don't lift a finger</li>
+          </ul>
+
+          <h2>How our BBQ catering works</h2>
+          <ol class="steps-list">
+            <li><strong>Pick your menu &amp; price.</strong> Choose a package or build your own on the <a href="menu.html">menu &amp; prices</a> page, or a <a href="index.html">budget option</a> from the home page.</li>
+            <li><strong>Send it on WhatsApp.</strong> Your order and total pre-fill a message. We confirm your date, details and final price.</li>
+            <li><strong>Secure the date.</strong> A 50% deposit holds your booking; the balance is paid on the day.</li>
+            <li><strong>We fire up the grill.</strong> Your chef arrives, cooks a fresh feast and tidies away. Read more on <a href="about.html">how it works</a>.</li>
+          </ol>
+
+          <h2>BBQ catering prices in Bali</h2>
+          <p>Menus start from around <strong>$${SITE.fromUsd} USD per person</strong> (about IDR 200,000), dropping as your group grows across the 6–9, 10–19 and 20+ guest tiers. A flat BBQ &amp; chef hire fee of IDR ${SITE.hireFeeIdr.toLocaleString("en-US")} applies to every booking — discounted <strong>20% for 10+ guests</strong> and <strong>50% for 20+</strong>, and at 30+ guests we add a second BBQ and an extra chef. A delivery fee applies by area (from IDR 200,000). See exact totals live in IDR and USD on the <a href="menu.html">menu &amp; prices</a> and <a href="budget.html?tier=impressive">budget</a> pages.</p>
+
+          <h2>Areas we cover across Bali</h2>
+          <p>We bring BBQ catering to villas right across the island. Read the guide for your area:</p>
+          <div class="related-row" style="margin:.4rem 0 .6rem">${areaLinks}</div>
+
+          <h2>Events we cater</h2>
+          <p>From relaxed villa dinners to full celebrations — birthdays, hen and stag weekends, corporate retreats, family holidays and <strong>weddings for 200+ guests</strong>. Planning something big? <a href="contact.html">Request a tailored quote</a> and we'll build a bespoke menu with extra chefs, a bar and waitstaff.</p>
+
+          <div class="cta-band">
+            <h2 style="color:#fff;margin-bottom:.4rem">Ready to book BBQ catering in Bali?</h2>
+            <p style="color:var(--cream-dim);margin-bottom:1.2rem">Message us with your date, villa area and guest count — we reply quickly and can often cater same-day before ${SITE.bookingCutoff}.</p>
+            <div class="btn-row" style="justify-content:center">
+              <a class="btn btn--wa btn--lg" href="${attr(bookHref)}" target="_blank" rel="noopener" ${ONCLICK}>🟢 Chat on WhatsApp</a>
+              <a class="btn btn--ghost-light btn--lg" href="menu.html">Build your BBQ →</a>
+            </div>
+          </div>
+
+          <h2 id="faq">BBQ catering Bali — FAQs</h2>
+          <p class="text-muted" style="font-size:.92rem">More answers on our <a href="faq.html">full FAQ page</a>.</p>
+          <div class="accordion accordion--left">
+        ${faqHtml}
+          </div>
+
+          <div class="related">
+            <h3>Explore more</h3>
+            <div class="related-row">
+              <a class="related-chip" href="index.html">Home</a>
+              <a class="related-chip" href="menu.html">Menu &amp; prices</a>
+              <a class="related-chip" href="faq.html">FAQ</a>
+              <a class="related-chip" href="contact.html">Contact</a>
+              <a class="related-chip related-chip--all" href="blog.html">All areas →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+${footer()}
+</body>
+</html>
+`;
+}
+
 /* ---- render the blog index ---------------------------------------------- */
 function renderIndex() {
   const url = SITE.domain + "/blog.html";
@@ -350,12 +498,13 @@ function renderIndex() {
   const itemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: POSTS.map((p, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: "BBQ " + p.area,
-      url: SITE.domain + "/bbq-" + p.slug + ".html",
-    })),
+    itemListElement: [{ "@type": "ListItem", position: 1, name: PILLAR.h1, url: SITE.domain + "/" + PILLAR.slug + ".html" }].concat(
+      POSTS.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 2,
+        name: "BBQ " + p.area,
+        url: SITE.domain + "/bbq-" + p.slug + ".html",
+      }))),
   };
   const jsonld = [
     localBusinessLD(null),
@@ -393,8 +542,22 @@ ${nav("blog.html")}
       </div>
     </section>
 
+    <section class="section" style="padding-bottom:0">
+      <div class="wrap">
+        <a class="card blog-card blog-card--feature reveal" href="${PILLAR.slug}.html">
+          <div class="blog-card__body">
+            <span class="eyebrow">Start here · Guide</span>
+            <h2 style="margin:.1rem 0 .5rem">${PILLAR.h1}: the complete guide</h2>
+            <p class="text-muted">${PILLAR.metaDesc}</p>
+            <span class="blog-card__link">Read the full guide →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
     <section class="section">
       <div class="wrap">
+        <div class="center" style="margin-bottom:1.6rem"><span class="eyebrow">By area</span><h2>Villa BBQ, neighbourhood by neighbourhood</h2></div>
         <div class="grid grid--3">
 ${cards}
         </div>
@@ -431,6 +594,7 @@ function renderSitemap() {
     { loc: "/contact.html", pri: "0.7" },
     { loc: "/gallery.html", pri: "0.5" },
     { loc: "/blog.html", pri: "0.8" },
+    { loc: "/" + PILLAR.slug + ".html", pri: "0.9" },
   ];
   const postPages = POSTS.map((p) => ({ loc: "/bbq-" + p.slug + ".html", pri: "0.8" }));
   const urls = staticPages.concat(postPages).map((u) =>
@@ -451,6 +615,8 @@ function main() {
     fs.writeFileSync(file, renderPost(p));
     written.push("bbq-" + p.slug + ".html");
   });
+  fs.writeFileSync(path.join(ROOT, PILLAR.slug + ".html"), renderPillar());
+  written.push(PILLAR.slug + ".html");
   fs.writeFileSync(path.join(ROOT, "blog.html"), renderIndex());
   written.push("blog.html");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"), renderSitemap());

@@ -20,6 +20,10 @@
   padding-top: 0.6rem; border-top: 1px solid var(--line-dark); }
 .blog-card__link { margin-top: 0.7rem; font-weight: 800; color: var(--ink); font-size: 0.95rem; }
 .blog-card:hover .blog-card__link { color: var(--ember); }
+.blog-card--feature { border: 2px solid var(--ember); background:
+  linear-gradient(180deg, rgba(224,74,47,.05), transparent 60%), var(--paper); }
+.blog-card--feature h2 { font-size: clamp(1.4rem, 3.4vw, 2rem); }
+.blog-card--feature .blog-card__body { padding: clamp(1.4rem, 4vw, 2rem); }
 
 /* ---- Article prose ------------------------------------------------------ */
 .blog-prose { max-width: 760px; }
