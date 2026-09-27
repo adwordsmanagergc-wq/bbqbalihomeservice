@@ -423,9 +423,9 @@ const POSTS = [
 const PILLAR = {
   slug: "bbq-catering-bali",
   h1: "BBQ Catering Bali",
-  title: "BBQ Catering Bali — Private Villa & At-Home BBQ Catering | BBQ Bali Home Service",
+  title: "BBQ Catering Bali — Private Villa & At-Home BBQ Catering",
   metaDesc:
-    "BBQ catering in Bali brought to your villa — private chef, full BBQ setup and fresh food. Packages from $11 USD per person. Weddings, parties & events. Book on WhatsApp.",
+    "BBQ catering in Bali brought to your villa — private chef, full setup and fresh food. Packages from $11 USD per person. Book on WhatsApp.",
   lead:
     "The complete guide to BBQ catering in Bali — packages, prices, what's included, the areas we cover and how to book. We bring the grill, the chef and the food to your villa.",
   intro: [

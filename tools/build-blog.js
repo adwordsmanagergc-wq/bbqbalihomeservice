@@ -43,6 +43,8 @@ function head(opts) {
   return `<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}"></script>
   <script>
@@ -70,11 +72,18 @@ function head(opts) {
   <meta name="description" content="${attr(opts.description)}" />
   <meta name="theme-color" content="#14100e" />
   <link rel="canonical" href="${opts.canonical}" />
+  <meta property="og:site_name" content="${attr(SITE.name)}" />
   <meta property="og:title" content="${attr(opts.title)}" />
   <meta property="og:description" content="${attr(opts.description)}" />
-  <meta property="og:type" content="article" />
+  <meta property="og:type" content="${opts.ogType || "article"}" />
   <meta property="og:url" content="${opts.canonical}" />
   <meta property="og:image" content="${SITE.domain}/${SITE.heroImage}" />
+  <meta property="og:image:alt" content="A private chef grilling a fresh BBQ feast at a Bali villa" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${attr(opts.title)}" />
+  <meta name="twitter:description" content="${attr(opts.description)}" />
+  <meta name="twitter:image" content="${SITE.domain}/${SITE.heroImage}" />
   <link rel="icon" href="assets/img/favicon.png" type="image/png" /><link rel="apple-touch-icon" href="assets/img/favicon.png" />
   ${styles}
   ${ld}
@@ -244,7 +253,7 @@ function renderPost(post) {
   return `<!DOCTYPE html>
 <html lang="en">
 ${head({
-    title: `BBQ ${post.area} — At-Home & Villa BBQ Catering | BBQ Bali Home Service`,
+    title: `BBQ ${post.area} — Villa & At-Home BBQ Catering`,
     description: post.metaDesc,
     canonical: url,
     jsonld,
@@ -518,10 +527,11 @@ function renderIndex() {
   return `<!DOCTYPE html>
 <html lang="en">
 ${head({
-    title: "BBQ Bali by Area — Villa & At-Home BBQ Catering Blog | BBQ Bali Home Service",
+    title: "BBQ Bali by Area — Villa & At-Home BBQ Catering Guide",
     description:
       "Villa and at-home BBQ catering across Bali, area by area — Canggu, Seminyak, Uluwatu, Ubud, Jimbaran and more. Tips, ideas and how to book your BBQ.",
     canonical: url,
+    ogType: "website",
     jsonld,
   })}
 <body>
