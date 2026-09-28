@@ -25,7 +25,7 @@ const SITE = {
   minGuests: 6,
   fromUsd: 11,
   bookingCutoff: "11am",
-  logo: "assets/img/logo.svg",
+  logo: "assets/img/logo.png",
   heroImage: "assets/img/bbq-in-action.jpg",
 };
 

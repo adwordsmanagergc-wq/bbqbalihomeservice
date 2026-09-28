@@ -34,7 +34,7 @@ const WIDTHS = [480, 768, 1200];
 
   // Slim logo.svg: a minimal wrapper embedding the optimised PNG (universally
   // supported inside <img>-loaded SVG), so every existing
-  // <img src="assets/img/logo.svg"> shrinks from 174KB to a few KB.
+  // <img src="assets/img/logo.png"> shrinks from 174KB to a few KB.
   const pngB64 = fs.readFileSync(path.join(IMG, "logo.png")).toString("base64");
   const slim = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 220 220" width="220" height="220"><image width="220" height="220" xlink:href="data:image/png;base64,${pngB64}"/></svg>`;
   fs.writeFileSync(logoSrc, slim);

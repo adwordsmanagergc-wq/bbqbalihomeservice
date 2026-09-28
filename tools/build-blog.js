@@ -109,7 +109,7 @@ function nav(current) {
   }).join("");
   return `  <header class="site-header">
     <div class="wrap nav">
-      <a class="brand" href="/" aria-label="BBQ Bali Home Service home"><span class="brand__mark" aria-hidden="true"><img src="assets/img/logo.svg" alt="" /></span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a>
+      <a class="brand" href="/" aria-label="BBQ Bali Home Service home"><span class="brand__mark" aria-hidden="true"><img src="assets/img/logo.png" alt="" /></span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a>
       <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
       <div class="nav__menu" id="nav-menu">
         <nav class="nav__links" aria-label="Primary">
@@ -125,7 +125,7 @@ function footer() {
   return `  <footer class="site-footer">
     <div class="wrap">
       <div class="footer-grid">
-        <div><a class="brand" href="/"><span class="brand__mark" aria-hidden="true"><img src="assets/img/logo.svg" alt="" /></span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a><p class="text-muted" style="margin-top:1rem;font-size:.9rem">At-home BBQ &amp; private chef hire across Bali.</p></div>
+        <div><a class="brand" href="/"><span class="brand__mark" aria-hidden="true"><img src="assets/img/logo.png" alt="" /></span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a><p class="text-muted" style="margin-top:1rem;font-size:.9rem">At-home BBQ &amp; private chef hire across Bali.</p></div>
         <div><h4>Explore</h4><ul class="footer-links"><li><a href="menu.html">Menu &amp; Prices</a></li><li><a href="about.html">How It Works</a></li><li><a href="https://www.instagram.com/bbqbalihomeservice/" data-ig target="_blank" rel="noopener">Gallery</a></li><li><a href="faq.html">FAQ</a></li><li><a href="blog.html">Areas</a></li><li><a href="contact.html">Contact</a></li></ul></div>
         <div class="footer-contact"><h4>Get in touch</h4><a data-wa data-wa-text="Hi BBQ Bali Home Service!" target="_blank" rel="noopener" ${ONCLICK}>🟢 WhatsApp <span data-wa-display></span></a><a data-email data-email-text>✉️ email</a><a data-ig target="_blank" rel="noopener">📸 @bbqbalihomeservice</a></div>
       </div>

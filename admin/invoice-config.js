@@ -29,7 +29,7 @@ window.INVOICE_CONFIG = {
     lines: ["Npwp -  53.238.475.7-902", "Bali"],   // shown under the name, top-right
     website: "bbqbalihomeservice.com",         // centred at the foot of the invoice
     email: "gedebarosa04@gmail.com",               // shown in the payment footer
-    logo: "../assets/img/logo.svg",                // logo file (relative to admin/)
+    logo: "../assets/img/logo.png",                // logo file (relative to admin/)
   },
 
   /* ── BANK / PAYMENT DETAILS (shown on every invoice) ───────────────────*/
