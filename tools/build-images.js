@@ -32,10 +32,11 @@ const WIDTHS = [480, 768, 1200];
   await sharp(logoSrc, { density: 200 }).resize({ width: 220 }).png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(path.join(IMG, "logo.png"));
   await sharp(logoSrc, { density: 200 }).resize({ width: 220 }).webp({ quality: 90 }).toFile(path.join(IMG, "logo.webp"));
 
-  // Slim logo.svg: a minimal wrapper embedding the optimised WebP, so every
-  // existing <img src="assets/img/logo.svg"> shrinks from 174KB to a few KB.
-  const webpB64 = fs.readFileSync(path.join(IMG, "logo.webp")).toString("base64");
-  const slim = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 220 220" width="220" height="220"><image width="220" height="220" xlink:href="data:image/webp;base64,${webpB64}"/></svg>`;
+  // Slim logo.svg: a minimal wrapper embedding the optimised PNG (universally
+  // supported inside <img>-loaded SVG), so every existing
+  // <img src="assets/img/logo.svg"> shrinks from 174KB to a few KB.
+  const pngB64 = fs.readFileSync(path.join(IMG, "logo.png")).toString("base64");
+  const slim = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 220 220" width="220" height="220"><image width="220" height="220" xlink:href="data:image/png;base64,${pngB64}"/></svg>`;
   fs.writeFileSync(logoSrc, slim);
 
   const sz = (f) => (fs.statSync(path.join(IMG, f)).size / 1024).toFixed(1) + "KB";
