@@ -27,7 +27,7 @@ window.INVOICE_CONFIG = {
   business: {
     name: "BBQ Bali Home Service",
     lines: ["Npwp -  53.238.475.7-902", "Bali"],   // shown under the name, top-right
-    website: "www.bbqbalihomeservice.com",         // centred at the foot of the invoice
+    website: "bbqbalihomeservice.com",         // centred at the foot of the invoice
     email: "gedebarosa04@gmail.com",               // shown in the payment footer
     logo: "../assets/img/logo.svg",                // logo file (relative to admin/)
   },

@@ -19,6 +19,8 @@ const ROOT = path.join(__dirname, "..");
 const GTAG_ID = "AW-846645441";
 const GTAG_LABEL = "AW-846645441/Lwx1CK-v290cEMGR25MD";
 const ONCLICK = 'onclick="return gtag_report_conversion(this.href)"';
+const BUSINESS_ID = SITE.domain + "/#business";
+const PUBLISHED = "2026-08-07";
 
 /* ---- helpers ------------------------------------------------------------ */
 function waHref(text) {
@@ -93,12 +95,12 @@ function head(opts) {
 /* ---- shared nav + footer (with Blog link) ------------------------------- */
 function nav(current) {
   const links = [
-    ["index.html", "Home"],
+    ["/", "Home"],
     ["menu.html", "Menu &amp; Prices"],
     ["about.html", "How It Works"],
     [SITE.instagram, "Gallery", true],
     ["faq.html", "FAQ"],
-    ["blog.html", "Blog"],
+    ["blog.html", "Areas"],
     ["contact.html", "Contact"],
   ].map(([href, label, ig]) => {
     if (ig) return `<a href="${href}" data-ig target="_blank" rel="noopener">${label}</a>`;
@@ -107,7 +109,7 @@ function nav(current) {
   }).join("");
   return `  <header class="site-header">
     <div class="wrap nav">
-      <a class="brand" href="index.html" aria-label="BBQ Bali Home Service home"><span class="brand__mark" aria-hidden="true"><img src="assets/img/logo.svg" alt="" /></span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a>
+      <a class="brand" href="/" aria-label="BBQ Bali Home Service home"><span class="brand__mark" aria-hidden="true"><img src="assets/img/logo.svg" alt="" /></span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a>
       <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
       <div class="nav__menu" id="nav-menu">
         <nav class="nav__links" aria-label="Primary">
@@ -123,11 +125,11 @@ function footer() {
   return `  <footer class="site-footer">
     <div class="wrap">
       <div class="footer-grid">
-        <div><a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"><img src="assets/img/logo.svg" alt="" /></span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a><p class="text-muted" style="margin-top:1rem;font-size:.9rem">At-home BBQ &amp; private chef hire across Bali.</p></div>
-        <div><h4>Explore</h4><ul class="footer-links"><li><a href="menu.html">Menu &amp; Prices</a></li><li><a href="about.html">How It Works</a></li><li><a href="https://www.instagram.com/bbqbalihomeservice/" data-ig target="_blank" rel="noopener">Gallery</a></li><li><a href="faq.html">FAQ</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><a class="brand" href="/"><span class="brand__mark" aria-hidden="true"><img src="assets/img/logo.svg" alt="" /></span><span class="brand__name">BBQ Bali Home Service<small>BBQ Hire Bali</small></span></a><p class="text-muted" style="margin-top:1rem;font-size:.9rem">At-home BBQ &amp; private chef hire across Bali.</p></div>
+        <div><h4>Explore</h4><ul class="footer-links"><li><a href="menu.html">Menu &amp; Prices</a></li><li><a href="about.html">How It Works</a></li><li><a href="https://www.instagram.com/bbqbalihomeservice/" data-ig target="_blank" rel="noopener">Gallery</a></li><li><a href="faq.html">FAQ</a></li><li><a href="blog.html">Areas</a></li><li><a href="contact.html">Contact</a></li></ul></div>
         <div class="footer-contact"><h4>Get in touch</h4><a data-wa data-wa-text="Hi BBQ Bali Home Service!" target="_blank" rel="noopener" ${ONCLICK}>🟢 WhatsApp <span data-wa-display></span></a><a data-email data-email-text>✉️ email</a><a data-ig target="_blank" rel="noopener">📸 @bbqbalihomeservice</a></div>
       </div>
-      <div class="footer-bottom"><span>© <span data-year>2026</span> BBQ Bali Home Service.</span><span>Bali BBQ &amp; Chef Hire · <a href="admin/invoice.html" style="color:inherit;opacity:.45">Invoicing</a></span></div>
+      <div class="footer-bottom"><span>© <span data-year>2026</span> BBQ Bali Home Service.</span><span>Bali BBQ &amp; Chef Hire</span></div>
     </div>
   </footer>
   <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" ${ONCLICK}>🟢</a>
@@ -186,14 +188,27 @@ function articleLD(post, url) {
     headline: "BBQ " + post.area + " — Villa & At-Home BBQ Catering",
     description: post.metaDesc,
     image: SITE.domain + "/" + SITE.heroImage,
-    author: { "@type": "Organization", name: SITE.name },
+    datePublished: PUBLISHED,
+    dateModified: today(),
+    author: { "@type": "Organization", name: SITE.name, "@id": BUSINESS_ID },
     publisher: {
       "@type": "Organization",
       name: SITE.name,
-      logo: { "@type": "ImageObject", url: SITE.domain + "/" + SITE.logo },
+      "@id": BUSINESS_ID,
+      logo: { "@type": "ImageObject", url: SITE.domain + "/assets/img/logo.png" },
     },
     mainEntityOfPage: url,
     about: "BBQ catering in " + post.area + ", Bali",
+  };
+}
+function areaServiceLD(area) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "BBQ catering",
+    name: "BBQ Catering " + area,
+    provider: { "@id": BUSINESS_ID },
+    areaServed: { "@type": "Place", name: area + ", Bali" },
   };
 }
 
@@ -225,12 +240,12 @@ function renderPost(post) {
   const related = [POSTS[(idx + 1) % POSTS.length], POSTS[(idx + 2) % POSTS.length], POSTS[(idx + 3) % POSTS.length]];
 
   const jsonld = [
-    localBusinessLD(post.area),
+    areaServiceLD(post.area),
     articleLD(post, url),
     faqLD(faqs),
     breadcrumbLD([
       { name: "Home", url: SITE.domain + "/" },
-      { name: "Blog", url: SITE.domain + "/blog.html" },
+      { name: "Areas", url: SITE.domain + "/blog.html" },
       { name: "BBQ " + post.area, url },
     ]),
   ];
@@ -266,7 +281,7 @@ ${nav("blog.html")}
     <article class="blog-post">
       <header class="section--tight band-charcoal">
         <div class="wrap" style="padding-block:2.4rem 2rem">
-          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">›</span> <a href="blog.html">Blog</a> <span aria-hidden="true">›</span> <span>BBQ ${post.area}</span></nav>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">›</span> <a href="blog.html">Areas</a> <span aria-hidden="true">›</span> <span>BBQ ${post.area}</span></nav>
           <span class="eyebrow eyebrow--light">Villa & At-Home BBQ · ${post.area}</span>
           <h1 style="color:#fff">BBQ ${post.area} — Villa &amp; At-Home BBQ Catering</h1>
           <p class="lead" style="color:var(--cream-dim)">Private BBQ &amp; chef hire brought to your villa in ${post.area}, Bali. From $${SITE.fromUsd} USD per person — book in a quick WhatsApp chat.</p>
@@ -309,6 +324,11 @@ ${nav("blog.html")}
           <h2>${post.area} BBQ pricing &amp; delivery</h2>
           <p>Menus start from around <strong>$${SITE.fromUsd} USD per person</strong>, and the per-person price drops as your group grows (6–9, 10–19 and 20+ guests). A flat BBQ &amp; chef hire fee of IDR ${SITE.hireFeeIdr.toLocaleString("en-US")} applies to every booking — discounted for larger groups. ${deliveryLine} Our minimum booking is ${SITE.minGuests} guests, and there's no real maximum: we cater from intimate dinners to 200+ guest events.</p>
           <p><a href="menu.html">Browse the full menus &amp; prices →</a> &nbsp;·&nbsp; <a href="contact.html">Planning a big event? Get a tailored quote →</a></p>
+
+          <h2>Local know-how for a ${post.area} BBQ</h2>
+          <p>Getting to you is easy: ${post.zoneKey === "confirm" ? "we confirm your delivery fee on WhatsApp once we have the villa address" : "delivery is a flat " + zone.fee}. Around ${colour}, most villas come with a pool deck, garden or rooftop that suits a mobile grill, so our chef can set up, cook and pack down without disrupting your stay. Share the villa access details when you book and we handle the rest.</p>
+          <p>We also cater nearby: ${related.map((r) => `<a href="bbq-${r.slug}.html">BBQ ${r.area}</a>`).join(", ")}.</p>
+          <!-- TODO(${post.area}): add a real event photo from ${post.area} and a short local guest review here. -->
 
           <div class="cta-band">
             <h2 style="color:#fff;margin-bottom:.4rem">Ready to book a BBQ in ${post.area}?</h2>
@@ -367,24 +387,24 @@ function renderPillar() {
   }).join("\n        ");
 
   const jsonld = [
-    localBusinessLD(null),
     {
       "@context": "https://schema.org", "@type": "Article",
       headline: P.h1, description: P.metaDesc, image: SITE.domain + "/" + SITE.heroImage,
-      author: { "@type": "Organization", name: SITE.name },
-      publisher: { "@type": "Organization", name: SITE.name, logo: { "@type": "ImageObject", url: SITE.domain + "/" + SITE.logo } },
+      datePublished: "2026-08-13", dateModified: today(),
+      author: { "@type": "Organization", name: SITE.name, "@id": BUSINESS_ID },
+      publisher: { "@type": "Organization", name: SITE.name, "@id": BUSINESS_ID, logo: { "@type": "ImageObject", url: SITE.domain + "/assets/img/logo.png" } },
       mainEntityOfPage: url, about: "BBQ catering in Bali",
     },
     {
       "@context": "https://schema.org", "@type": "Service",
-      serviceType: "BBQ catering", provider: { "@id": SITE.domain + "/#business" },
+      serviceType: "BBQ catering", provider: { "@id": BUSINESS_ID },
       areaServed: "Bali, Indonesia", name: "BBQ Catering Bali",
       offers: P.packages.map((pk) => ({ "@type": "Offer", name: pk.name, description: pk.desc })),
     },
     faqLD(P.faqs),
     breadcrumbLD([
       { name: "Home", url: SITE.domain + "/" },
-      { name: "Blog", url: SITE.domain + "/blog.html" },
+      { name: "Areas", url: SITE.domain + "/blog.html" },
       { name: P.h1, url },
     ]),
   ];
@@ -400,7 +420,7 @@ ${nav("blog.html")}
     <article class="blog-post">
       <header class="section--tight band-charcoal">
         <div class="wrap" style="padding-block:2.4rem 2rem">
-          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">›</span> <a href="blog.html">Blog</a> <span aria-hidden="true">›</span> <span>${P.h1}</span></nav>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">›</span> <a href="blog.html">Areas</a> <span aria-hidden="true">›</span> <span>${P.h1}</span></nav>
           <span class="eyebrow eyebrow--light">Private BBQ &amp; Chef Hire · All of Bali</span>
           <h1 style="color:#fff">${P.h1}</h1>
           <p class="lead" style="color:var(--cream-dim)">${P.lead}</p>
@@ -416,7 +436,7 @@ ${nav("blog.html")}
           ${P.intro.map((p) => `<p>${p}</p>`).join("\n          ")}
 
           <h2>Our Bali BBQ catering packages</h2>
-          <p>Every package is cooked fresh at your villa and served buffet-style. Browse them all on our <a href="menu.html">menu &amp; prices</a> page, or start from a <a href="index.html">budget option on the home page</a>.</p>
+          <p>Every package is cooked fresh at your villa and served buffet-style. Browse them all on our <a href="menu.html">menu &amp; prices</a> page, or start from a <a href="/">budget option on the home page</a>.</p>
         </div>
         <div class="wrap" style="margin-top:1.4rem">
           <div class="grid grid--3">
@@ -435,7 +455,7 @@ ${nav("blog.html")}
 
           <h2>How our BBQ catering works</h2>
           <ol class="steps-list">
-            <li><strong>Pick your menu &amp; price.</strong> Choose a package or build your own on the <a href="menu.html">menu &amp; prices</a> page, or a <a href="index.html">budget option</a> from the home page.</li>
+            <li><strong>Pick your menu &amp; price.</strong> Choose a package or build your own on the <a href="menu.html">menu &amp; prices</a> page, or a <a href="/">budget option</a> from the home page.</li>
             <li><strong>Send it on WhatsApp.</strong> Your order and total pre-fill a message. We confirm your date, details and final price.</li>
             <li><strong>Secure the date.</strong> A 50% deposit holds your booking; the balance is paid on the day.</li>
             <li><strong>We fire up the grill.</strong> Your chef arrives, cooks a fresh feast and tidies away. Read more on <a href="about.html">how it works</a>.</li>
@@ -469,7 +489,7 @@ ${nav("blog.html")}
           <div class="related">
             <h3>Explore more</h3>
             <div class="related-row">
-              <a class="related-chip" href="index.html">Home</a>
+              <a class="related-chip" href="/">Home</a>
               <a class="related-chip" href="menu.html">Menu &amp; prices</a>
               <a class="related-chip" href="faq.html">FAQ</a>
               <a class="related-chip" href="contact.html">Contact</a>
@@ -516,20 +536,19 @@ function renderIndex() {
       }))),
   };
   const jsonld = [
-    localBusinessLD(null),
     itemList,
     breadcrumbLD([
       { name: "Home", url: SITE.domain + "/" },
-      { name: "Blog", url },
+      { name: "Areas", url },
     ]),
   ];
 
   return `<!DOCTYPE html>
 <html lang="en">
 ${head({
-    title: "BBQ Bali by Area — Villa & At-Home BBQ Catering Guide",
+    title: "Areas We Serve — BBQ Catering Across Bali",
     description:
-      "Villa and at-home BBQ catering across Bali, area by area — Canggu, Seminyak, Uluwatu, Ubud, Jimbaran and more. Tips, ideas and how to book your BBQ.",
+      "The Bali areas we serve for villa and at-home BBQ catering — Canggu, Seminyak, Uluwatu, Ubud, Jimbaran, Sanur and more. Find your area and book your BBQ.",
     canonical: url,
     ogType: "website",
     jsonld,
@@ -541,10 +560,10 @@ ${nav("blog.html")}
   <main id="main">
     <section class="section--tight band-charcoal">
       <div class="wrap center" style="padding-block:2.8rem">
-        <nav class="crumbs crumbs--center" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">›</span> <span>Blog</span></nav>
-        <span class="eyebrow eyebrow--light">The Blog</span>
-        <h1 style="color:#fff">BBQ Bali, area by area</h1>
-        <p class="lead" style="margin-inline:auto;color:var(--cream-dim)">Villa and at-home BBQ catering right across Bali. Find your neighbourhood below to see why a private BBQ makes such a great party, family or celebration addition — and how to book it.</p>
+        <nav class="crumbs crumbs--center" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">›</span> <span>Areas</span></nav>
+        <span class="eyebrow eyebrow--light">Areas we serve</span>
+        <h1 style="color:#fff">BBQ catering across Bali, area by area</h1>
+        <p class="lead" style="margin-inline:auto;color:var(--cream-dim)">Villa and at-home BBQ catering right across Bali. Find your neighbourhood below to see why a private BBQ makes such a great party, family or celebration addition, and how to book it.</p>
         <div class="btn-row mt-2" style="justify-content:center">
           <a class="btn btn--primary btn--lg" href="menu.html">Menus &amp; prices</a>
           <a class="btn btn--wa btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" ${ONCLICK}>Book on WhatsApp</a>
@@ -596,19 +615,18 @@ ${footer()}
 function renderSitemap() {
   const lastmod = today();
   const staticPages = [
-    { loc: "/", pri: "1.0" },
-    { loc: "/menu.html", pri: "0.9" },
-    { loc: "/budget.html", pri: "0.7" },
-    { loc: "/about.html", pri: "0.7" },
-    { loc: "/faq.html", pri: "0.6" },
-    { loc: "/contact.html", pri: "0.7" },
-    { loc: "/gallery.html", pri: "0.5" },
-    { loc: "/blog.html", pri: "0.8" },
-    { loc: "/" + PILLAR.slug + ".html", pri: "0.9" },
+    { loc: "/" },
+    { loc: "/menu.html" },
+    { loc: "/about.html" },
+    { loc: "/faq.html" },
+    { loc: "/contact.html" },
+    { loc: "/gallery.html" },
+    { loc: "/blog.html" },
+    { loc: "/" + PILLAR.slug + ".html" },
   ];
-  const postPages = POSTS.map((p) => ({ loc: "/bbq-" + p.slug + ".html", pri: "0.8" }));
+  const postPages = POSTS.map((p) => ({ loc: "/bbq-" + p.slug + ".html" }));
   const urls = staticPages.concat(postPages).map((u) =>
-    `  <url>\n    <loc>${SITE.domain}${u.loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <priority>${u.pri}</priority>\n  </url>`
+    `  <url>\n    <loc>${SITE.domain}${u.loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`
   ).join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
