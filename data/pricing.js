@@ -47,6 +47,8 @@ window.PRICING = {
     tagline: "BBQ Hire Bali · Bali BBQ & Chef Hire",
     whatsappNumber: "6281776666692",          // digits only, country code first
     whatsappDisplay: "+62 817 7666 6692",
+    // TODO(email): consider a domain email like hello@bbqbalihomeservice.com for
+    // a more professional look, then update this value (used site-wide + in schema).
     email: "gedebarosa04@gmail.com",
     instagram: "https://www.instagram.com/bbqbalihomeservice/",
     bookingCutoff: "11am",                     // same-day booking cutoff time

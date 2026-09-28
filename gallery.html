@@ -48,6 +48,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://bbqbalihomeservice.com/"},{"@type":"ListItem","position":2,"name":"Gallery","item":"https://bbqbalihomeservice.com/gallery.html"}]}</script>
   <link rel="icon" href="assets/img/favicon.png" type="image/png" /><link rel="apple-touch-icon" href="assets/img/favicon.png" />
   <link rel="stylesheet" href="css/styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ImageGallery","name":"BBQ Bali Home Service gallery","url":"https://bbqbalihomeservice.com/gallery.html","image":[{"@type":"ImageObject","contentUrl":"https://bbqbalihomeservice.com/assets/img/bbq-in-action.jpg","caption":"Satay skewers and steak grilling at a Bali villa BBQ"},{"@type":"ImageObject","contentUrl":"https://bbqbalihomeservice.com/assets/img/chef-in-action.jpg","caption":"Our private chef cooking a fresh BBQ at a Bali villa"},{"@type":"ImageObject","contentUrl":"https://bbqbalihomeservice.com/assets/img/how-it-works.jpg","caption":"Full BBQ and chef hire setup at a Bali villa"},{"@type":"ImageObject","contentUrl":"https://bbqbalihomeservice.com/assets/img/package1.webp","caption":"Mixed grill BBQ with burgers, chicken wings and sausages"},{"@type":"ImageObject","contentUrl":"https://bbqbalihomeservice.com/assets/img/package2.webp","caption":"Sirloin steak and pork ribs BBQ package in Bali"},{"@type":"ImageObject","contentUrl":"https://bbqbalihomeservice.com/assets/img/package3.webp","caption":"Surf and turf BBQ with steak, prawns and red snapper"},{"@type":"ImageObject","contentUrl":"https://bbqbalihomeservice.com/assets/img/package-coal-or-gas-bbq.webp","caption":"BBQ and chef hire setup with charcoal and gas grill"}]}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -76,7 +77,25 @@
 
     <section class="section">
       <div class="wrap">
-        <div class="gallery-grid reveal" id="gallery"></div>
+        <div class="gallery-grid reveal" id="gallery">
+          <figure class="g-tile">
+            <picture><source type="image/webp" srcset="assets/img/bbq-in-action-480.webp 480w" sizes="(max-width:640px) 50vw, 25vw" /><img src="assets/img/bbq-in-action-480.jpg" alt="Satay skewers and steak grilling at a Bali villa BBQ" loading="lazy" decoding="async" /></picture>
+            <figcaption>On the grill</figcaption>
+          </figure>
+          <figure class="g-tile">
+            <picture><source type="image/webp" srcset="assets/img/chef-in-action-480.webp 480w" sizes="(max-width:640px) 50vw, 25vw" /><img src="assets/img/chef-in-action-480.jpg" alt="Our private chef cooking a fresh BBQ at a Bali villa" loading="lazy" decoding="async" /></picture>
+            <figcaption>Chef at work</figcaption>
+          </figure>
+          <figure class="g-tile">
+            <picture><source type="image/webp" srcset="assets/img/how-it-works-480.webp 480w" sizes="(max-width:640px) 50vw, 25vw" /><img src="assets/img/how-it-works-480.jpg" alt="Full BBQ and chef hire setup at a Bali villa" loading="lazy" decoding="async" /></picture>
+            <figcaption>Villa setup</figcaption>
+          </figure>
+          <figure class="g-tile"><img src="assets/img/package1.webp" alt="Mixed grill BBQ with burgers, chicken wings and sausages" loading="lazy" decoding="async" /><figcaption>Mixed grill</figcaption></figure>
+          <figure class="g-tile"><img src="assets/img/package2.webp" alt="Sirloin steak and pork ribs BBQ package in Bali" loading="lazy" decoding="async" /><figcaption>Steak &amp; ribs</figcaption></figure>
+          <figure class="g-tile"><img src="assets/img/package3.webp" alt="Surf and turf BBQ with steak, prawns and red snapper" loading="lazy" decoding="async" /><figcaption>Surf &amp; turf</figcaption></figure>
+          <figure class="g-tile"><img src="assets/img/package-coal-or-gas-bbq.webp" alt="BBQ and chef hire setup with charcoal and gas grill" loading="lazy" decoding="async" /><figcaption>BBQ hire</figcaption></figure>
+          <!-- TODO(gallery): add more real event photos here (villa parties, weddings, guests) as .g-tile figures with descriptive alt and captions. -->
+        </div>
         <div class="center" style="margin-top:2.4rem">
           <a class="btn btn--ghost btn--lg" data-ig target="_blank" rel="noopener">📸 Follow on Instagram</a>
         </div>
@@ -106,18 +125,6 @@
   </footer>
   <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" onclick="return gtag_report_conversion(this.href)">🟢</a>
   <script src="data/pricing.js"></script>
-  <script>
-    // Gallery tiles. Replace each .photo with a real image by adding
-    // style="background-image:url('assets/img/gallery-01.jpg')" — see assets/img/README.
-    (function () {
-      var labels = ["Sirloin & prawns","Villa grill setup","Surf & turf spread","Chef at work","Ribs & wings","Whole red snapper","Beachfront BBQ","Skewers on the coals","Group feast","Octopus off the grill","Sunset dinner","Buffet table"];
-      var host = document.getElementById("gallery");
-      if (host) host.innerHTML = labels.map(function (l, i) {
-        return '<a data-ig target="_blank" rel="noopener" aria-label="' + l + ' — view on Instagram">' +
-          '<div class="photo photo--sq"><span class="photo__tag">' + l + '</span></div></a>';
-      }).join("");
-    })();
-  </script>
   <script src="js/main.js"></script>
   <!-- Vercel Web Analytics (static-site snippet) -->
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
