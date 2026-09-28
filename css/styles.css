@@ -393,14 +393,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---- Floating WhatsApp button ------------------------------------------ */
 .wa-float {
   position: fixed; right: clamp(1rem, 4vw, 1.6rem); bottom: clamp(1rem, 4vw, 1.6rem); z-index: 90;
-  width: 58px; height: 58px; border-radius: 50%; background: var(--wa-green); color: #fff;
-  display: grid; place-items: center; box-shadow: 0 14px 30px -10px rgba(37,211,102,0.7);
-  transition: transform 0.25s var(--ease); font-size: 1.7rem;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--wa-green); color: #fff; font-weight: 800; font-size: 0.98rem; line-height: 1;
+  padding: 0.72rem 1.15rem; border-radius: 999px;
+  box-shadow: 0 14px 30px -10px rgba(37,211,102,0.7);
+  transition: transform 0.25s var(--ease);
 }
-.wa-float:hover { transform: scale(1.08); }
+.wa-float:hover { transform: translateY(-2px) scale(1.04); }
+.wa-float__icon { width: 22px; height: 22px; flex: none; display: block; }
 .wa-float::after {
-  content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--wa-green);
-  opacity: 0.5; animation: waPulse 2.4s ease-out infinite;
+  content: ""; position: absolute; inset: -4px; border-radius: 999px; border: 2px solid var(--wa-green);
+  opacity: 0.4; animation: waPulse 2.4s ease-out infinite; pointer-events: none;
 }
 @keyframes waPulse { 0% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1.5); opacity: 0; } }
 
