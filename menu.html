@@ -73,14 +73,7 @@
       <div class="wrap center" style="padding-block:2.8rem 2.2rem">
         <span class="eyebrow eyebrow--light">Menu &amp; Prices</span>
         <h1 style="color:#fff">Pick your package</h1>
-        <p class="lead" style="margin-inline:auto;color:var(--cream-dim)">Choose a package below, set your guest count and location, and send your order on WhatsApp. <span id="menu-discount-note"></span></p>
-      </div>
-    </section>
-
-    <!-- Packages -->
-    <section class="section">
-      <div class="wrap">
-        <div class="grid grid--3" id="pkg-cards"></div>
+        <p class="lead" style="margin-inline:auto;color:var(--cream-dim)">Choose a package below, set your guest count and location, and send your order on WhatsApp. Subject to discounted BBQ &amp; Chef hire.</p>
       </div>
     </section>
 
@@ -92,34 +85,38 @@
           <h2>What's on each BBQ menu</h2>
           <p class="lead" style="margin-inline:auto">Every menu is cooked fresh at your villa and served buffet-style. Prices are per person and drop as your group grows across the 6 to 9, 10 to 19 and 20+ guest tiers.</p>
         </div>
-        <div class="grid grid--2" style="margin-top:1.8rem;align-items:start">
-          <article class="card" style="padding:1.5rem">
+        <div class="grid grid--2" style="margin-top:1.8rem;align-items:stretch">
+          <article class="card" style="padding:1.5rem;display:flex;flex-direction:column">
             <h3>Impressive Budget Option</h3>
             <p style="color:var(--ember);font-weight:700;margin:.2rem 0 .8rem">From IDR 200,000 per person &middot; minimum 10 guests</p>
             <ul style="list-style:disc;padding-left:1.2rem;color:var(--muted)">
               <li>Satay chicken skewers</li><li>Beef tandoori skewers</li><li>BBQ chicken wings</li><li>Fresh salad</li><li>Potato wedges</li><li>Sauces: BBQ and sweet chilli</li>
             </ul>
+            <a class="btn btn--primary" href="budget.html?tier=impressive" style="margin-top:auto;align-self:flex-start">Choose &amp; order →</a>
           </article>
-          <article class="card" style="padding:1.5rem">
+          <article class="card" style="padding:1.5rem;display:flex;flex-direction:column">
             <h3>Magic Middle of the Range</h3>
             <p style="color:var(--ember);font-weight:700;margin:.2rem 0 .8rem">From IDR 450,000 per person &middot; minimum 6 guests</p>
             <ul style="list-style:disc;padding-left:1.2rem;color:var(--muted)">
               <li>Sirloin steak</li><li>Slow-cooked pork ribs</li><li>Chicken wings</li><li>Chicken drumsticks</li><li>Gourmet sausage</li><li>Coleslaw salad</li><li>Potato wedges</li>
             </ul>
+            <a class="btn btn--primary" href="budget.html?tier=middle" style="margin-top:auto;align-self:flex-start">Choose &amp; order →</a>
           </article>
-          <article class="card" style="padding:1.5rem">
+          <article class="card" style="padding:1.5rem;display:flex;flex-direction:column">
             <h3>Premium: Surf &amp; Turf</h3>
             <p style="color:var(--ember);font-weight:700;margin:.2rem 0 .8rem">From IDR 600,000 per person &middot; minimum 6 guests</p>
             <ul style="list-style:disc;padding-left:1.2rem;color:var(--muted)">
               <li>Sirloin steak</li><li>Grilled prawns</li><li>Whole red snapper fish</li><li>Chicken wings and drumsticks</li><li>Sausages</li><li>Potato wedges</li><li>Salads</li><li>Sauces</li>
             </ul>
+            <a class="btn btn--primary" href="budget.html?tier=premium" style="margin-top:auto;align-self:flex-start">Choose &amp; order →</a>
           </article>
-          <article class="card" style="padding:1.5rem">
+          <article class="card" style="padding:1.5rem;display:flex;flex-direction:column">
             <h3>BBQ &amp; Chef Hire Only</h3>
             <p style="color:var(--ember);font-weight:700;margin:.2rem 0 .8rem">From IDR 1,800,000 plus delivery &middot; you buy the groceries</p>
             <ul style="list-style:disc;padding-left:1.2rem;color:var(--muted)">
               <li>Full BBQ, charcoal and gas</li><li>Professional chef</li><li>Full setup and clean-up</li><li>You provide the food you want cooked</li>
             </ul>
+            <a class="btn btn--primary" href="budget.html?tier=hireonly" style="margin-top:auto;align-self:flex-start">Choose &amp; order →</a>
           </article>
         </div>
         <p class="center" style="margin-top:1.4rem;color:var(--muted)">Want wagyu steak or lobster? Our <strong>Top of the Range</strong> menu is bespoke, <a href="contact.html" style="color:var(--ember);font-weight:700">please enquire</a> for a quote.</p>
@@ -132,9 +129,20 @@
         <div class="center reveal">
           <span class="eyebrow eyebrow--light">Add to any package</span>
           <h2>Optional additions</h2>
-          <p class="lead" id="additions-note" style="margin-inline:auto;color:var(--cream-dim)"></p>
+          <p class="lead" id="additions-note" style="margin-inline:auto;color:var(--cream-dim)">Each priced for 10 guests. Add 10% per guest above 10.</p>
         </div>
-        <div class="card" id="additions-list" style="max-width:680px;margin:2rem auto 0;padding:0.4rem 1.4rem"></div>
+        <div class="card" id="additions-list" style="max-width:680px;margin:2rem auto 0;padding:0.4rem 1.4rem">
+          <div class="extra-row"><div class="extra-row__info"><h4>Nasi Goreng</h4></div><div class="extra-row__price">IDR 500,000</div></div>
+          <div class="extra-row"><div class="extra-row__info"><h4>Mie Goreng</h4></div><div class="extra-row__price">IDR 500,000</div></div>
+          <div class="extra-row"><div class="extra-row__info"><h4>French Fries</h4></div><div class="extra-row__price">IDR 300,000</div></div>
+          <div class="extra-row"><div class="extra-row__info"><h4>Wedges</h4></div><div class="extra-row__price">IDR 300,000</div></div>
+          <div class="extra-row"><div class="extra-row__info"><h4>Marinated Chicken Breast</h4></div><div class="extra-row__price">IDR 300,000</div></div>
+          <div class="extra-row"><div class="extra-row__info"><h4>Red Snapper Fish (3kg)</h4></div><div class="extra-row__price">IDR 600,000</div></div>
+          <div class="extra-row"><div class="extra-row__info"><h4>Lamb Chops (2.5kg)</h4></div><div class="extra-row__price">IDR 1,800,000</div></div>
+          <div class="extra-row"><div class="extra-row__info"><h4>Pork Chops (2.5kg)</h4></div><div class="extra-row__price">IDR 1,550,000</div></div>
+          <div class="extra-row"><div class="extra-row__info"><h4>Steak (1kg)</h4></div><div class="extra-row__price">IDR 1,200,000</div></div>
+          <div class="extra-row"><div class="extra-row__info"><h4>Wagyu Steak (1kg)</h4></div><div class="extra-row__price">IDR 2,500,000</div></div>
+        </div>
         <p class="center text-muted" style="margin-top:1.2rem;font-size:.88rem;color:var(--muted-light)">Add any of these when you pick a package — the price adjusts to your group size.</p>
       </div>
     </section>
@@ -163,46 +171,6 @@
   <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" onclick="return gtag_report_conversion(this.href)">🟢</a>
 
   <script src="data/pricing.js"></script>
-  <script>
-    // Render package cards + optional additions from the budget config.
-    (function () {
-      var P = window.PRICING; if (!P || !P.BUDGET) return;
-      var B = P.BUDGET;
-
-      var dn = document.getElementById("menu-discount-note");
-      if (dn && B.discountNote) dn.textContent = B.discountNote + ".";
-
-      var host = document.getElementById("pkg-cards");
-      if (host) host.innerHTML = B.tiers.map(function (t) {
-        var price = t.enquireOnly ? "Please enquire"
-          : t.hireOnly ? "from IDR " + B.hireIdr.toLocaleString("id-ID") + " + delivery"
-          : "IDR " + t.perPersonIdr.toLocaleString("id-ID") + " / person";
-        var min = t.minGuests ? "min " + t.minGuests + " guests" : "";
-        var items = t.enquireOnly ? [] : ((t.hireOnly ? t.includes : t.menu) || []);
-        var btn = t.enquireOnly ? "Enquire with the team →" : "Choose &amp; order →";
-        var listLabel = t.hireOnly ? "Includes" : "On the menu";
-        return '<article class="card pkg reveal">' +
-          '<div class="pkg__body">' +
-          '<h3>' + t.name + '</h3>' +
-          '<div class="pkg__sub">' + price + (min ? ' · ' + min : '') + '</div>' +
-          '<p class="text-muted" style="font-size:.92rem">' + (t.blurb || "") + '</p>' +
-          (items.length
-            ? '<div class="menu-list-label">' + listLabel + '</div><ul class="pkg__list">' +
-                items.map(function (i) { return '<li>' + i + '</li>'; }).join("") + '</ul>'
-            : '') +
-          '<a class="btn btn--primary" href="budget.html?tier=' + t.id + '" style="margin-top:auto;align-self:flex-start">' + btn + '</a>' +
-          '</div></article>';
-      }).join("");
-
-      var an = document.getElementById("additions-note");
-      if (an && B.extrasNote) an.textContent = B.extrasNote;
-      var ext = document.getElementById("additions-list");
-      if (ext && B.extras) ext.innerHTML = B.extras.map(function (e) {
-        return '<div class="extra-row"><div class="extra-row__info"><h4>' + e.name + '</h4></div>' +
-          '<div class="extra-row__price">IDR ' + e.idr.toLocaleString("id-ID") + "</div></div>";
-      }).join("");
-    })();
-  </script>
   <script src="js/main.js"></script>
   <!-- Vercel Web Analytics (static-site snippet) -->
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
