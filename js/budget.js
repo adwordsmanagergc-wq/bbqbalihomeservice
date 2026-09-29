@@ -20,7 +20,8 @@
   var tier = B.tiers.find(function (t) { return t.id === param("tier"); }) || B.tiers[0];
   var minGuests = tier.minGuests || P.MIN_GUESTS || 6;
 
-  var state = { guests: minGuests, area: P.AREAS[0].id, grill: "Charcoal", extras: {}, ask: {} };
+  var grillParam = param("grill");
+  var state = { guests: minGuests, area: P.AREAS[0].id, grill: (grillParam === "Gas" ? "Gas" : "Charcoal"), extras: {}, ask: {} };
 
   // Optional extras apply to the food packages only (not hire-only or enquire-only).
   var extrasEnabled = !!(B.extras && B.extras.length) && !tier.hireOnly && !tier.enquireOnly;
@@ -101,6 +102,12 @@
         });
         render();
       });
+    });
+    // Reflect any grill choice passed in from the menu page (?grill=)
+    grillToggle.querySelectorAll("button[data-grill]").forEach(function (b) {
+      var on = b.getAttribute("data-grill") === state.grill;
+      b.classList.toggle("is-on", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
     });
   }
 

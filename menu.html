@@ -85,6 +85,13 @@
           <h2>What's on each BBQ menu</h2>
           <p class="lead" style="margin-inline:auto">Every menu is cooked fresh at your villa and served buffet-style. Prices are per person and drop as your group grows across the 6 to 9, 10 to 19 and 20+ guest tiers.</p>
         </div>
+        <div class="center" style="margin:1.4rem auto 0;max-width:340px">
+          <p style="font-weight:700;margin:0 0 .55rem">Prefer gas or charcoal?</p>
+          <div class="grill-toggle" id="menu-grill" role="group" aria-label="Choose gas or charcoal">
+            <button type="button" class="grill-opt is-on" data-grill="Charcoal" aria-pressed="true">🔥 Charcoal</button>
+            <button type="button" class="grill-opt" data-grill="Gas" aria-pressed="false">💨 Gas</button>
+          </div>
+        </div>
         <div class="grid grid--2" style="margin-top:1.8rem;align-items:stretch">
           <article class="card" style="padding:1.5rem;display:flex;flex-direction:column">
             <h3>Impressive Budget Option</h3>
@@ -171,6 +178,32 @@
   <a class="wa-float" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" onclick="return gtag_report_conversion(this.href)"><svg class="wa-float__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.15h-.01c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 01-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 012.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg><span>WhatsApp</span></a>
 
   <script src="data/pricing.js"></script>
+  <script>
+    // Gas/charcoal choice carries through to the booking page via ?grill=
+    (function () {
+      var wrap = document.getElementById("menu-grill");
+      if (!wrap) return;
+      var choice = "Charcoal";
+      function apply() {
+        document.querySelectorAll('a[href^="budget.html?tier="]').forEach(function (a) {
+          var base = a.getAttribute("href").split("&grill=")[0];
+          a.setAttribute("href", base + "&grill=" + choice);
+        });
+      }
+      wrap.querySelectorAll("button[data-grill]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          choice = btn.getAttribute("data-grill");
+          wrap.querySelectorAll("button[data-grill]").forEach(function (b) {
+            var on = b === btn;
+            b.classList.toggle("is-on", on);
+            b.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+          apply();
+        });
+      });
+      apply();
+    })();
+  </script>
   <script src="js/main.js"></script>
   <!-- Vercel Web Analytics (static-site snippet) -->
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
