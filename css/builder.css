@@ -220,3 +220,11 @@
 .review__total .usd { color: var(--gold); font-weight: 700; }
 .review__cta { margin-top: 1.5rem; }
 .review__terms { font-size: 0.82rem; color: var(--muted); margin-top: 1rem; }
+
+/* ---- Gas / charcoal toggle (budget page) -------------------------------- */
+.grill-toggle { display: flex; gap: 0.6rem; }
+.grill-opt { flex: 1; border: 1.5px solid var(--line-dark); background: #fff; border-radius: 12px;
+  padding: 0.7rem 0.5rem; font-family: inherit; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+  color: var(--ink); transition: border-color 0.2s, background 0.2s, color 0.2s; }
+.grill-opt:hover { border-color: var(--ember); }
+.grill-opt.is-on { border-color: var(--ember); background: rgba(224,74,47,0.08); color: var(--ember-dark); }

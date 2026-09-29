@@ -110,6 +110,15 @@
             </div>
 
             <div class="card" style="padding:clamp(1.2rem,4vw,1.6rem);margin-bottom:1.4rem">
+              <h3 style="margin-bottom:.35rem">Gas or charcoal?</h3>
+              <p class="text-muted" style="font-size:.9rem;margin:0 0 .8rem">Charcoal for that smoky, flame-grilled flavour, or gas for a cleaner, faster cook. Same price either way.</p>
+              <div class="grill-toggle" id="grill-toggle" role="group" aria-label="Choose gas or charcoal">
+                <button type="button" class="grill-opt is-on" data-grill="Charcoal" aria-pressed="true">🔥 Charcoal</button>
+                <button type="button" class="grill-opt" data-grill="Gas" aria-pressed="false">💨 Gas</button>
+              </div>
+            </div>
+
+            <div class="card" style="padding:clamp(1.2rem,4vw,1.6rem);margin-bottom:1.4rem">
               <div class="field" style="margin:0">
                 <label for="area-select">Where's the BBQ happening?</label>
                 <select id="area-select" class="select"></select>

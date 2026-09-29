@@ -20,7 +20,7 @@
   var tier = B.tiers.find(function (t) { return t.id === param("tier"); }) || B.tiers[0];
   var minGuests = tier.minGuests || P.MIN_GUESTS || 6;
 
-  var state = { guests: minGuests, area: P.AREAS[0].id, extras: {}, ask: {} };
+  var state = { guests: minGuests, area: P.AREAS[0].id, grill: "Charcoal", extras: {}, ask: {} };
 
   // Optional extras apply to the food packages only (not hire-only or enquire-only).
   var extrasEnabled = !!(B.extras && B.extras.length) && !tier.hireOnly && !tier.enquireOnly;
@@ -88,6 +88,22 @@
   }).join("");
   el.area.addEventListener("change", function () { state.area = el.area.value; render(); });
 
+  /* ---- Gas vs charcoal toggle ------------------------------------------- */
+  var grillToggle = document.getElementById("grill-toggle");
+  if (grillToggle) {
+    grillToggle.querySelectorAll("button[data-grill]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        state.grill = btn.getAttribute("data-grill");
+        grillToggle.querySelectorAll("button[data-grill]").forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle("is-on", on);
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        render();
+      });
+    });
+  }
+
   /* ---- Guest counter ----------------------------------------------------- */
   document.getElementById("guest-minus").addEventListener("click", function () {
     state.guests = Math.max(minGuests, state.guests - 1); render();
@@ -147,6 +163,7 @@
       L.push("");
       L.push("• Menu: " + tier.name + " (" + tier.blurb + ")");
       L.push("• Guests: " + state.guests);
+      L.push("• Grill: " + state.grill + " BBQ");
       L.push("• Location: " + areaLabel());
       var a1 = askSelected();
       if (a1.length) { L.push(""); L.push("🎪 Also interested in (please quote): " + a1.join(", ")); }
@@ -169,6 +186,7 @@
       L.push("• Guests: " + state.guests);
       L.push("• Per person: " + idr(tier.perPersonIdr) + " → " + idr(c.food));
     }
+    L.push("• Grill: " + state.grill + " BBQ");
     L.push("• BBQ & Chef hire: " + idr(c.hire) +
       (c.hireDiscount > 0 ? " (" + Math.round(c.hireDiscount * 100) + "% off)" : ""));
     if (c.hireNote) L.push("   " + c.hireNote.replace(/&amp;/g, "&"));
