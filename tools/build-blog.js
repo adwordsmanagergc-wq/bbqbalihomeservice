@@ -45,6 +45,9 @@ function head(opts) {
   return `<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Manrope:wght@400..800&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://www.googletagmanager.com" />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   <!-- Google tag (gtag.js) -->
@@ -239,6 +242,19 @@ function renderPost(post) {
   const idx = POSTS.indexOf(post);
   const related = [POSTS[(idx + 1) % POSTS.length], POSTS[(idx + 2) % POSTS.length], POSTS[(idx + 3) % POSTS.length]];
 
+  // Contextual link up to the "BBQ Catering Bali" pillar, with anchor text
+  // varied per area so it reads naturally and not spammy.
+  const pillarAnchors = [
+    "BBQ catering in Bali",
+    "Bali BBQ catering",
+    "BBQ catering across Bali",
+    "private BBQ catering in Bali",
+    "villa BBQ catering in Bali",
+    "at-home BBQ catering in Bali",
+  ];
+  const pillarAnchor = pillarAnchors[idx % pillarAnchors.length];
+  const pillarLink = `<a href="bbq-catering-bali.html">${pillarAnchor}</a>`;
+
   const jsonld = [
     areaServiceLD(post.area),
     articleLD(post, url),
@@ -323,6 +339,7 @@ ${nav("blog.html")}
 
           <h2>${post.area} BBQ pricing &amp; delivery</h2>
           <p>Menus start from around <strong>$${SITE.fromUsd} USD per person</strong>, and the per-person price drops as your group grows (6–9, 10–19 and 20+ guests). A flat BBQ &amp; chef hire fee of IDR ${SITE.hireFeeIdr.toLocaleString("en-US")} applies to every booking — discounted for larger groups. ${deliveryLine} Our minimum booking is ${SITE.minGuests} guests, and there's no real maximum: we cater from intimate dinners to 200+ guest events.</p>
+          <p>New to how it all works? Read our full guide to ${pillarLink} for packages, prices and exactly what's included before you book.</p>
           <p><a href="menu.html">Browse the full menus &amp; prices →</a> &nbsp;·&nbsp; <a href="contact.html">Planning a big event? Get a tailored quote →</a></p>
 
           <h2>Local know-how for a ${post.area} BBQ</h2>

@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Manrope:wght@400..800&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://www.googletagmanager.com" />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   <link rel="preload" as="image" href="assets/img/bbq-in-action-1200.webp" imagesrcset="assets/img/bbq-in-action-480.webp 480w, assets/img/bbq-in-action-1200.webp 744w" imagesizes="(max-width:900px) 100vw, 45vw" type="image/webp" fetchpriority="high" />
@@ -47,6 +50,7 @@
   <link rel="canonical" href="https://bbqbalihomeservice.com/" />
   <link rel="icon" href="assets/img/favicon.png" type="image/png" /><link rel="apple-touch-icon" href="assets/img/favicon.png" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/home.css" />
   <!-- TODO(structured-data): add "geo" (lat/lng), "openingHoursSpecification" (real service hours),
        and to "sameAs" your Google Business Profile, Facebook and TripAdvisor URLs.
        Add "aggregateRating" ONLY once real reviews are shown on the page. -->
@@ -54,8 +58,9 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"BBQ Bali Home Service","alternateName":"BBQ Hire Bali","url":"https://bbqbalihomeservice.com/","inLanguage":"en-US","publisher":{"@id":"https://bbqbalihomeservice.com/#business"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does BBQ catering in Bali cost?","acceptedAnswer":{"@type":"Answer","text":"Menus start from around $11 USD (about IDR 200,000) per person, and the per-person price drops as your group grows. A flat BBQ and chef hire fee applies to every booking, discounted for larger groups, plus a delivery fee based on your area."}},{"@type":"Question","name":"Which areas of Bali do you cover?","acceptedAnswer":{"@type":"Answer","text":"Most of the island. Delivery is a flat IDR 200,000 around Canggu, Berawa, Pererenan, Seminyak and Kerobokan; IDR 250,000 for Umalas, Kuta, Legian and Jimbaran; and IDR 375,000 for Ubud, Sanur and Uluwatu."}},{"@type":"Question","name":"How many guests do you cater for?","acceptedAnswer":{"@type":"Answer","text":"Our minimum is 6 guests and there is no real maximum. We cater everything from intimate villa dinners to 200+ guest weddings."}},{"@type":"Question","name":"What is included in the price?","acceptedAnswer":{"@type":"Answer","text":"Your private chef, the full BBQ setup, charcoal and gas, all the food, buffet-style serving, plus setup and clean-up."}},{"@type":"Question","name":"Can I book BBQ catering for the same day?","acceptedAnswer":{"@type":"Answer","text":"Often yes, as long as your booking is confirmed before 11am so we can shop for fresh ingredients and prepare."}}]}</script>
 </head>
-<body>
+<body class="home">
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="hx-amb" aria-hidden="true"><div class="hx-amb__grain"></div><div class="hx-amb__glow"></div></div>
 
   <!-- ===== Header ===== -->
   <header class="site-header">
@@ -84,183 +89,181 @@
 
   <main id="main">
     <!-- ===== Hero ===== -->
-    <section class="hero" id="top">
-      <div class="wrap hero__inner">
-        <div class="hero__grid">
-          <div class="hero__copy">
-            <span class="eyebrow eyebrow--light">Bali BBQ &amp; Chef Hire</span>
-            <h1>Private BBQ Catering<span class="accent"> at Your Bali Villa</span></h1>
-            <p class="hero__tagline">We bring the BBQ to your villa.</p>
-            <p class="lead">Sit back while our private chef fires up a fresh, flame-grilled feast right where you're staying. We bring the BBQ, the charcoal, the chef and the food. You bring the appetite.</p>
-            <div class="budget-picker mt-2">
-              <label class="budget-picker__label" for="budget-select">Choose your budget</label>
-              <select id="budget-select" class="select select--hero" aria-label="Choose your budget">
-                <option value="" selected disabled>Select a budget option…</option>
-              </select>
-              <span class="budget-picker__note" id="budget-note"></span>
-            </div>
-            <a class="event-cta mt-2" id="event-cta" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)"></a>
-            <div class="btn-row mt-2">
-              <a class="btn btn--ghost-light btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to ask about your at-home BBQ 🔥" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)">Chat on WhatsApp</a>
-            </div>
-            <div class="hero__stats">
-              <div class="stat"><b>6–200+</b><span>guests catered</span></div>
-              <div class="stat"><b>From $11 USD</b><span>per person</span></div>
-              <div class="stat"><b>Same-day</b><span>book before 11am</span></div>
-            </div>
+    <section class="hx-hero" id="top">
+      <div class="wrap hx-hero__grid">
+        <div class="hx-hero__copy hx-hero__enter" data-stagger>
+          <span class="hx-hero__eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"/></svg> Bali BBQ &amp; Chef Hire</span>
+          <h1>Private BBQ Catering <span class="hx-ink-ember">at Your Bali Villa</span></h1>
+          <p class="hx-hero__lead">We bring the BBQ, the charcoal, the chef and the fresh food to your villa. You bring the appetite.</p>
+          <div class="budget-picker hx-hero__cta">
+            <label class="budget-picker__label" for="budget-select">Choose your budget</label>
+            <select id="budget-select" class="select select--hero" aria-label="Choose your budget">
+              <option value="" selected disabled>Select a budget option…</option>
+            </select>
+            <span class="budget-picker__note" id="budget-note"></span>
           </div>
-          <div class="hero__media">
-            <figure class="hero__frame">
-              <picture>
-                <source type="image/webp" srcset="assets/img/bbq-in-action-480.webp 480w, assets/img/bbq-in-action-1200.webp 744w" sizes="(max-width:900px) 100vw, 45vw" />
-                <img src="assets/img/bbq-in-action-1200.jpg" srcset="assets/img/bbq-in-action-480.jpg 480w, assets/img/bbq-in-action-1200.jpg 744w" sizes="(max-width:900px) 100vw, 45vw" width="744" height="768" alt="Private chef grilling satay skewers and steak at a Bali villa BBQ" fetchpriority="high" decoding="async" />
-              </picture>
-              <figcaption class="photo-caption">Budget package pictured</figcaption>
-            </figure>
+          <a class="event-cta mt-2" id="event-cta" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)"></a>
+          <div class="btn-row mt-2">
+            <a class="btn btn--ghost-light btn--lg" data-wa data-wa-text="Hi BBQ Bali Home Service! I'd like to ask about your at-home BBQ 🔥" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)">Chat on WhatsApp</a>
+          </div>
+          <div class="hx-hero__stats">
+            <div class="hx-stat"><b data-count="6">6</b><span>guest minimum</span></div>
+            <div class="hx-stat"><b data-count="200" data-suffix="+">200+</b><span>guests catered</span></div>
+            <div class="hx-stat"><b data-count="11" data-prefix="$">$11</b><span>per person, from</span></div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ===== Instagram CTA ===== -->
-    <section class="section--tight" style="padding-top:clamp(2rem,6vw,3.5rem)">
-      <div class="wrap">
-        <a class="ig-cta reveal" href="https://www.instagram.com/bbqbalihomeservice/" data-ig target="_blank" rel="noopener" aria-label="See our BBQs in action and happy customers on Instagram (opens in a new tab)">
-          <div class="ig-cta__media" aria-hidden="true">
+        <div class="hx-hero__media">
+          <div class="hx-hero__halo" aria-hidden="true"></div>
+          <figure class="hx-hero__frame">
             <picture>
-              <source type="image/webp" srcset="assets/img/chef-in-action-480.webp 480w, assets/img/chef-in-action-768.webp 768w, assets/img/chef-in-action-1200.webp 1000w" sizes="(max-width:720px) 100vw, 320px" />
-              <img src="assets/img/chef-in-action-768.jpg" width="1000" height="1056" alt="" loading="lazy" decoding="async" />
+              <source type="image/webp" srcset="assets/img/bbq-in-action-480.webp 480w, assets/img/bbq-in-action-1200.webp 744w" sizes="(max-width:940px) 100vw, 45vw" />
+              <img src="assets/img/bbq-in-action-1200.jpg" srcset="assets/img/bbq-in-action-480.jpg 480w, assets/img/bbq-in-action-1200.jpg 744w" sizes="(max-width:940px) 100vw, 45vw" width="744" height="930" alt="Private chef grilling satay skewers and steak at a Bali villa BBQ" fetchpriority="high" decoding="async" />
             </picture>
-          </div>
-          <div class="ig-cta__body">
-            <span class="ig-cta__badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 3.68A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm6.4-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg> Instagram</span>
-            <h2>See BBQs in action &amp; happy customers</h2>
-            <p>Real feasts, real events, real smiles — straight from our grill in Bali.</p>
-            <span class="ig-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 3.68A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm6.4-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg> Follow @bbqbalihomeservice →</span>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- ===== Value props ===== -->
-    <section class="section section--tight">
-      <div class="wrap">
-        <div class="features reveal">
-          <div class="feature"><div class="feature__icon" aria-hidden="true">🚚</div><div><h3>We come to you</h3><p>Villa, garden, beach house — anywhere in Bali. Full mobile BBQ setup included.</p></div></div>
-          <div class="feature"><div class="feature__icon" aria-hidden="true">👨‍🍳</div><div><h3>Private chef</h3><p>Your grill master cooks everything fresh, buffet-style, and cleans up after.</p></div></div>
-          <div class="feature"><div class="feature__icon" aria-hidden="true">🔥</div><div><h3>BBQ, coals &amp; gas</h3><p>Everything supplied. You don't lift a finger or buy a thing.</p></div></div>
-          <div class="feature"><div class="feature__icon" aria-hidden="true">💬</div><div><h3>Book in a chat</h3><p>Build your menu, get a live price, and confirm on WhatsApp. No checkout.</p></div></div>
+            <span class="hx-hero__cap">Budget package pictured</span>
+          </figure>
+          <span class="hx-hero__badge">Same-day before 11am</span>
         </div>
       </div>
     </section>
 
+    <!-- ===== Areas marquee ===== -->
+    <div class="hx-marq" role="navigation" aria-label="Areas we serve across Bali">
+      <div class="hx-marq__track"><a href="bbq-canggu.html">Canggu</a><a href="bbq-seminyak.html">Seminyak</a><a href="bbq-berawa.html">Berawa</a><a href="bbq-pererenan.html">Pererenan</a><a href="bbq-umalas.html">Umalas</a><a href="bbq-kuta-legian.html">Kuta & Legian</a><a href="bbq-jimbaran.html">Jimbaran</a><a href="bbq-uluwatu.html">Uluwatu</a><a href="bbq-ubud.html">Ubud</a><a href="bbq-sanur.html">Sanur</a><a href="bbq-nusa-dua.html">Nusa Dua</a></div>
+    </div>
 
-    <!-- ===== How it works ===== -->
+    <!-- ===== What we bring (bento) ===== -->
     <section class="section">
       <div class="wrap">
-        <div class="center reveal">
-          <span class="eyebrow">Simple &amp; stress-free</span>
-          <h2>How it works</h2>
-          <p class="lead" style="margin-inline:auto">New to it? Read our complete guide to <a href="bbq-catering-bali.html" style="color:var(--ember);font-weight:700">BBQ catering in Bali</a>.</p>
+        <div class="hx-head reveal">
+          <h2>One price. We bring the whole feast.</h2>
+          <p>You provide the villa and the guests. We bring everything else and leave the space spotless.</p>
         </div>
-        <div class="grid grid--2 mt-2" style="align-items:center">
-          <div class="steps reveal">
-            <div class="step"><h3>Build your BBQ</h3><p>Choose a package.</p></div>
-            <div class="step"><h3>Send it on WhatsApp</h3><p>Your itemised order and live price pre-fill a WhatsApp message. Hit send to start a real conversation.</p></div>
-            <div class="step"><h3>Secure your date</h3><p>Pay a 50% deposit by cash, transfer or crypto. The balance is settled on the day.</p></div>
-            <div class="step"><h3>We fire up the grill</h3><p>Your chef arrives, sets up, cooks a fresh feast and tidies away. You just enjoy.</p></div>
+        <div class="hx-bento" data-stagger>
+          <div class="hx-cell hx-cell--feat reveal"><h3>Everything handled, one simple price</h3><p>Chef, grill, charcoal and gas, fresh food, buffet serving, setup and clean-up. No shopping, no hidden extras.</p></div>
+          <div class="hx-cell hx-cell--photo reveal"><img src="assets/img/chef-in-action-768.webp" width="1000" height="1056" alt="Our private chef cooking a fresh BBQ at a Bali villa" loading="lazy" decoding="async" /></div>
+          <div class="hx-cell hx-cell--chef reveal"><span class="hx-cell__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></svg></span><h3>Private chef</h3><p>Cooks everything fresh and serves buffet-style.</p></div>
+          <div class="hx-cell hx-cell--gas reveal"><span class="hx-cell__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"/></svg></span><h3>BBQ, charcoal &amp; gas</h3><p>Full mobile setup, brought and lit on arrival.</p></div>
+          <div class="hx-cell hx-cell--food reveal"><span class="hx-cell__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/><path d="m19 5-7 7"/></svg></span><h3>Fresh food</h3><p>Shopped that morning for your chosen menu.</p></div>
+          <div class="hx-cell hx-cell--clean reveal"><span class="hx-cell__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg></span><h3>Setup &amp; clean-up</h3><p>We arrive early and leave your villa spotless.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Menu showcase (zigzag) ===== -->
+    <section class="section">
+      <div class="wrap">
+        <div class="hx-head hx-head--center reveal">
+          <h2>Pick a feast for your table</h2>
+          <p>Every menu is cooked fresh at your villa and served buffet-style. Same price on gas or charcoal.</p>
+        </div>
+        <div class="hx-zig">
+          <article class="hx-pkg reveal">
+            <div class="hx-pkg__media"><img src="assets/img/package1.webp" alt="Mixed grill BBQ with wings, sausages and skewers" loading="lazy" decoding="async" /></div>
+            <div class="hx-pkg__body">
+              <div class="hx-pkg__price">From IDR 200,000 pp</div>
+              <h3>The Impressive</h3>
+              <p>Our best-value crowd-pleaser, loaded with everyone's favourites.</p>
+              <div class="hx-pkg__tags"><span>Satay skewers</span><span>Beef tandoori</span><span>BBQ wings</span><span>Salad &amp; wedges</span></div>
+              <a class="btn btn--primary" href="budget.html?tier=impressive">Choose this menu →</a>
+            </div>
+          </article>
+          <article class="hx-pkg hx-pkg--flip reveal">
+            <div class="hx-pkg__media"><span class="hx-pkg__flag">Most loved</span><img src="assets/img/package2.webp" alt="Sirloin steak and slow-cooked pork ribs on the grill" loading="lazy" decoding="async" /></div>
+            <div class="hx-pkg__body">
+              <div class="hx-pkg__price">From IDR 450,000 pp</div>
+              <h3>The Magic Middle</h3>
+              <p>A step up with juicy sirloin steak and slow-cooked pork ribs.</p>
+              <div class="hx-pkg__tags"><span>Sirloin steak</span><span>Pork ribs</span><span>Chicken</span><span>Coleslaw &amp; wedges</span></div>
+              <a class="btn btn--primary" href="budget.html?tier=middle">Choose this menu →</a>
+            </div>
+          </article>
+          <article class="hx-pkg reveal">
+            <div class="hx-pkg__media"><img src="assets/img/package3.webp" alt="Surf and turf BBQ with steak, prawns and whole red snapper" loading="lazy" decoding="async" /></div>
+            <div class="hx-pkg__body">
+              <div class="hx-pkg__price">From IDR 600,000 pp</div>
+              <h3>The Premium Surf &amp; Turf</h3>
+              <p>The full ocean-and-land feast. The showstopper for a special night.</p>
+              <div class="hx-pkg__tags"><span>Sirloin steak</span><span>Grilled prawns</span><span>Red snapper</span><span>Salads &amp; sauces</span></div>
+              <a class="btn btn--primary" href="budget.html?tier=premium">Choose this menu →</a>
+            </div>
+          </article>
+        </div>
+        <p class="center" style="margin-top:1.8rem"><a class="btn btn--ghost-light btn--lg" href="menu.html">See all menus &amp; prices →</a></p>
+      </div>
+    </section>
+
+    <!-- ===== How it works (timeline) ===== -->
+    <section class="section">
+      <div class="wrap">
+        <div class="hx-head reveal">
+          <h2>From craving to feast in four steps</h2>
+          <p>New to it? Read the full <a href="bbq-catering-bali.html" style="color:var(--ember-glow);font-weight:700">BBQ catering in Bali</a> guide.</p>
+        </div>
+        <div class="hx-steps">
+          <div class="hx-timeline reveal">
+            <div class="hx-step"><h3>Pick your menu and price</h3><p>Choose a budget option, set your guest count and area, and pick gas or charcoal.</p></div>
+            <div class="hx-step"><h3>Send it on WhatsApp</h3><p>Your order and live price pre-fill a message. Hit send to start a real conversation.</p></div>
+            <div class="hx-step"><h3>Secure your date</h3><p>A 50% deposit by cash, transfer or crypto holds it. The balance is paid on the day.</p></div>
+            <div class="hx-step"><h3>We fire up the grill</h3><p>Your chef arrives, cooks a fresh feast and tidies away. You just enjoy.</p></div>
           </div>
-          <figure class="media-frame media-frame--tall reveal">
+          <figure class="hx-steps__media reveal hx-img-reveal">
             <picture>
-              <source type="image/webp" srcset="assets/img/how-it-works-480.webp 480w, assets/img/how-it-works-768.webp 768w, assets/img/how-it-works-1200.webp 900w" sizes="(max-width:768px) 100vw, 45vw" />
-              <img src="assets/img/how-it-works-768.jpg" width="900" height="985" alt="Our private chef grilling on the BBQ and chef hire setup at a Bali villa" loading="lazy" decoding="async" />
+              <source type="image/webp" srcset="assets/img/how-it-works-480.webp 480w, assets/img/how-it-works-768.webp 768w, assets/img/how-it-works-1200.webp 900w" sizes="(max-width:900px) 100vw, 42vw" />
+              <img src="assets/img/how-it-works-768.jpg" width="688" height="1024" alt="Our private chef grilling satay and vegetables on the BBQ at a Bali villa" loading="lazy" decoding="async" />
             </picture>
           </figure>
         </div>
-        <div class="center" style="margin-top:2rem"><a class="btn btn--ghost" href="about.html">More about the experience →</a></div>
       </div>
     </section>
 
-    <!-- ===== What's included ===== -->
-    <section class="section section--tight">
-      <div class="wrap">
-        <div class="center reveal">
-          <span class="eyebrow">Everything, sorted</span>
-          <h2>What's included in every BBQ</h2>
-          <p class="lead" style="margin-inline:auto">One simple price covers the lot. You just provide the space and the guests.</p>
-        </div>
-        <div class="features reveal" style="margin-top:1.6rem">
-          <div class="feature"><div class="feature__icon" aria-hidden="true">👨‍🍳</div><div><h3>A private chef</h3><p>Cooks everything fresh on the grill and serves it buffet-style.</p></div></div>
-          <div class="feature"><div class="feature__icon" aria-hidden="true">🔥</div><div><h3>The full BBQ setup</h3><p>Barbecue, charcoal and gas, brought to you and set up on arrival.</p></div></div>
-          <div class="feature"><div class="feature__icon" aria-hidden="true">🥩</div><div><h3>Fresh food</h3><p>Shopped that morning and prepped for your chosen menu.</p></div></div>
-          <div class="feature"><div class="feature__icon" aria-hidden="true">🧽</div><div><h3>Setup and clean-up</h3><p>We arrive early, cook, then pack down and leave your space spotless.</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Areas we serve ===== -->
-    <section class="section band-dark">
-      <div class="wrap center reveal">
-        <span class="eyebrow eyebrow--light">Across the island</span>
-        <h2>Areas we serve in Bali</h2>
-        <p class="lead" style="margin-inline:auto;color:var(--cream-dim)">We bring BBQ catering to villas right across Bali. Tap your area for local details and delivery, or read the full <a href="bbq-catering-bali.html" style="color:var(--ember-glow);font-weight:700">BBQ catering in Bali</a> guide.</p>
-        <div class="area-links">
-          <a href="bbq-canggu.html">BBQ Canggu</a>
-          <a href="bbq-seminyak.html">BBQ Seminyak</a>
-          <a href="bbq-berawa.html">BBQ Berawa</a>
-          <a href="bbq-pererenan.html">BBQ Pererenan</a>
-          <a href="bbq-umalas.html">BBQ Umalas</a>
-          <a href="bbq-kuta-legian.html">BBQ Kuta &amp; Legian</a>
-          <a href="bbq-jimbaran.html">BBQ Jimbaran</a>
-          <a href="bbq-uluwatu.html">BBQ Uluwatu</a>
-          <a href="bbq-ubud.html">BBQ Ubud</a>
-          <a href="bbq-sanur.html">BBQ Sanur</a>
-          <a href="bbq-nusa-dua.html">BBQ Nusa Dua</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Guest reviews ===== -->
-    <section class="section section--tight">
-      <div class="wrap center reveal">
-        <span class="eyebrow">Guest love</span>
-        <h2>What our guests say</h2>
-        <p class="lead" style="margin-inline:auto">Real reviews from recent BBQs are coming soon. Booked with us? We would love your feedback on WhatsApp.</p>
-        <!-- TODO(reviews): replace this comment with 3 real guest reviews using the card markup below,
-             then add matching "review" and "aggregateRating" to the LocalBusiness schema in <head>.
-        <div class="tcards">
-          <div class="tcard"><p>&ldquo;Real guest review goes here.&rdquo;</p><span class="who">Guest name, Country &middot; Month Year</span></div>
-          <div class="tcard"><p>&ldquo;Real guest review goes here.&rdquo;</p><span class="who">Guest name, Country &middot; Month Year</span></div>
-          <div class="tcard"><p>&ldquo;Real guest review goes here.&rdquo;</p><span class="who">Guest name, Country &middot; Month Year</span></div>
-        </div>
-        -->
-      </div>
-    </section>
-
-    <!-- ===== Homepage FAQ ===== -->
+    <!-- ===== Areas ===== -->
     <section class="section">
       <div class="wrap">
-        <div class="center reveal"><span class="eyebrow">Good to know</span><h2>Bali BBQ catering FAQs</h2></div>
-        <div class="accordion" style="margin-top:1.4rem">
+        <div class="hx-head hx-head--center reveal">
+          <h2>Areas we serve in Bali</h2>
+          <p>Tap your area for local details and delivery, or read the full <a href="bbq-catering-bali.html" style="color:var(--ember-glow);font-weight:700">BBQ catering in Bali</a> guide.</p>
+        </div>
+        <div class="hx-areas__links reveal">
+          <a href="bbq-canggu.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Canggu</a>
+          <a href="bbq-seminyak.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Seminyak</a>
+          <a href="bbq-berawa.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Berawa</a>
+          <a href="bbq-pererenan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Pererenan</a>
+          <a href="bbq-umalas.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Umalas</a>
+          <a href="bbq-kuta-legian.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Kuta & Legian</a>
+          <a href="bbq-jimbaran.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Jimbaran</a>
+          <a href="bbq-uluwatu.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Uluwatu</a>
+          <a href="bbq-ubud.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Ubud</a>
+          <a href="bbq-sanur.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Sanur</a>
+          <a href="bbq-nusa-dua.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Nusa Dua</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="section">
+      <div class="wrap">
+        <div class="hx-head hx-head--center reveal"><h2>Bali BBQ catering FAQs</h2></div>
+        <div class="accordion reveal" style="margin-top:1.6rem">
           <div class="acc-item"><button class="acc-trigger" aria-expanded="false" aria-controls="hf1"><span>How much does BBQ catering in Bali cost?</span><span class="acc-icon" aria-hidden="true"></span></button><div class="acc-panel" id="hf1" role="region"><div class="acc-panel__inner"><p>Menus start from around $11 USD (about IDR 200,000) per person, and the per-person price drops as your group grows. A flat BBQ and chef hire fee applies to every booking, discounted for larger groups, plus a delivery fee based on your area.</p></div></div></div>
           <div class="acc-item"><button class="acc-trigger" aria-expanded="false" aria-controls="hf2"><span>Which areas of Bali do you cover?</span><span class="acc-icon" aria-hidden="true"></span></button><div class="acc-panel" id="hf2" role="region"><div class="acc-panel__inner"><p>Most of the island. Delivery is a flat IDR 200,000 around Canggu, Berawa, Pererenan, Seminyak and Kerobokan; IDR 250,000 for Umalas, Kuta, Legian and Jimbaran; and IDR 375,000 for Ubud, Sanur and Uluwatu. Somewhere else? We confirm on WhatsApp.</p></div></div></div>
           <div class="acc-item"><button class="acc-trigger" aria-expanded="false" aria-controls="hf3"><span>How many guests do you cater for?</span><span class="acc-icon" aria-hidden="true"></span></button><div class="acc-panel" id="hf3" role="region"><div class="acc-panel__inner"><p>Our minimum is 6 guests and there is no real maximum. We cater everything from intimate villa dinners to 200+ guest weddings.</p></div></div></div>
           <div class="acc-item"><button class="acc-trigger" aria-expanded="false" aria-controls="hf4"><span>What is included in the price?</span><span class="acc-icon" aria-hidden="true"></span></button><div class="acc-panel" id="hf4" role="region"><div class="acc-panel__inner"><p>Your private chef, the full BBQ setup, charcoal and gas, all the food, buffet-style serving, plus setup and clean-up. You just provide the space and the guests.</p></div></div></div>
           <div class="acc-item"><button class="acc-trigger" aria-expanded="false" aria-controls="hf5"><span>Can I book BBQ catering for the same day?</span><span class="acc-icon" aria-hidden="true"></span></button><div class="acc-panel" id="hf5" role="region"><div class="acc-panel__inner"><p>Often yes, as long as your booking is confirmed before 11am so we can shop for fresh ingredients and prepare.</p></div></div></div>
         </div>
-        <div class="center" style="margin-top:1.4rem"><a class="btn btn--ghost" href="faq.html">See all FAQs →</a></div>
+        <p class="center" style="margin-top:1.6rem"><a class="btn btn--ghost-light" href="faq.html">See all FAQs →</a></p>
       </div>
     </section>
 
-    <!-- ===== CTA strip ===== -->
-    <section class="section band-dark cta-strip">
-      <div class="wrap reveal">
-        <span class="eyebrow eyebrow--light">Hungry yet?</span>
-        <h2>Your villa. Our grill. Tonight.</h2>
-        <p class="lead" style="margin-inline:auto">Booking before 11am? Same-day BBQ hire is on the table. Build your menu and see your price in under a minute.</p>
-        <div class="btn-row mt-2" style="justify-content:center">
-          <a class="btn btn--primary btn--lg" href="#top">Start building →</a>
-          <a class="btn btn--wa btn--lg" data-wa data-wa-text="Hi! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)">WhatsApp us</a>
+    <!-- ===== CTA finale ===== -->
+    <section class="section">
+      <div class="wrap">
+        <div class="hx-cta reveal">
+          <h2>Your villa. Our grill. Tonight.</h2>
+          <p>Book before 11am and we can often fire up the same day. Choose a budget option and see your price in under a minute.</p>
+          <div class="btn-row" style="justify-content:center">
+            <a class="btn btn--primary btn--lg" data-magnetic href="#top">Choose your budget</a>
+            <a class="btn btn--wa btn--lg" data-wa data-wa-text="Hi! I'd like to book a BBQ 🔥" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href)"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.15h-.01c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 01-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 012.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg> Chat on WhatsApp</a>
+          </div>
         </div>
       </div>
     </section>
@@ -334,6 +337,7 @@
     })();
   </script>
   <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
   <!-- Vercel Web Analytics (static-site snippet) -->
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="/_vercel/insights/script.js"></script>

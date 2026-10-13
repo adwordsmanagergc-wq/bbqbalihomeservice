@@ -10,7 +10,8 @@
   --charcoal-700: #26201c;
   --charcoal-600: #332b26;
   --charcoal-500: #4a3f38;
-  --ember:        #e04a2f;   /* primary red */
+  --ember:        #e04a2f;   /* primary red (accents, glows, text-on-dark) */
+  --ember-cta:    #d0421c;   /* darker red for white-text buttons/badges (AA 4.7:1) */
   --ember-dark:   #b8351d;
   --ember-glow:   #ff6a45;
   --gold:         #e6a84b;   /* premium accent */
@@ -25,9 +26,9 @@
   --wa-green:     #25d366;
 
   /* Type */
-  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+  --font-body: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
                Helvetica, Arial, sans-serif;
-  --font-display: "Helvetica Neue", var(--font-body);
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", var(--font-body);
 
   /* Layout */
   --wrap: 1180px;
@@ -101,8 +102,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   text-align: center; white-space: nowrap;
 }
 .btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0); }
-.btn--primary { background: var(--ember); color: #fff; box-shadow: 0 12px 26px -12px var(--ember); }
+.btn:active { transform: translateY(1px) scale(0.985); }
+.btn--primary { background: var(--ember-cta); color: #fff; box-shadow: 0 12px 26px -12px var(--ember); }
 .btn--primary:hover { background: var(--ember-dark); }
 .btn--ghost { background: transparent; color: var(--ink); border-color: rgba(0,0,0,0.18); }
 .btn--ghost:hover { border-color: var(--ember); color: var(--ember); }
