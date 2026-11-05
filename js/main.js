@@ -89,6 +89,47 @@
     document.querySelectorAll("[data-ig]").forEach(function (el) { el.setAttribute("href", b.instagram); });
   }
 
+  /* ---- Vercel Analytics custom events ----------------------------------- */
+  // Vercel Web Analytics tracks page views automatically; conversion actions
+  // (WhatsApp, phone, email, start-a-booking) must be sent as custom events.
+  // One delegated listener covers every page and any dynamically wired links.
+  function track(name, data) {
+    try {
+      if (typeof window.va === "function") {
+        window.va("event", Object.assign({ name: name }, data || {}));
+      }
+    } catch (e) { /* analytics must never break the page */ }
+  }
+
+  document.addEventListener("click", function (e) {
+    var el = e.target && e.target.closest ? e.target.closest("a,button") : null;
+    if (!el) return;
+    var href = (el.getAttribute && el.getAttribute("href")) || "";
+    var page = location.pathname || "/";
+    var label = (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60);
+
+    var where = el.closest(".wa-float") ? "float"
+      : el.closest(".site-header, .nav") ? "nav"
+      : el.closest(".hx-hero") ? "hero"
+      : el.closest("footer, .site-footer") ? "footer"
+      : el.closest(".hx-cta, .cta-band, .cta-strip") ? "cta"
+      : "body";
+
+    var isWa = (el.matches && el.matches("[data-wa], .btn--wa, .wa-float"))
+      || /wa\.me|api\.whatsapp\.com|whatsapp:/i.test(href);
+
+    if (isWa) {
+      track("WhatsApp Click", { page: page, location: where, label: label });
+    } else if (href.indexOf("tel:") === 0) {
+      track("Phone Click", { page: page, location: where });
+    } else if (href.indexOf("mailto:") === 0) {
+      track("Email Click", { page: page, location: where });
+    } else if (/budget\.html/i.test(href)) {
+      var tier = (href.match(/tier=([a-z]+)/i) || [])[1] || "";
+      track("Budget Start", { page: page, location: where, tier: tier });
+    }
+  }, true);
+
   /* ---- Footer year ------------------------------------------------------ */
   // Avoid Date in restricted contexts is fine here (browser runtime).
   var yr = document.querySelector("[data-year]");
